@@ -1,69 +1,200 @@
 import Image from "next/image";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Sparkles, Calendar, Users, MapPin, ArrowLeft } from "lucide-react";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
+    <div className="flex flex-col min-h-screen">
+      {/* HERO SECTION */}
+      <section className="relative w-full h-[90vh] min-h-[600px] flex items-center justify-center overflow-hidden">
+        {/* Abstract Background - We'll use CSS gradients for now */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/90 to-primary/40 z-0" />
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=2098&auto=format&fit=crop')] bg-cover bg-center mix-blend-overlay opacity-30 z-0" />
+        
+        <div className="container relative z-10 mx-auto px-4 text-center flex flex-col items-center">
+          <span className="px-4 py-1.5 rounded-full bg-background/20 backdrop-blur-md border border-white/20 text-white text-sm font-medium mb-6 animate-fade-in">
+            المنصة الأولى لتنظيم المناسبات في السعودية
+          </span>
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight drop-shadow-lg">
+            اجعل مناسبتك القادمة <br className="hidden md:block" />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-yellow-500">
+              تحفة فنية لا تُنسى
+            </span>
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto mb-10 drop-shadow-md">
+            نجمع بين الفخامة والذكاء الاصطناعي لتصميم وتجهيز حفلات الزفاف والمناسبات الخاصة بدقة متناهية تعكس ذوقك الرفيع.
           </p>
+          
+          <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+            <Button size="lg" className="h-14 px-8 text-lg bg-white text-primary hover:bg-gray-100" asChild>
+              <Link href="/booking">احجز مناسبتك الآن</Link>
+            </Button>
+            <Button size="lg" variant="outline" className="h-14 px-8 text-lg border-white/50 text-white hover:bg-white/10 backdrop-blur-sm" asChild>
+              <Link href="/gallery">استكشف أعمالنا</Link>
+            </Button>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      {/* AI PLANNER CTA */}
+      <section className="py-20 bg-muted">
+        <div className="container mx-auto px-4">
+          <div className="bg-card rounded-3xl p-8 md:p-12 shadow-xl border overflow-hidden relative">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -mr-20 -mt-20"></div>
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-yellow-500/10 rounded-full blur-3xl -ml-20 -mb-20"></div>
+            
+            <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+              <div>
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-4">
+                  <Sparkles className="h-4 w-4" />
+                  <span>حصرياً لدى NEXORA</span>
+                </div>
+                <h2 className="text-3xl md:text-4xl font-bold mb-6">صمّم مناسبتك بالذكاء الاصطناعي</h2>
+                <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
+                  لا داعي للحيرة! أدخل تفضيلاتك، ميزانيتك، وعدد ضيوفك، وسيقوم مساعدنا الذكي باقتراح خطة كاملة تشمل الألوان، الديكور، والخدمات المناسبة لك في ثوانٍ.
+                </p>
+                <Button size="lg" className="h-12 px-6 gap-2" asChild>
+                  <Link href="/ai-planner">
+                    ابدأ التصميم الآن
+                    <ArrowLeft className="h-4 w-4" />
+                  </Link>
+                </Button>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="bg-background p-6 rounded-2xl shadow-sm border flex flex-col items-center justify-center text-center gap-3 transform transition-transform hover:-translate-y-1">
+                  <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                    <Calendar className="h-6 w-6" />
+                  </div>
+                  <h3 className="font-semibold">تخطيط زمني</h3>
+                  <p className="text-xs text-muted-foreground">جدول دقيق لجميع التجهيزات</p>
+                </div>
+                <div className="bg-background p-6 rounded-2xl shadow-sm border flex flex-col items-center justify-center text-center gap-3 transform transition-transform hover:-translate-y-1 translate-y-4">
+                  <div className="h-12 w-12 rounded-full bg-amber-500/10 flex items-center justify-center text-amber-600">
+                    <MapPin className="h-6 w-6" />
+                  </div>
+                  <h3 className="font-semibold">اختيار المكان</h3>
+                  <p className="text-xs text-muted-foreground">اقتراحات للقاعات والمخيمات</p>
+                </div>
+                <div className="bg-background p-6 rounded-2xl shadow-sm border flex flex-col items-center justify-center text-center gap-3 transform transition-transform hover:-translate-y-1 -translate-y-4">
+                  <div className="h-12 w-12 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-600">
+                    <Users className="h-6 w-6" />
+                  </div>
+                  <h3 className="font-semibold">إدارة الضيوف</h3>
+                  <p className="text-xs text-muted-foreground">توزيع الطاولات والاستقبال</p>
+                </div>
+                <div className="bg-background p-6 rounded-2xl shadow-sm border flex flex-col items-center justify-center text-center gap-3 transform transition-transform hover:-translate-y-1">
+                  <div className="h-12 w-12 rounded-full bg-purple-500/10 flex items-center justify-center text-purple-600">
+                    <Sparkles className="h-6 w-6" />
+                  </div>
+                  <h3 className="font-semibold">لمسات سحرية</h3>
+                  <p className="text-xs text-muted-foreground">تصاميم وديكورات فريدة</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </main>
+      </section>
+
+      {/* WHY US SECTION */}
+      <section className="py-24 bg-card">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-bold mb-4">لماذا تختارنا</h2>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+              ست نقاط عملية — التفاصيل الكاملة في صفحة من نحن.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-start max-w-6xl mx-auto">
+            <div className="bg-background p-8 rounded-3xl border shadow-sm flex flex-col gap-4">
+              <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center text-primary"><Calendar className="h-6 w-6" /></div>
+              <h3 className="text-xl font-bold">التخطيط للمناسبة</h3>
+              <p className="text-muted-foreground leading-relaxed">تفاصيل مرتبة وتجربة انسيابية من البداية للنهاية.</p>
+            </div>
+            <div className="bg-background p-8 rounded-3xl border shadow-sm flex flex-col gap-4">
+              <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center text-primary"><Users className="h-6 w-6" /></div>
+              <h3 className="text-xl font-bold">الخبرة في التنفيذ</h3>
+              <p className="text-muted-foreground leading-relaxed">مشهد متناغم وتنفيذ سلس في أرض الواقع.</p>
+            </div>
+            <div className="bg-background p-8 rounded-3xl border shadow-sm flex flex-col gap-4">
+              <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center text-primary"><Sparkles className="h-6 w-6" /></div>
+              <h3 className="text-xl font-bold">أفكار بتنسيق راقٍ</h3>
+              <p className="text-muted-foreground leading-relaxed">حضور أنيق دون مبالغة أو ازدحام بصري.</p>
+            </div>
+            <div className="bg-background p-8 rounded-3xl border shadow-sm flex flex-col gap-4">
+              <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center text-primary"><MapPin className="h-6 w-6" /></div>
+              <h3 className="text-xl font-bold">الالتزام بالوقت</h3>
+              <p className="text-muted-foreground leading-relaxed">جاهزية الموقع قبل الضيوف واحترام الجدول.</p>
+            </div>
+            <div className="bg-background p-8 rounded-3xl border shadow-sm flex flex-col gap-4">
+              <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center text-primary"><Calendar className="h-6 w-6" /></div>
+              <h3 className="text-xl font-bold">تنوع الخيارات</h3>
+              <p className="text-muted-foreground leading-relaxed">حلول لزفاف وملكة وأعياد واستقبالات بمرونة.</p>
+            </div>
+            <div className="bg-background p-8 rounded-3xl border shadow-sm flex flex-col gap-4">
+              <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center text-primary"><Sparkles className="h-6 w-6" /></div>
+              <h3 className="text-xl font-bold">تجربة أكثر راحة</h3>
+              <p className="text-muted-foreground leading-relaxed">تشغيل وجمال معًا لتجربة مرتبة وهادئة.</p>
+            </div>
+          </div>
+          <div className="mt-12 text-center">
+            <Button size="lg" asChild className="rounded-full">
+              <Link href="/about">من نحن — المزيد</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* SERVICES */}
+      <section className="py-24 bg-muted/30">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl md:text-5xl font-bold mb-4">خدماتنا المتميزة</h2>
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-16">
+            نقدم مجموعة متكاملة من الخدمات الفاخرة لتغطية كافة احتياجات مناسبتك من الألف إلى الياء.
+          </p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-start max-w-5xl mx-auto">
+            {[
+              {
+                title: "كوش الأفراح",
+                desc: "تصاميم كوش فريدة وعصرية تناسب مختلف الأذواق مع إضاءة مدروسة وزهور طبيعية.",
+                image: "https://lams-event.com/images/1.jpeg"
+              },
+              {
+                title: "طاولات عشاء وضيافة",
+                desc: "تنسيق طاولات ولائم لكبار الشخصيات مع أرقى أنواع الشراشف وأطقم الضيافة.",
+                image: "https://lams-event.com/images/2.jpeg"
+              },
+              {
+                title: "جلوس ملكي و VIP",
+                desc: "كنب فاخر وجلسات ملكية مريحة تعكس فخامة استقبالك لضيوفك المميزين.",
+                image: "https://lams-event.com/images/3.jpeg"
+              },
+              {
+                title: "إضاءة وصوتيات",
+                desc: "تأجير وتركيب أنظمة إضاءة متطورة وسماعات عالية الجودة تناسب حجم القاعة.",
+                image: "https://lams-event.com/images/4.jpeg"
+              }
+            ].map((service, i) => (
+              <Link href="/services" key={i} className="group block rounded-2xl overflow-hidden border bg-card hover:shadow-xl transition-all">
+                <div className="relative h-60 w-full overflow-hidden">
+                  <Image src={service.image} alt={service.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="(max-width: 768px) 100vw, 50vw" />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">{service.title}</h3>
+                  <p className="text-muted-foreground">{service.desc}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+          
+          <div className="mt-12">
+            <Button variant="outline" size="lg" asChild className="rounded-full">
+              <Link href="/services">عرض جميع الخدمات</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

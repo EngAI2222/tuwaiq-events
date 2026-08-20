@@ -1,0 +1,35 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  role      String   @default("user") // "user" or "admin"
+  createdAt DateTime @default(now())
+}
+
+model Booking {
+  id        String   @id @default(cuid())
+  userId    String?
+  eventType String
+  date      String?
+  guests    String?
+  budget    String?
+  status    String   @default("Pending") // "Pending", "Confirmed", "Cancelled"
+  createdAt DateTime @default(now())
+}
+
+model AiPlan {
+  id               String   @id @default(cuid())
+  userId           String?
+  promptData       String   // JSON string of user inputs
+  generatedPlanJSON String  // JSON string of AI output
+  createdAt        DateTime @default(now())
+}
