@@ -8,21 +8,22 @@ export default function Home() {
     <div className="flex flex-col min-h-screen">
       {/* HERO SECTION */}
       <section className="relative w-full h-[90vh] min-h-[600px] flex items-center justify-center overflow-hidden">
-        {/* Abstract Background - We'll use CSS gradients for now */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/90 to-primary/40 z-0" />
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=2098&auto=format&fit=crop')] bg-cover bg-center mix-blend-overlay opacity-30 z-0" />
+        {/* Background Image */}
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=2098&auto=format&fit=crop')] bg-cover bg-center bg-no-repeat z-0" />
+        {/* Dark luxurious overlay — removes foggy effect */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/70 z-0" />
         
         <div className="container relative z-10 mx-auto px-4 text-center flex flex-col items-center">
           <span className="px-4 py-1.5 rounded-full bg-background/20 backdrop-blur-md border border-white/20 text-white text-sm font-medium mb-6 animate-fade-in">
             المنصة الأولى لتنظيم المناسبات في السعودية
           </span>
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight drop-shadow-lg">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight [text-shadow:_0_2px_8px_rgb(0_0_0_/_0.9)]">
             اجعل مناسبتك القادمة <br className="hidden md:block" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-yellow-500">
               تحفة فنية لا تُنسى
             </span>
           </h1>
-          <p className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto mb-10 drop-shadow-md">
+          <p className="text-lg md:text-xl text-white/95 max-w-2xl mx-auto mb-10 [text-shadow:_0_1px_4px_rgb(0_0_0_/_0.8)]">
             نجمع بين الفخامة والذكاء الاصطناعي لتصميم وتجهيز حفلات الزفاف والمناسبات الخاصة بدقة متناهية تعكس ذوقك الرفيع.
           </p>
           
