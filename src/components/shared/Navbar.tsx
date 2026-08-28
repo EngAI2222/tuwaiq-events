@@ -31,7 +31,7 @@ export function Navbar() {
         <div className="flex items-center gap-2">
           <Link href="/" className="flex flex-col">
             <span className="font-bold text-2xl tracking-tighter text-primary">
-              نكسورا <span className="text-foreground font-normal">للمناسبات الفاخرة</span>
+              لمسة إيفنس <span className="text-foreground font-normal">للمناسبات الفاخرة</span>
             </span>
             <span className="text-xs text-muted-foreground font-medium">تنسيق مناسبات — الرياض</span>
           </Link>
@@ -86,7 +86,7 @@ export function Navbar() {
             <SheetContent side="right" className="w-[300px] sm:w-[400px]">
               <div className="flex flex-col gap-6 py-8">
                 <Link href="/" className="flex flex-col mb-4">
-                  <span className="font-bold text-2xl tracking-tighter text-primary">نكسورا</span>
+                  <span className="font-bold text-2xl tracking-tighter text-primary">لمسة إيفنس</span>
                   <span className="text-xs text-muted-foreground font-medium">تنسيق مناسبات — الرياض</span>
                 </Link>
                 <nav className="flex flex-col gap-4">

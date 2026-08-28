@@ -1,7 +1,7 @@
 # ARCHITECTURE
 
 ## System Overview
-NEXORA EVENTS is a modern web application built using the Next.js App Router paradigm. It uses React Server Components (RSC) heavily for performance and SEO, and Client Components for interactivity.
+LAMSA EVENTS is a modern web application built using the Next.js App Router paradigm. It uses React Server Components (RSC) heavily for performance and SEO, and Client Components for interactivity.
 
 ## Tech Stack
 - **Frontend Framework:** Next.js 14

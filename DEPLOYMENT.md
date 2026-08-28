@@ -1,7 +1,7 @@
 # DEPLOYMENT
 
 ## Objective
-Define the deployment pipeline for NEXORA EVENTS to ensure zero-downtime releases and scalable infrastructure.
+Define the deployment pipeline for LAMSA EVENTS to ensure zero-downtime releases and scalable infrastructure.
 
 ## Hosting Platform
 - **Frontend & API:** Vercel (Optimized for Next.js App Router, Edge Functions, and Image Optimization).

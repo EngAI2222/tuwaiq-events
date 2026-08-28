@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
     const prompt = `
-      أنت مصمم مناسبات سعودي محترف وخبير في شركة "نكسورا للمناسبات الفاخرة".
+      أنت مصمم مناسبات سعودي محترف وخبير في شركة "لمسة إيفنس للمناسبات الفاخرة".
       العميل يطلب تخطيط مناسبة بالتفاصيل التالية:
       - نوع المناسبة: ${eventType}
       - المدينة: ${city}

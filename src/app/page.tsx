@@ -48,7 +48,7 @@ export default function Home() {
               <div>
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-4">
                   <Sparkles className="h-4 w-4" />
-                  <span>حصرياً لدى NEXORA</span>
+                  <span>حصرياً لدى LAMSA</span>
                 </div>
                 <h2 className="text-3xl md:text-4xl font-bold mb-6">صمّم مناسبتك بالذكاء الاصطناعي</h2>
                 <p className="text-muted-foreground text-lg mb-8 leading-relaxed">

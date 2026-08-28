@@ -4,7 +4,7 @@
 - **Date:** 2026-08-20
 - **Directory:** `d:\FlutterProjects\nexora-experimental`
 - **State:** Empty directory initialized with a fresh Next.js App Router project.
-- **Goal:** Build NEXORA EVENTS, an AI-powered luxury event planning platform.
+- **Goal:** Build LAMSA EVENTS, an AI-powered luxury event planning platform.
 
 ## Technology Stack Validation
 - **Framework:** Next.js 14 (App Router)

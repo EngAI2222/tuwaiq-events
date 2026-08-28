@@ -8,12 +8,30 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="md:col-span-1">
             <Link href="/" className="font-bold text-2xl tracking-tighter text-primary block mb-4">
-              NEXORA<span className="text-foreground"> EVENTS</span>
+              LAMSA<span className="text-foreground"> EVENTS</span>
             </Link>
             <p className="text-muted-foreground text-sm leading-relaxed mb-6">
               منصتك الذكية الأولى في المملكة لتنظيم وتجهيز المناسبات الفاخرة، مدعومة بأحدث تقنيات الذكاء الاصطناعي لتجربة لا تُنسى.
             </p>
             <div className="flex gap-4">
+              <a href="https://vercel.com/2-de4e/tuwaiq-events" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="h-5 w-5"
+                >
+                  <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                  <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+                </svg>
+              </a>
               <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
                 <MapPin className="h-5 w-5" />
               </Link>
@@ -50,7 +68,7 @@ export function Footer() {
             <h3 className="font-semibold text-lg mb-4">تواصل معنا</h3>
             <ul className="space-y-3">
               <li className="text-muted-foreground text-sm">الرياض، المملكة العربية السعودية</li>
-              <li className="text-muted-foreground text-sm">info@nexoraevents.com</li>
+              <li className="text-muted-foreground text-sm">info@lamsaevents.com</li>
               <li className="text-muted-foreground text-sm" dir="ltr">+966 50 000 0000</li>
             </ul>
           </div>
@@ -58,7 +76,7 @@ export function Footer() {
         
         <div className="border-t mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="text-center md:text-right">
-            <span suppressHydrationWarning className="text-muted-foreground text-sm">© {new Date().getFullYear()} NEXORA EVENTS. جميع الحقوق محفوظة.</span>
+            <span suppressHydrationWarning className="text-muted-foreground text-sm">© {new Date().getFullYear()} LAMSA EVENTS. جميع الحقوق محفوظة.</span>
           </div>
           <div className="flex gap-4">
             <Link href="/privacy" className="text-muted-foreground hover:text-primary text-sm">سياسة الخصوصية</Link>

@@ -1,12 +1,12 @@
-# 🚀 NEXORA EVENTS - دليل الإطلاق و الجاهزية
+# 🚀 LAMSA EVENTS - دليل الإطلاق و الجاهزية
 
-هذا المستند يشرح كافة المتطلبات التقنية اللازمة لإطلاق ونشر مشروع **NEXORA EVENTS** على بيئة الإنتاج الحقيقية (Production Environment).
+هذا المستند يشرح كافة المتطلبات التقنية اللازمة لإطلاق ونشر مشروع **LAMSA EVENTS** على بيئة الإنتاج الحقيقية (Production Environment).
 
 ## 🛠 المتطلبات الأساسية (Prerequisites)
 قبل عملية النشر، تأكد من توفر الآتي:
 - حساب مسجل في منصة استضافة تدعم `Next.js` (موصى بـ Vercel أو Netlify).
 - مفتاح API نشط لخدمة Google Gemini (`GEMINI_API_KEY`) لتشغيل ميزات الذكاء الاصطناعي (المصمم الذكي والمساعد العائم).
-- رابط الدومين الفعلي (مثال: `nexora-events.com`) لتهيئة المتغيرات.
+- رابط الدومين الفعلي (مثال: `lamsaevents.com`) لتهيئة المتغيرات.
 
 ## 🔐 متغيرات البيئة (Environment Variables)
 يجب إعداد المتغيرات التالية في لوحة تحكم الاستضافة (Vercel Environment Variables):
@@ -15,7 +15,7 @@
 GEMINI_API_KEY=your_google_gemini_api_key_here
 
 # رابط الموقع الفعلي (يُستخدم في بناء خرائط الموقع والروابط المطلقة)
-NEXT_PUBLIC_SITE_URL=https://nexora-events.com
+NEXT_PUBLIC_SITE_URL=https://lamsaevents.com
 ```
 
 ## 🚀 كيفية الرفع على Vercel (الطريقة الموصى بها)

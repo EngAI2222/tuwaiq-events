@@ -58,7 +58,7 @@ function BookingForm() {
         <CheckCircle2 className="w-24 h-24 text-primary mx-auto mb-6" />
         <h1 className="text-3xl font-bold mb-4 text-primary">تم استلام طلبك!</h1>
         <p className="text-muted-foreground text-lg mb-8">
-          تم تسجيل طلب الحجز بنجاح. سيقوم فريق نكسورا بمراجعته والتواصل معك في أقرب وقت.
+          تم تسجيل طلب الحجز بنجاح. سيقوم فريق لمسة إيفنس بمراجعته والتواصل معك في أقرب وقت.
         </p>
         <p className="text-sm text-muted-foreground">جاري تحويلك إلى لوحة التحكم...</p>
       </div>
@@ -69,7 +69,7 @@ function BookingForm() {
     <div className="bg-card border rounded-3xl shadow-xl w-full overflow-hidden flex flex-col md:flex-row">
       <div className="md:w-1/3 bg-primary p-8 text-primary-foreground flex flex-col justify-center">
         <h2 className="text-2xl font-bold mb-4">احجز مناسبتك</h2>
-        <p className="opacity-90 mb-6">نكسورا تضمن لك تجربة استثنائية من التخطيط حتى التنفيذ.</p>
+        <p className="opacity-90 mb-6">لمسة إيفنس تضمن لك تجربة استثنائية من التخطيط حتى التنفيذ.</p>
         <ul className="space-y-3 text-sm opacity-80">
           <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4"/> سرعة في الرد</li>
           <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4"/> مرونة في الباقات</li>

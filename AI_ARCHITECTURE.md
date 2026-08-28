@@ -31,5 +31,5 @@ export class OpenAIProvider implements AIProvider { ... }
 
 ### 2. AI Chatbot
 - **Input:** User chat messages.
-- **Process:** The chatbot maintains conversation history. It is injected with system prompts detailing NEXORA EVENTS services and packages.
+- **Process:** The chatbot maintains conversation history. It is injected with system prompts detailing LAMSA EVENTS services and packages.
 - **Guardrails:** The AI is instructed NOT to invent prices. It must refer the user to the "Request Quote" form or pull exact numbers from the provided context.

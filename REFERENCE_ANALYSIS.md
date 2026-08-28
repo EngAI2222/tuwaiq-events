@@ -28,7 +28,7 @@ Website: `https://lams-event.com/`
 - Implements extensive Schema.org JSON-LD (WebSite, LocalBusiness, WebPage, BreadcrumbList, ItemList for Services and Coverage Areas).
 - High focus on local SEO targeting "Riyadh".
 
-## Opportunities for NEXORA EVENTS
-1. **AI Integration:** While the reference is static and relies on manual browsing, NEXORA will introduce an AI Event Planner that curates these services dynamically based on user input.
+## Opportunities for LAMSA EVENTS
+1. **AI Integration:** While the reference is static and relies on manual browsing, LAMSA will introduce an AI Event Planner that curates these services dynamically based on user input.
 2. **Modernization:** We will elevate the design from a traditional corporate feel to a highly immersive, interactive "Luxury Premium" experience with subtle micro-animations and a darker, richer color palette.
 3. **E-commerce/Dashboard Feel:** Introducing a customer and admin dashboard transforms the site from a simple brochure into a full-fledged platform.

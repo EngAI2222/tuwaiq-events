@@ -1,7 +1,7 @@
 # SECURITY
 
 ## Objective
-Ensure NEXORA EVENTS handles user data, bookings, and payments securely while protecting the infrastructure from common vulnerabilities.
+Ensure LAMSA EVENTS handles user data, bookings, and payments securely while protecting the infrastructure from common vulnerabilities.
 
 ## 1. Authentication & Authorization
 - **Authentication:** Handled via NextAuth.js or Supabase Auth. Passwords are never stored in plaintext (bcrypt hashing via provider).

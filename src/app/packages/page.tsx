@@ -111,7 +111,7 @@ export default function PackagesPage() {
           <div>
             <h3 className="text-2xl font-bold mb-3 text-primary">هل تبحث عن شيء مختلف؟</h3>
             <p className="text-muted-foreground text-lg max-w-xl">
-              لا تدع الباقات تقيدك! استخدم مساعد NEXORA الذكي لتصميم باقة مخصصة بالكامل تناسب ذوقك وميزانيتك بدقة متناهية.
+              لا تدع الباقات تقيدك! استخدم مساعد LAMSA الذكي لتصميم باقة مخصصة بالكامل تناسب ذوقك وميزانيتك بدقة متناهية.
             </p>
           </div>
           <Button size="lg" className="h-14 px-8 text-lg shrink-0 gap-2" asChild>

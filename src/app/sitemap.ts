@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://nexora-events.com';
+  const baseUrl = 'https://lamsaevents.com';
   const lastModified = new Date();
 
   return [

@@ -29,7 +29,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     // Check local storage for user on initial load
-    const storedUser = localStorage.getItem("nexora_auth_user");
+    const storedUser = localStorage.getItem("lamsa_auth_user");
     if (storedUser) {
       try {
         setUser(JSON.parse(storedUser));
@@ -48,7 +48,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       role,
     };
     setUser(mockUser);
-    localStorage.setItem("nexora_auth_user", JSON.stringify(mockUser));
+    localStorage.setItem("lamsa_auth_user", JSON.stringify(mockUser));
     
     // Redirect based on role
     if (role === "admin") {
@@ -60,7 +60,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem("nexora_auth_user");
+    localStorage.removeItem("lamsa_auth_user");
     router.push("/");
   };
 

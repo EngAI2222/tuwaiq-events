@@ -15,14 +15,14 @@ const tajawal = Tajawal({
 });
 
 export const metadata: Metadata = {
-  title: "نكسورا للمناسبات الفاخرة | تنسيق مناسبات - الرياض",
-  description: "نكسورا (NEXORA EVENTS) منصة رائدة لتنظيم وتجهيز المناسبات وحفلات الزفاف الفاخرة في الرياض، السعودية. مدعومة بالذكاء الاصطناعي لتصميم باقات استثنائية تناسب ذوقك وميزانيتك.",
-  keywords: ["تنسيق مناسبات", "حفلات زفاف", "كوش أفراح", "تجهيز مؤتمرات", "الرياض", "السعودية", "تنظيم حفلات", "نكسورا", "Nexora"],
+  title: "لمسة إيفنس للمناسبات الفاخرة | تنسيق مناسبات - الرياض",
+  description: "لمسة إيفنس (LAMSA EVENTS) منصة رائدة لتنظيم وتجهيز المناسبات وحفلات الزفاف الفاخرة في الرياض، السعودية. مدعومة بالذكاء الاصطناعي لتصميم باقات استثنائية تناسب ذوقك وميزانيتك.",
+  keywords: ["تنسيق مناسبات", "حفلات زفاف", "كوش أفراح", "تجهيز مؤتمرات", "الرياض", "السعودية", "تنظيم حفلات", "لمسة إيفنس", "Lamsa"],
   openGraph: {
-    title: "نكسورا للمناسبات الفاخرة",
-    description: "نكسورا (NEXORA EVENTS) منصة رائدة لتنظيم وتجهيز المناسبات وحفلات الزفاف الفاخرة في الرياض.",
-    url: "https://nexora-events.com",
-    siteName: "NEXORA EVENTS",
+    title: "لمسة إيفنس للمناسبات الفاخرة",
+    description: "لمسة إيفنس (LAMSA EVENTS) منصة رائدة لتنظيم وتجهيز المناسبات وحفلات الزفاف الفاخرة في الرياض.",
+    url: "https://lamsaevents.com",
+    siteName: "LAMSA EVENTS",
     images: [
       {
         url: "https://lams-event.com/images/1.jpeg",
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "نكسورا للمناسبات الفاخرة",
+    title: "لمسة إيفنس للمناسبات الفاخرة",
     description: "المنصة الأولى لتنظيم المناسبات في الرياض.",
   },
 };
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": ["LocalBusiness", "EventPlanner"],
-  "name": "نكسورا للمناسبات الفاخرة (NEXORA EVENTS)",
+  "name": "لمسة إيفنس للمناسبات الفاخرة (LAMSA EVENTS)",
   "image": "https://lams-event.com/images/1.jpeg",
   "description": "منصة رائدة لتنظيم وتجهيز المناسبات وحفلات الزفاف الفاخرة في الرياض.",
   "address": {

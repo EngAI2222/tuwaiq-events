@@ -8,7 +8,7 @@ import { MessageCircle, X, Send, Bot, User, Sparkles } from "lucide-react";
 export function AIChatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { role: "assistant", content: "أهلاً بك في نكسورا للمناسبات الفاخرة! كيف يمكنني مساعدتك في تصميم وتجهيز مناسبتك اليوم؟" }
+    { role: "assistant", content: "أهلاً بك في لمسة إيفنس للمناسبات الفاخرة! كيف يمكنني مساعدتك في تصميم وتجهيز مناسبتك اليوم؟" }
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
