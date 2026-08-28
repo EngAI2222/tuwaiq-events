@@ -55,9 +55,9 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ response: responseText });
   } catch (error: any) {
-    console.error("[Chatbot Error]:", error);
+    console.error("[Chatbot Debug Error]:", { message: error?.message, stack: error?.stack, full: error });
     return NextResponse.json(
-      { response: "عذراً، أواجه صعوبة في الاتصال حالياً. يمكنك التواصل معنا مباشرة عبر الواتساب لخدمتك فوراً." },
+      { response: `DEBUG ERROR: ${error?.message || String(error)}` },
       { status: 500 }
     );
   }
