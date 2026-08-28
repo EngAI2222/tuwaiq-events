@@ -69,7 +69,16 @@ export function Footer() {
             <ul className="space-y-3">
               <li className="text-muted-foreground text-sm">الرياض، المملكة العربية السعودية</li>
               <li className="text-muted-foreground text-sm">info@lamsaevents.com</li>
-              <li className="text-muted-foreground text-sm" dir="ltr">+966 50 000 0000</li>
+              <li className="text-muted-foreground text-sm" dir="ltr">
+                <a
+                  href="https://wa.me/966574257484"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-primary transition-colors"
+                >
+                  +966 57 425 7484
+                </a>
+              </li>
             </ul>
           </div>
         </div>
