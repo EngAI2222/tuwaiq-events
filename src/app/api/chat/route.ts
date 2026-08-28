@@ -59,8 +59,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ response: responseText });
   } catch (error: any) {
     console.error("[Chatbot Error]:", error);
+    // تم التعديل هنا: إظهار الخطأ الحقيقي بدلاً من الرسالة العربية المؤقتة
     return NextResponse.json(
-      { response: "عذراً، أواجه صعوبة في الاتصال حالياً. يمكنك التواصل معنا مباشرة عبر الواتساب لخدمتك فوراً." },
+      { response: `Error details: ${error.message || String(error)}` },
       { status: 500 }
     );
   }
