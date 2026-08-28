@@ -20,8 +20,8 @@ export const metadata: Metadata = {
   description: 'لمسة إيفنس للمناسبات الفاخرة',
   keywords: ["تنسيق مناسبات", "حفلات زفاف", "كوش أفراح", "تجهيز مؤتمرات", "الرياض", "السعودية", "تنظيم حفلات", "لمسة إيفنس", "Lamsa"],
   icons: {
-    icon: '/icon.jpeg',
-    apple: '/icon.jpeg',
+    icon: '/icon.png',
+    apple: '/icon.png',
   },
   openGraph: {
     title: 'لمسة إيفنس | LAMSA EVENTS',
