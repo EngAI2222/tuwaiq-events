@@ -68,7 +68,14 @@ export function Footer() {
             <h3 className="font-semibold text-lg mb-4">تواصل معنا</h3>
             <ul className="space-y-3">
               <li className="text-muted-foreground text-sm">الرياض، المملكة العربية السعودية</li>
-              <li className="text-muted-foreground text-sm">info@lamsaevents.com</li>
+              <li className="text-muted-foreground text-sm">
+                <a
+                  href="mailto:lamsa.events.sa@gmail.com"
+                  className="hover:text-primary transition-colors"
+                >
+                  lamsa.events.sa@gmail.com
+                </a>
+              </li>
               <li className="text-muted-foreground text-sm" dir="ltr">
                 <a
                   href="https://wa.me/966574257484"
