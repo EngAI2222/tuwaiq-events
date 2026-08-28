@@ -15,24 +15,28 @@ const tajawal = Tajawal({
 });
 
 export const metadata: Metadata = {
-  title: "لمسة إيفنس للمناسبات الفاخرة | تنسيق مناسبات - الرياض",
-  description: "لمسة إيفنس (LAMSA EVENTS) منصة رائدة لتنظيم وتجهيز المناسبات وحفلات الزفاف الفاخرة في الرياض، السعودية. مدعومة بالذكاء الاصطناعي لتصميم باقات استثنائية تناسب ذوقك وميزانيتك.",
+  metadataBase: new URL('https://tuwaiq-events.vercel.app'),
+  title: 'لمسة إيفنس | LAMSA EVENTS',
+  description: 'لمسة إيفنس للمناسبات الفاخرة',
   keywords: ["تنسيق مناسبات", "حفلات زفاف", "كوش أفراح", "تجهيز مؤتمرات", "الرياض", "السعودية", "تنظيم حفلات", "لمسة إيفنس", "Lamsa"],
+  icons: {
+    icon: '/icon.jpeg',
+    apple: '/icon.jpeg',
+  },
   openGraph: {
-    title: "لمسة إيفنس للمناسبات الفاخرة",
-    description: "لمسة إيفنس (LAMSA EVENTS) منصة رائدة لتنظيم وتجهيز المناسبات وحفلات الزفاف الفاخرة في الرياض.",
-    url: "https://lamsaevents.com",
-    siteName: "LAMSA EVENTS",
+    title: 'لمسة إيفنس | LAMSA EVENTS',
+    description: 'لمسة إيفنس للمناسبات الفاخرة',
+    url: 'https://tuwaiq-events.vercel.app',
+    siteName: 'LAMSA EVENTS',
     images: [
       {
-        url: "https://lams-event.com/images/1.jpeg",
-        width: 1200,
-        height: 630,
-        alt: "تنسيق مناسبات فاخرة في الرياض",
+        url: '/logo.jpeg',
+        width: 800,
+        height: 600,
       },
     ],
-    locale: "ar_SA",
-    type: "website",
+    locale: 'ar_SA',
+    type: 'website',
   },
   twitter: {
     card: "summary_large_image",
