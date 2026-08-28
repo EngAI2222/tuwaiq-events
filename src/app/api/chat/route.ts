@@ -34,10 +34,11 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ response: "يسعدني مساعدتك! ما الذي تودّ الاستفسار عنه؟" });
   }
 
-  const apiKey = process.env.GEMINI_API_KEY;
+  // دعم المتغير الجديد AI_API_KEY وأيضاً الاحتياطي القديم
+  const apiKey = process.env.AI_API_KEY || process.env.GEMINI_API_KEY;
 
   if (!apiKey || apiKey === "your_api_key_here" || apiKey.trim() === "") {
-    console.warn("[Chatbot] GEMINI_API_KEY is not configured.");
+    console.warn("[Chatbot] API Key is not configured.");
     return NextResponse.json({
       response:
         "المساعد الذكي غير متاح مؤقتاً. يسعدنا خدمتك مباشرةً عبر الواتساب على الرقم +966 57 425 7484 📲",
