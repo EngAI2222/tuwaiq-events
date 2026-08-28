@@ -50,7 +50,7 @@ export async function POST(req: NextRequest) {
 
     // gemini-2.0-flash: faster, cheaper, supports system instructions
     const model = genAI.getGenerativeModel({
-      model: "gemini-1.5-flash",
+      model: "gemini-pro",
       systemInstruction: SYSTEM_PROMPT,
     });
 
@@ -61,7 +61,7 @@ export async function POST(req: NextRequest) {
   } catch (error: any) {
     console.error("[Chatbot Error]:", error);
     return NextResponse.json(
-      { response: `Error details: ${error?.message || String(error)}` },
+      { response: "عذراً، أواجه صعوبة في الاتصال حالياً. يمكنك التواصل معنا مباشرة عبر الواتساب لخدمتك فوراً." },
       { status: 500 }
     );
   }
