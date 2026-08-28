@@ -46,11 +46,8 @@ export async function POST(req: NextRequest) {
 
   try {
     const genAI = new GoogleGenerativeAI(apiKey);
-
-    // نستخدم الموديل المستقر الذي تتوافق معه جميع إصدارات المكتبة
     const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
-    // الحيلة الذكية: دمج شخصية لمسة مع سؤال العميل برمجياً لتجنب أخطاء النظام
     const fullPrompt = `${SYSTEM_PROMPT}\n\nسؤال العميل: ${message}\n\nالرد:`;
 
     const result = await model.generateContent(fullPrompt);
@@ -59,7 +56,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ response: responseText });
   } catch (error: any) {
     console.error("[Chatbot Error]:", error);
-    // إخفاء الأخطاء التقنية وإظهار رسالة أنيقة للعميل
     return NextResponse.json(
       { response: "عذراً، أواجه صعوبة في الاتصال حالياً. يمكنك التواصل معنا مباشرة عبر الواتساب لخدمتك فوراً." },
       { status: 500 }
