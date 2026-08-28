@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const SYSTEM_PROMPT = `أنت "لمسة" — المساعدة الذكية الشخصية لشركة "لمسة إيفنس للمناسبات الفاخرة" في الرياض، المملكة العربية السعودية.
 
@@ -34,25 +33,46 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ response: "يسعدني مساعدتك! ما الذي تودّ الاستفسار عنه؟" });
   }
 
-  // دعم المتغير الجديد AI_API_KEY وأيضاً الاحتياطي القديم
   const apiKey = process.env.AI_API_KEY || process.env.GEMINI_API_KEY;
 
   if (!apiKey || apiKey === "your_api_key_here" || apiKey.trim() === "") {
-    console.warn("[Chatbot] API Key is not configured.");
     return NextResponse.json({
-      response:
-        "المساعد الذكي غير متاح مؤقتاً. يسعدنا خدمتك مباشرةً عبر الواتساب على الرقم +966 57 425 7484 📲",
+      response: "المساعد الذكي غير متاح مؤقتاً. يسعدنا خدمتك مباشرةً عبر الواتساب على الرقم +966 57 425 7484 📲",
     });
   }
 
   try {
-    const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    // الاتصال المباشر بخوادم جوجل لتجاوز أي مشاكل في المكتبة أو المفتاح
+    const apiResponse = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          system_instruction: {
+            parts: [{ text: SYSTEM_PROMPT }],
+          },
+          contents: [
+            {
+              parts: [{ text: message }],
+            },
+          ],
+        }),
+      }
+    );
 
-    const fullPrompt = `${SYSTEM_PROMPT}\n\nسؤال العميل: ${message}\n\nالرد:`;
+    const data = await apiResponse.json();
 
-    const result = await model.generateContent(fullPrompt);
-    const responseText = result.response.text();
+    if (!apiResponse.ok) {
+      console.error("Gemini API Error:", data);
+      throw new Error(data.error?.message || "API request failed");
+    }
+
+    const responseText =
+      data.candidates?.[0]?.content?.parts?.[0]?.text ||
+      "عذراً، لم أتمكن من صياغة الرد، يسعدنا خدمتك عبر الواتساب.";
 
     return NextResponse.json({ response: responseText });
   } catch (error: any) {
