@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Tajawal } from "next/font/google";
 import { Navbar } from "@/components/shared/Navbar";
 import { Footer } from "@/components/shared/Footer";
-import { AIChatbot } from "@/components/shared/AIChatbot";
 import { ThemeProvider } from "@/components/shared/ThemeProvider";
 import { FloatingActions } from "@/components/shared/FloatingActions";
 import { AuthProvider } from "@/context/AuthContext";
@@ -90,7 +89,6 @@ export default function RootLayout({
             <Navbar />
             <main className="flex-1 flex flex-col">{children}</main>
             <Footer />
-            <AIChatbot />
             <FloatingActions />
           </AuthProvider>
         </ThemeProvider>
