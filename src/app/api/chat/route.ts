@@ -42,26 +42,34 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    // الاتصال المباشر بخوادم جوجل لتجاوز أي مشاكل في المكتبة أو المفتاح
-    const apiResponse = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+    // التحقق مما إذا كان المفتاح عبارة عن توكن OAuth (يبدأ بـ AQ.) أو مفتاح API عادي
+    const isOAuth = apiKey.startsWith("AQ.");
+    const url = isOAuth
+      ? `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent`
+      : `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+
+    const headers: Record<string, string> = {
+      "Content-Type": "application/json",
+    };
+
+    if (isOAuth) {
+      headers["Authorization"] = `Bearer ${apiKey}`;
+    }
+
+    const apiResponse = await fetch(url, {
+      method: "POST",
+      headers,
+      body: JSON.stringify({
+        system_instruction: {
+          parts: [{ text: SYSTEM_PROMPT }],
         },
-        body: JSON.stringify({
-          system_instruction: {
-            parts: [{ text: SYSTEM_PROMPT }],
+        contents: [
+          {
+            parts: [{ text: message }],
           },
-          contents: [
-            {
-              parts: [{ text: message }],
-            },
-          ],
-        }),
-      }
-    );
+        ],
+      }),
+    });
 
     const data = await apiResponse.json();
 
