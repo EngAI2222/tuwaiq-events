@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Menu, Moon, Sun } from "lucide-react";
 import {
@@ -29,11 +30,8 @@ export function Navbar() {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto px-4 h-20 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Link href="/" className="flex flex-col">
-            <span className="font-bold text-2xl tracking-tighter text-primary">
-              لمسة إيفنس <span className="text-foreground font-normal">للمناسبات الفاخرة</span>
-            </span>
-            <span className="text-xs text-muted-foreground font-medium">تنسيق مناسبات — الرياض</span>
+          <Link href="/" className="flex items-center">
+            <Image src="/logo.jpeg" alt="LAMSA EVENTS" width={150} height={50} className="object-contain" />
           </Link>
         </div>
 
@@ -85,9 +83,8 @@ export function Navbar() {
             </SheetTrigger>
             <SheetContent side="right" className="w-[300px] sm:w-[400px]">
               <div className="flex flex-col gap-6 py-8">
-                <Link href="/" className="flex flex-col mb-4">
-                  <span className="font-bold text-2xl tracking-tighter text-primary">لمسة إيفنس</span>
-                  <span className="text-xs text-muted-foreground font-medium">تنسيق مناسبات — الرياض</span>
+                <Link href="/" className="flex items-center mb-4">
+                  <Image src="/logo.jpeg" alt="LAMSA EVENTS" width={150} height={50} className="object-contain" />
                 </Link>
                 <nav className="flex flex-col gap-4">
                   {navLinks.map((link) => (
