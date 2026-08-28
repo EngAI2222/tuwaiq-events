@@ -36,7 +36,6 @@ export async function POST(req: NextRequest) {
 
   const apiKey = process.env.GEMINI_API_KEY;
 
-  // Guard: missing or placeholder key → clear, helpful message
   if (!apiKey || apiKey === "your_api_key_here" || apiKey.trim() === "") {
     console.warn("[Chatbot] GEMINI_API_KEY is not configured.");
     return NextResponse.json({
@@ -48,20 +47,21 @@ export async function POST(req: NextRequest) {
   try {
     const genAI = new GoogleGenerativeAI(apiKey);
 
-    const model = genAI.getGenerativeModel({
-      model: "gemini-1.5-flash",
-      systemInstruction: SYSTEM_PROMPT,
-    });
+    // نستخدم الموديل المستقر الذي تتوافق معه جميع إصدارات المكتبة
+    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
-    const result = await model.generateContent(message);
+    // الحيلة الذكية: دمج شخصية لمسة مع سؤال العميل برمجياً لتجنب أخطاء النظام
+    const fullPrompt = `${SYSTEM_PROMPT}\n\nسؤال العميل: ${message}\n\nالرد:`;
+
+    const result = await model.generateContent(fullPrompt);
     const responseText = result.response.text();
 
     return NextResponse.json({ response: responseText });
   } catch (error: any) {
     console.error("[Chatbot Error]:", error);
-    // تم التعديل هنا: إظهار الخطأ الحقيقي بدلاً من الرسالة العربية المؤقتة
+    // إخفاء الأخطاء التقنية وإظهار رسالة أنيقة للعميل
     return NextResponse.json(
-      { response: `Error details: ${error.message || String(error)}` },
+      { response: "عذراً، أواجه صعوبة في الاتصال حالياً. يمكنك التواصل معنا مباشرة عبر الواتساب لخدمتك فوراً." },
       { status: 500 }
     );
   }
