@@ -27,13 +27,19 @@ export default function Home() {
             نجمع بين الفخامة والذكاء الاصطناعي لتصميم وتجهيز حفلات الزفاف والمناسبات الخاصة بدقة متناهية تعكس ذوقك الرفيع.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-            <Button size="lg" className="h-14 px-8 text-lg bg-white text-primary hover:bg-gray-100" asChild>
-              <Link href="/booking">احجز مناسبتك الآن</Link>
-            </Button>
-            <Button size="lg" variant="outline" className="h-14 px-8 text-lg border-white/50 text-white hover:bg-white/10 backdrop-blur-sm" asChild>
-              <Link href="/gallery">استكشف أعمالنا</Link>
-            </Button>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-8">
+            <Link
+              href="/booking"
+              className="bg-[#D4AF37] hover:bg-[#F3E5AB] text-black font-bold text-lg py-3 px-10 rounded-full shadow-[0_0_20px_rgba(212,175,55,0.4)] hover:shadow-[0_0_25px_rgba(212,175,55,0.6)] hover:-translate-y-1 transition-all duration-300"
+            >
+              احجز مناسبتك الآن
+            </Link>
+            <Link
+              href="/gallery"
+              className="bg-white/10 backdrop-blur-md border-2 border-white/30 hover:border-[#D4AF37] hover:bg-white/20 text-white font-bold text-lg py-3 px-10 rounded-full shadow-lg hover:-translate-y-1 transition-all duration-300"
+            >
+              استكشف أعمالنا
+            </Link>
           </div>
         </div>
       </section>
