@@ -46,7 +46,7 @@ export async function POST(req: NextRequest) {
 
   try {
     const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
     const fullPrompt = `${SYSTEM_PROMPT}\n\nسؤال العميل: ${message}\n\nالرد:`;
 
@@ -55,9 +55,9 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ response: responseText });
   } catch (error: any) {
-    console.error("[Chatbot Debug Error]:", { message: error?.message, stack: error?.stack, full: error });
+    console.error("[Chatbot Error]:", error);
     return NextResponse.json(
-      { response: `DEBUG ERROR: ${error?.message || String(error)}` },
+      { response: "عذراً، أواجه صعوبة في الاتصال حالياً. يمكنك التواصل معنا مباشرة عبر الواتساب لخدمتك فوراً." },
       { status: 500 }
     );
   }
