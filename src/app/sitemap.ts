@@ -1,15 +1,23 @@
 import { MetadataRoute } from 'next';
 
+const baseUrl = 'https://www.lamsa-events.com';
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://lamsaevents.com';
   const lastModified = new Date();
 
   return [
+    // ── Core pages ──────────────────────────────────────────
     {
-      url: `${baseUrl}`,
+      url: baseUrl,
       lastModified,
       changeFrequency: 'weekly',
-      priority: 1,
+      priority: 1.0,
+    },
+    {
+      url: `${baseUrl}/about`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.8,
     },
     {
       url: `${baseUrl}/services`,
@@ -30,6 +38,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: `${baseUrl}/areas`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/blog`,
+      lastModified,
+      changeFrequency: 'weekly',
+      priority: 0.7,
+    },
+    {
       url: `${baseUrl}/ai-planner`,
       lastModified,
       changeFrequency: 'monthly',
@@ -40,6 +60,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified,
       changeFrequency: 'monthly',
       priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/contact`,
+      lastModified,
+      changeFrequency: 'yearly',
+      priority: 0.6,
     },
   ];
 }
