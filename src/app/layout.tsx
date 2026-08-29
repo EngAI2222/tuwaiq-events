@@ -15,18 +15,18 @@ const tajawal = Tajawal({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://tuwaiq-events.vercel.app'),
-  title: 'لمسة إيفنس | LAMSA EVENTS',
-  description: 'لمسة إيفنس للمناسبات الفاخرة',
-  keywords: ["تنسيق مناسبات", "حفلات زفاف", "كوش أفراح", "تجهيز مؤتمرات", "الرياض", "السعودية", "تنظيم حفلات", "لمسة إيفنس", "Lamsa"],
+  title: 'لمسة إيفنس | Lamsa Evens',
+  description: 'لمسة إيفنس لتنظيم الحفلات والمناسبات الفاخرة في الرياض. Lamsa Evens for luxury event and wedding planning in Riyadh, Saudi Arabia.',
+  keywords: ['لمسة إيفنس', 'حفلات لمسة إيفنس', 'حفلات إيفنس', 'منظم حفلات بالرياض', 'تنسيق حفلات زفاف', 'Lamsa Evens', 'Event Planner Riyadh', 'Wedding Planner Saudi Arabia'],
   icons: {
     icon: '/icon.png',
     apple: '/icon.png',
   },
   openGraph: {
-    title: 'لمسة إيفنس | LAMSA EVENTS',
-    description: 'لمسة إيفنس للمناسبات الفاخرة',
+    title: 'لمسة إيفنس | Lamsa Evens',
+    description: 'لمسة إيفنس لتنظيم الحفلات والمناسبات الفاخرة في الرياض. Lamsa Evens for luxury event and wedding planning in Riyadh, Saudi Arabia.',
     url: 'https://tuwaiq-events.vercel.app',
-    siteName: 'LAMSA EVENTS',
+    siteName: 'لمسة إيفنس | Lamsa Evens',
     images: [
       {
         url: '/logo.jpeg',
@@ -39,8 +39,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "لمسة إيفنس للمناسبات الفاخرة",
-    description: "المنصة الأولى لتنظيم المناسبات في الرياض.",
+    title: 'لمسة إيفنس | Lamsa Evens',
+    description: 'لمسة إيفنس لتنظيم الحفلات والمناسبات الفاخرة في الرياض. Lamsa Evens for luxury event and wedding planning in Riyadh, Saudi Arabia.',
   },
 };
 
