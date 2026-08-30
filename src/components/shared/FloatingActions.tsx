@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { X, Bot, Send, User, Sparkles, Share2, Phone, MessageCircle } from "lucide-react";
+import { X, Bot, Send, User, Sparkles, Phone, Plus, MapPin } from "lucide-react";
 
 function InstagramIcon({ className }: { className?: string }) {
   return (
@@ -100,20 +100,21 @@ export function FloatingActions() {
           aria-label={isSocialOpen ? "إغلاق قائمة التواصل" : "فتح قائمة التواصل"}
           className={`
             relative w-14 h-14 rounded-full flex items-center justify-center
-            bg-black/80 backdrop-blur-xl border
+            bg-black/60 backdrop-blur-xl border border-white/10
+            text-white hover:text-[#D4AF37] hover:border-[#D4AF37]/50 hover:shadow-[0_0_15px_rgba(212,175,55,0.2)]
             transition-all duration-300 focus:outline-none
-            ${isSocialOpen
-              ? "border-[#D4AF37]/70 shadow-[0_0_20px_rgba(212,175,55,0.5)] scale-95 rotate-12"
-              : "border-[#D4AF37]/50 hover:border-[#D4AF37] hover:shadow-[0_0_15px_rgba(212,175,55,0.3)] hover:scale-105"
-            }
           `}
         >
-          <span
-            className="font-serif text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-[#BF953F] to-[#D4AF37] select-none"
-            style={{ paddingBottom: '3px' }}
-          >
-            ل
-          </span>
+          <Plus
+            className={`absolute w-6 h-6 transition-all duration-300 ${
+              isSocialOpen ? "rotate-45 scale-0 opacity-0" : "rotate-0 scale-100 opacity-100"
+            }`}
+          />
+          <X
+            className={`absolute w-6 h-6 transition-all duration-300 ${
+              isSocialOpen ? "rotate-0 scale-100 opacity-100" : "-rotate-45 scale-0 opacity-0"
+            }`}
+          />
         </button>
 
         {/* Dial Items */}
@@ -122,7 +123,23 @@ export function FloatingActions() {
             isSocialOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 translate-y-8 pointer-events-none"
           }`}
         >
-          {/* Instagram */}
+          {/* Location (Map Pin) — delay 150ms */}
+          <div className="group relative" style={{ transitionDelay: isSocialOpen ? "150ms" : "0ms" }}>
+            <a
+              href="https://maps.google.com/?q=الرياض،+المملكة+العربية+السعودية"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="الموقع"
+              className="w-12 h-12 rounded-full flex items-center justify-center bg-black/80 backdrop-blur-md border border-[#D4AF37]/30 text-white hover:text-[#D4AF37] hover:scale-110 hover:border-[#D4AF37] hover:shadow-[0_0_15px_rgba(212,175,55,0.3)] transition-all duration-300"
+            >
+              <MapPin className="w-5 h-5" />
+            </a>
+            <span className="absolute left-14 top-1/2 -translate-y-1/2 bg-black/80 backdrop-blur-md text-[#F3E5AB] text-xs font-semibold px-3 py-1.5 rounded-lg border border-[#D4AF37]/30 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none hidden sm:block">
+              الموقع
+            </span>
+          </div>
+
+          {/* Instagram — delay 100ms */}
           <div className="group relative" style={{ transitionDelay: isSocialOpen ? "100ms" : "0ms" }}>
             <a
               href="#"
@@ -138,7 +155,7 @@ export function FloatingActions() {
             </span>
           </div>
 
-          {/* Phone */}
+          {/* Phone — delay 50ms */}
           <div className="group relative" style={{ transitionDelay: isSocialOpen ? "50ms" : "0ms" }}>
             <a
               href="tel:+966574257484"
@@ -152,7 +169,7 @@ export function FloatingActions() {
             </span>
           </div>
 
-          {/* WhatsApp */}
+          {/* WhatsApp — delay 0ms (appears first) */}
           <div className="group relative" style={{ transitionDelay: "0ms" }}>
             <a
               href="https://wa.me/966574257484"
