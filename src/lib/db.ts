@@ -1,65 +1,67 @@
-import fs from 'fs';
-import path from 'path';
-
-const dbPath = path.join(process.cwd(), 'local-db.json');
-
-// Initialize empty DB if it doesn't exist
-if (!fs.existsSync(dbPath)) {
-  fs.writeFileSync(dbPath, JSON.stringify({ bookings: [], aiPlans: [] }, null, 2));
-}
-
-function readDB() {
-  const data = fs.readFileSync(dbPath, 'utf8');
-  return JSON.parse(data);
-}
-
-function writeDB(data: any) {
-  fs.writeFileSync(dbPath, JSON.stringify(data, null, 2));
-}
+import { db as firestore } from './firebase';
+import {
+  collection,
+  doc,
+  getDocs,
+  setDoc,
+  updateDoc,
+  query,
+  orderBy,
+  getDoc
+} from 'firebase/firestore';
 
 export const db = {
   booking: {
     findMany: async () => {
-      const data = readDB();
-      return data.bookings.sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+      const q = query(collection(firestore, 'bookings'), orderBy('createdAt', 'desc'));
+      const querySnapshot = await getDocs(q);
+      const bookings: any[] = [];
+      querySnapshot.forEach((doc) => {
+        bookings.push({ id: doc.id, ...doc.data() });
+      });
+      return bookings;
     },
     create: async ({ data: newData }: any) => {
-      const data = readDB();
-      const booking = {
-        id: Math.random().toString(36).substring(2, 9),
+      const id = Math.random().toString(36).substring(2, 9);
+      const bookingData = {
         ...newData,
         createdAt: new Date().toISOString()
       };
-      data.bookings.push(booking);
-      writeDB(data);
-      return booking;
+      await setDoc(doc(firestore, 'bookings', id), bookingData);
+      return { id, ...bookingData };
     },
     update: async ({ where, data: updateData }: any) => {
-      const data = readDB();
-      const index = data.bookings.findIndex((b: any) => b.id === where.id);
-      if (index !== -1) {
-        data.bookings[index] = { ...data.bookings[index], ...updateData };
-        writeDB(data);
-        return data.bookings[index];
+      const docRef = doc(firestore, 'bookings', where.id);
+      
+      // Update the document in Firestore
+      await updateDoc(docRef, updateData);
+      
+      // Fetch and return the updated document
+      const updatedDoc = await getDoc(docRef);
+      if (!updatedDoc.exists()) {
+        throw new Error('Booking not found');
       }
-      throw new Error('Booking not found');
+      return { id: updatedDoc.id, ...updatedDoc.data() };
     }
   },
   aiPlan: {
     findMany: async () => {
-      const data = readDB();
-      return data.aiPlans.sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+      const q = query(collection(firestore, 'aiPlans'), orderBy('createdAt', 'desc'));
+      const querySnapshot = await getDocs(q);
+      const plans: any[] = [];
+      querySnapshot.forEach((doc) => {
+        plans.push({ id: doc.id, ...doc.data() });
+      });
+      return plans;
     },
     create: async ({ data: newData }: any) => {
-      const data = readDB();
-      const plan = {
-        id: Math.random().toString(36).substring(2, 9),
+      const id = Math.random().toString(36).substring(2, 9);
+      const planData = {
         ...newData,
         createdAt: new Date().toISOString()
       };
-      data.aiPlans.push(plan);
-      writeDB(data);
-      return plan;
+      await setDoc(doc(firestore, 'aiPlans', id), planData);
+      return { id, ...planData };
     }
   }
 };
