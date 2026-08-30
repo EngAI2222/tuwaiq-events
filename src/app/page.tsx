@@ -35,14 +35,14 @@ export default function Home() {
             المنصة الأولى لتنظيم المناسبات في السعودية
           </span>
           <h1 className="font-extrabold leading-tight tracking-tight text-balance text-center max-w-4xl">
-            <span className="block text-white text-4xl md:text-6xl lg:text-7xl drop-shadow-lg mb-2">
+            <span className="block text-white text-3xl sm:text-4xl md:text-6xl lg:text-7xl drop-shadow-lg mb-2">
               اجعل مناسبتك القادمة
             </span>
-            <span className="block bg-clip-text text-transparent bg-gradient-to-r from-[#BF953F] via-[#FCF6BA] to-[#B38728] drop-shadow-md text-4xl md:text-6xl lg:text-7xl">
+            <span className="block bg-clip-text text-transparent bg-gradient-to-r from-[#BF953F] via-[#FCF6BA] to-[#B38728] drop-shadow-md text-3xl sm:text-4xl md:text-6xl lg:text-7xl">
               تحفة فنية لا تُنسى
             </span>
           </h1>
-          <p className="text-gray-300 text-lg md:text-xl lg:text-2xl font-light max-w-3xl mx-auto mt-8 mb-12 leading-loose tracking-wide">
+          <p className="text-gray-300 text-base sm:text-lg md:text-xl lg:text-2xl font-light max-w-3xl mx-auto mt-6 sm:mt-8 mb-10 sm:mb-12 leading-loose tracking-wide">
             نجمع بين الفخامة والذكاء الاصطناعي لتصميم وتجهيز حفلات الزفاف والمناسبات الخاصة بدقة متناهية تعكس ذوقك الرفيع.
           </p>
           
