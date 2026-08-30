@@ -1,44 +1,61 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Sparkles, Calendar, Users, MapPin, ArrowLeft } from "lucide-react";
+import { 
+  Sparkles, 
+  Calendar, 
+  Users, 
+  MapPin, 
+  ArrowLeft, 
+  Gem, 
+  Palette, 
+  ShieldCheck, 
+  Clock, 
+  Eye 
+} from "lucide-react";
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen">
-      {/* HERO SECTION */}
+    <div className="flex flex-col min-h-screen bg-[#0f1117] overflow-x-hidden">
+      {/* ══════════════════════════════════════════
+          HERO SECTION (واجهة الاستقبال)
+      ══════════════════════════════════════════ */}
       <section className="relative w-full h-[90vh] min-h-[600px] flex items-center justify-center overflow-hidden">
         {/* Background Image */}
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=2098&auto=format&fit=crop')] bg-cover bg-center bg-no-repeat z-0" />
-        {/* Dark luxurious overlay — removes foggy effect */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/70 z-0" />
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat" 
+          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=2098&auto=format&fit=crop')" }} 
+          aria-hidden
+        />
+        {/* Rich multi-layered gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/50 to-[#0f1117]" aria-hidden />
         
-        <div className="container relative z-10 mx-auto px-4 text-center flex flex-col items-center">
-          <span className="px-4 py-1.5 rounded-full bg-background/20 backdrop-blur-md border border-white/20 text-white text-sm font-medium mb-6 animate-fade-in">
+        <div className="relative z-10 container mx-auto px-6 text-center flex flex-col items-center">
+          <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-[#D4AF37]/40 bg-black/30 backdrop-blur-md text-[#F3E5AB] text-sm font-medium tracking-widest mb-8 uppercase">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#D4AF37] animate-pulse" />
             المنصة الأولى لتنظيم المناسبات في السعودية
           </span>
-          <h1 className="font-extrabold leading-tight tracking-tight text-center">
-            <span className="text-white text-4xl md:text-6xl lg:text-7xl drop-shadow-lg block">
+          <h1 className="font-extrabold leading-tight tracking-tight text-balance text-center max-w-4xl">
+            <span className="block text-white text-4xl md:text-6xl lg:text-7xl drop-shadow-lg mb-2">
               اجعل مناسبتك القادمة
             </span>
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#BF953F] via-[#FCF6BA] to-[#B38728] drop-shadow-md block mt-2 text-4xl md:text-6xl lg:text-7xl">
+            <span className="block bg-clip-text text-transparent bg-gradient-to-r from-[#BF953F] via-[#FCF6BA] to-[#B38728] drop-shadow-md text-4xl md:text-6xl lg:text-7xl">
               تحفة فنية لا تُنسى
             </span>
           </h1>
-          <p className="text-gray-200 text-lg md:text-xl lg:text-2xl font-medium max-w-3xl mx-auto mt-6 mb-10 drop-shadow-md">
+          <p className="text-gray-300 text-lg md:text-xl lg:text-2xl font-light max-w-3xl mx-auto mt-8 mb-12 leading-loose tracking-wide">
             نجمع بين الفخامة والذكاء الاصطناعي لتصميم وتجهيز حفلات الزفاف والمناسبات الخاصة بدقة متناهية تعكس ذوقك الرفيع.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-8">
+          <div className="flex flex-col sm:flex-row gap-5 items-center justify-center">
             <Link
               href="/booking"
-              className="bg-[#D4AF37] hover:bg-[#F3E5AB] text-black font-bold text-lg py-3 px-10 rounded-full shadow-[0_0_20px_rgba(212,175,55,0.4)] hover:shadow-[0_0_25px_rgba(212,175,55,0.6)] hover:-translate-y-1 transition-all duration-300"
+              className="bg-[#D4AF37] hover:bg-[#F3E5AB] text-black font-bold text-lg py-4 px-10 rounded-full shadow-[0_0_24px_rgba(212,175,55,0.4)] hover:shadow-[0_0_36px_rgba(212,175,55,0.65)] hover:-translate-y-1 transition-all duration-300"
             >
               احجز مناسبتك الآن
             </Link>
             <Link
               href="/gallery"
-              className="bg-white/10 backdrop-blur-md border-2 border-white/30 hover:border-[#D4AF37] hover:bg-white/20 text-white font-bold text-lg py-3 px-10 rounded-full shadow-lg hover:-translate-y-1 transition-all duration-300"
+              className="bg-white/5 backdrop-blur-md border border-white/20 hover:border-[#D4AF37] text-white font-semibold text-lg py-4 px-10 rounded-full hover:bg-white/10 hover:-translate-y-1 transition-all duration-300"
             >
               استكشف أعمالنا
             </Link>
@@ -46,123 +63,132 @@ export default function Home() {
         </div>
       </section>
 
-      {/* AI PLANNER CTA */}
-      <section className="py-20 bg-muted">
-        <div className="container mx-auto px-4">
-          <div className="bg-card rounded-3xl p-8 md:p-12 shadow-xl border overflow-hidden relative">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -mr-20 -mt-20"></div>
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-yellow-500/10 rounded-full blur-3xl -ml-20 -mb-20"></div>
-            
-            <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-              <div>
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-4">
-                  <Sparkles className="h-4 w-4" />
-                  <span>حصرياً لدى LAMSA</span>
-                </div>
-                <h2 className="text-3xl md:text-4xl font-bold mb-6">صمّم مناسبتك بالذكاء الاصطناعي</h2>
-                <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
-                  لا داعي للحيرة! أدخل تفضيلاتك، ميزانيتك، وعدد ضيوفك، وسيقوم مساعدنا الذكي باقتراح خطة كاملة تشمل الألوان، الديكور، والخدمات المناسبة لك في ثوانٍ.
-                </p>
-                <Button size="lg" className="h-12 px-6 gap-2" asChild>
-                  <Link href="/ai-planner">
-                    ابدأ التصميم الآن
-                    <ArrowLeft className="h-4 w-4" />
-                  </Link>
-                </Button>
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="bg-background p-6 rounded-2xl shadow-sm border flex flex-col items-center justify-center text-center gap-3 transform transition-transform hover:-translate-y-1">
-                  <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
-                    <Calendar className="h-6 w-6" />
-                  </div>
-                  <h3 className="font-semibold">تخطيط زمني</h3>
-                  <p className="text-xs text-muted-foreground">جدول دقيق لجميع التجهيزات</p>
-                </div>
-                <div className="bg-background p-6 rounded-2xl shadow-sm border flex flex-col items-center justify-center text-center gap-3 transform transition-transform hover:-translate-y-1 translate-y-4">
-                  <div className="h-12 w-12 rounded-full bg-amber-500/10 flex items-center justify-center text-amber-600">
-                    <MapPin className="h-6 w-6" />
-                  </div>
-                  <h3 className="font-semibold">اختيار المكان</h3>
-                  <p className="text-xs text-muted-foreground">اقتراحات للقاعات والمخيمات</p>
-                </div>
-                <div className="bg-background p-6 rounded-2xl shadow-sm border flex flex-col items-center justify-center text-center gap-3 transform transition-transform hover:-translate-y-1 -translate-y-4">
-                  <div className="h-12 w-12 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-600">
-                    <Users className="h-6 w-6" />
-                  </div>
-                  <h3 className="font-semibold">إدارة الضيوف</h3>
-                  <p className="text-xs text-muted-foreground">توزيع الطاولات والاستقبال</p>
-                </div>
-                <div className="bg-background p-6 rounded-2xl shadow-sm border flex flex-col items-center justify-center text-center gap-3 transform transition-transform hover:-translate-y-1">
-                  <div className="h-12 w-12 rounded-full bg-purple-500/10 flex items-center justify-center text-purple-600">
-                    <Sparkles className="h-6 w-6" />
-                  </div>
-                  <h3 className="font-semibold">لمسات سحرية</h3>
-                  <p className="text-xs text-muted-foreground">تصاميم وديكورات فريدة</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* WHY US SECTION */}
-      <section className="py-24 bg-card">
-        <div className="container mx-auto px-4">
+      {/* ══════════════════════════════════════════
+          AI FEATURE SECTION (فخامة الذكاء الاصطناعي)
+      ══════════════════════════════════════════ */}
+      <section className="relative py-24 bg-[#0f1117] overflow-hidden">
+        {/* Deep glowing radial gradient */}
+        <div 
+          className="absolute inset-0 pointer-events-none" 
+          style={{ background: 'radial-gradient(circle at center, rgba(212,175,55,0.1) 0%, transparent 70%)' }} 
+          aria-hidden
+        />
+        
+        <div className="relative z-10 container mx-auto px-6 max-w-7xl">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold mb-4">لماذا تختارنا</h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              ست نقاط عملية — التفاصيل الكاملة في صفحة من نحن.
+            <div className="inline-flex items-center justify-center gap-2 px-5 py-2 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-[#D4AF37] text-sm font-bold tracking-wider mb-6 backdrop-blur-sm">
+              <Sparkles className="h-4 w-4 animate-pulse" aria-hidden />
+              حصرياً لدى لمسة
+            </div>
+            <h2 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 text-balance">
+              صمّم مناسبتك بالذكاء الاصطناعي
+            </h2>
+            <p className="text-gray-300 text-lg md:text-xl max-w-3xl mx-auto leading-loose tracking-wide">
+              لا داعي للحيرة! أدخل تفضيلاتك، ميزانيتك، وعدد ضيوفك، وسيقوم مساعدنا الذكي باقتراح خطة كاملة تشمل الألوان، الديكور، والخدمات المناسبة لك في ثوانٍ.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-start max-w-6xl mx-auto">
-            <div className="bg-background p-8 rounded-3xl border shadow-sm flex flex-col gap-4">
-              <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center text-primary"><Calendar className="h-6 w-6" /></div>
-              <h3 className="text-xl font-bold">التخطيط للمناسبة</h3>
-              <p className="text-muted-foreground leading-relaxed">تفاصيل مرتبة وتجربة انسيابية من البداية للنهاية.</p>
-            </div>
-            <div className="bg-background p-8 rounded-3xl border shadow-sm flex flex-col gap-4">
-              <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center text-primary"><Users className="h-6 w-6" /></div>
-              <h3 className="text-xl font-bold">الخبرة في التنفيذ</h3>
-              <p className="text-muted-foreground leading-relaxed">مشهد متناغم وتنفيذ سلس في أرض الواقع.</p>
-            </div>
-            <div className="bg-background p-8 rounded-3xl border shadow-sm flex flex-col gap-4">
-              <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center text-primary"><Sparkles className="h-6 w-6" /></div>
-              <h3 className="text-xl font-bold">أفكار بتنسيق راقٍ</h3>
-              <p className="text-muted-foreground leading-relaxed">حضور أنيق دون مبالغة أو ازدحام بصري.</p>
-            </div>
-            <div className="bg-background p-8 rounded-3xl border shadow-sm flex flex-col gap-4">
-              <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center text-primary"><MapPin className="h-6 w-6" /></div>
-              <h3 className="text-xl font-bold">الالتزام بالوقت</h3>
-              <p className="text-muted-foreground leading-relaxed">جاهزية الموقع قبل الضيوف واحترام الجدول.</p>
-            </div>
-            <div className="bg-background p-8 rounded-3xl border shadow-sm flex flex-col gap-4">
-              <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center text-primary"><Calendar className="h-6 w-6" /></div>
-              <h3 className="text-xl font-bold">تنوع الخيارات</h3>
-              <p className="text-muted-foreground leading-relaxed">حلول لزفاف وملكة وأعياد واستقبالات بمرونة.</p>
-            </div>
-            <div className="bg-background p-8 rounded-3xl border shadow-sm flex flex-col gap-4">
-              <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center text-primary"><Sparkles className="h-6 w-6" /></div>
-              <h3 className="text-xl font-bold">تجربة أكثر راحة</h3>
-              <p className="text-muted-foreground leading-relaxed">تشغيل وجمال معًا لتجربة مرتبة وهادئة.</p>
-            </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+            {[
+              { icon: Calendar, title: "تخطيط زمني", desc: "جدول دقيق لجميع التجهيزات والمهام" },
+              { icon: MapPin, title: "اختيار المكان", desc: "اقتراحات لأفخم القاعات والمخيمات" },
+              { icon: Users, title: "إدارة الضيوف", desc: "توزيع الطاولات واستقبال كبار الشخصيات" },
+              { icon: Sparkles, title: "لمسات سحرية", desc: "تصاميم وديكورات فريدة وحصرية" },
+            ].map((feat, i) => (
+              <div 
+                key={i} 
+                className="group flex flex-col items-center text-center p-8 rounded-3xl bg-white/5 border border-white/10 hover:border-[#D4AF37] backdrop-blur-xl hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(212,175,55,0.2)] transition-all duration-500"
+              >
+                <div className="h-16 w-16 rounded-2xl bg-[#D4AF37]/10 border border-[#D4AF37]/20 flex items-center justify-center text-[#D4AF37] mb-6 group-hover:scale-110 group-hover:bg-[#D4AF37]/20 transition-all duration-300">
+                  <feat.icon className="h-8 w-8" aria-hidden />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-3">{feat.title}</h3>
+                <p className="text-gray-400 text-sm leading-relaxed">{feat.desc}</p>
+              </div>
+            ))}
           </div>
-          <div className="mt-12 text-center">
-            <Button size="lg" asChild className="rounded-full">
-              <Link href="/about">من نحن — المزيد</Link>
-            </Button>
+          
+          <div className="text-center">
+            <Link 
+              href="/ai-planner" 
+              className="group relative inline-flex items-center justify-center gap-3 bg-transparent border-2 border-[#D4AF37] text-[#D4AF37] font-bold text-lg py-4 px-10 rounded-full hover:bg-[#D4AF37] hover:text-black hover:shadow-[0_0_30px_rgba(212,175,55,0.4)] transition-all duration-500 overflow-hidden"
+            >
+              <span className="relative z-10 flex items-center gap-2">
+                ابدأ التصميم الآن
+                <ArrowLeft className="h-5 w-5 transform group-hover:-translate-x-2 transition-transform duration-300" aria-hidden />
+              </span>
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* SERVICES */}
-      <section className="py-24 bg-muted/30">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-5xl font-bold mb-4">خدماتنا المتميزة</h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-16">
+      {/* ══════════════════════════════════════════
+          WHY CHOOSE US (لماذا تختارنا)
+      ══════════════════════════════════════════ */}
+      <section className="py-24 bg-[#0a0c10] relative overflow-hidden">
+        <div className="container mx-auto px-6 max-w-7xl">
+          <div className="text-center mb-16">
+            <p className="text-[#D4AF37] text-sm font-semibold tracking-[0.25em] uppercase mb-3">
+              Why Choose Us
+            </p>
+            <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-6 text-balance">
+              لماذا تختارنا
+            </h2>
+            <p className="text-gray-300 text-lg max-w-2xl mx-auto leading-loose tracking-wide">
+              مبادئ راسخة تجعل لمسة إيفنس الخيار الأول لكل من يطلب الأفضل.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              { icon: Calendar, title: "التخطيط للمناسبة", desc: "تفاصيل مرتبة وتجربة انسيابية من البداية للنهاية." },
+              { icon: Users, title: "الخبرة في التنفيذ", desc: "مشهد متناغم وتنفيذ سلس في أرض الواقع." },
+              { icon: Gem, title: "أفكار بتنسيق راقٍ", desc: "حضور أنيق دون مبالغة أو ازدحام بصري." },
+              { icon: Clock, title: "الالتزام بالوقت", desc: "جاهزية الموقع قبل الضيوف واحترام الجدول." },
+              { icon: Palette, title: "تنوع الخيارات", desc: "حلول لزفاف وملكة وأعياد واستقبالات بمرونة." },
+              { icon: ShieldCheck, title: "تجربة أكثر راحة", desc: "تشغيل وجمال معًا لتجربة مرتبة وهادئة." },
+            ].map((item, i) => (
+              <div 
+                key={i} 
+                className="group relative bg-white/5 border border-white/10 border-b border-b-[#D4AF37]/50 p-8 rounded-3xl backdrop-blur-lg hover:bg-white/10 hover:border-b-[#D4AF37] hover:-translate-y-2 hover:shadow-[0_10px_40px_-10px_rgba(212,175,55,0.2)] transition-all duration-500 flex flex-col gap-5 overflow-hidden"
+              >
+                <div className="h-14 w-14 rounded-2xl bg-[#D4AF37]/10 flex items-center justify-center text-[#D4AF37] border border-[#D4AF37]/20 group-hover:scale-110 transition-transform duration-300">
+                  <item.icon className="h-7 w-7" aria-hidden />
+                </div>
+                <h3 className="text-xl font-bold text-white tracking-tight">{item.title}</h3>
+                <p className="text-gray-400 leading-loose text-sm md:text-base">{item.desc}</p>
+                {/* Internal hover glow */}
+                <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" aria-hidden />
+              </div>
+            ))}
+          </div>
+          <div className="mt-16 text-center">
+             <Link 
+               href="/about" 
+               className="inline-flex items-center gap-2 text-[#D4AF37] hover:text-[#F3E5AB] font-semibold text-lg transition-colors duration-300"
+             >
+               اقرأ المزيد عن قصتنا
+               <ArrowLeft className="h-5 w-5" aria-hidden />
+             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════
+          FEATURED SERVICES (خدماتنا المتميزة)
+      ══════════════════════════════════════════ */}
+      <section className="py-24 bg-[#0f1117] relative">
+        <div className="container mx-auto px-6 max-w-7xl text-center">
+          <p className="text-[#D4AF37] text-sm font-semibold tracking-[0.25em] uppercase mb-3">
+            Our Services
+          </p>
+          <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-6 text-balance">
+            خدماتنا المتميزة
+          </h2>
+          <p className="text-gray-300 text-lg max-w-2xl mx-auto mb-16 leading-loose tracking-wide">
             نقدم مجموعة متكاملة من الخدمات الفاخرة لتغطية كافة احتياجات مناسبتك من الألف إلى الياء.
           </p>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-start max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-start">
             {[
               {
                 title: "كوش الأفراح",
@@ -185,22 +211,46 @@ export default function Home() {
                 image: "https://lams-event.com/images/4.jpeg"
               }
             ].map((service, i) => (
-              <Link href="/services" key={i} className="group block rounded-2xl overflow-hidden border bg-card hover:shadow-xl transition-all">
-                <div className="relative h-60 w-full overflow-hidden">
-                  <Image src={service.image} alt={service.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="(max-width: 768px) 100vw, 50vw" />
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">{service.title}</h3>
-                  <p className="text-muted-foreground">{service.desc}</p>
+              <Link 
+                href="/services" 
+                key={i} 
+                className="group relative block rounded-3xl overflow-hidden border border-white/10 hover:border-[#D4AF37]/50 hover:shadow-[0_0_40px_rgba(212,175,55,0.15)] transition-all duration-500 h-[350px] md:h-[450px]"
+              >
+                <Image 
+                  src={service.image} 
+                  alt={service.title} 
+                  fill 
+                  className="object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out" 
+                  sizes="(max-width: 768px) 100vw, 50vw" 
+                />
+                <div 
+                  className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500" 
+                  aria-hidden 
+                />
+                <div className="absolute inset-0 p-8 flex flex-col justify-end">
+                  <h3 className="text-2xl md:text-3xl font-bold text-white mb-3 group-hover:text-[#D4AF37] transition-colors duration-300">
+                    {service.title}
+                  </h3>
+                  <p className="text-gray-300 text-sm md:text-base leading-loose max-w-md">
+                    {service.desc}
+                  </p>
+                  
+                  <div className="mt-6 flex items-center gap-2 text-[#D4AF37] opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 font-semibold text-sm tracking-wide">
+                    <Eye className="h-4 w-4" aria-hidden />
+                    <span>View Details (تفاصيل)</span>
+                  </div>
                 </div>
               </Link>
             ))}
           </div>
           
-          <div className="mt-12">
-            <Button variant="outline" size="lg" asChild className="rounded-full">
-              <Link href="/services">عرض جميع الخدمات</Link>
-            </Button>
+          <div className="mt-16">
+            <Link 
+              href="/services" 
+              className="inline-block bg-white/5 backdrop-blur-md border border-white/20 hover:border-[#D4AF37] text-white font-semibold text-lg py-4 px-10 rounded-full hover:bg-white/10 hover:-translate-y-1 transition-all duration-300"
+            >
+              عرض جميع الخدمات
+            </Link>
           </div>
         </div>
       </section>
