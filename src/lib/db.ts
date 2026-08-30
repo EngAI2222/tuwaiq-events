@@ -16,7 +16,7 @@ export const db = {
       const q = query(collection(firestore, 'bookings'), orderBy('createdAt', 'desc'));
       const querySnapshot = await getDocs(q);
       const bookings: any[] = [];
-      querySnapshot.forEach((doc) => {
+      querySnapshot.forEach((doc: any) => {
         bookings.push({ id: doc.id, ...doc.data() });
       });
       return bookings;
@@ -49,7 +49,7 @@ export const db = {
       const q = query(collection(firestore, 'aiPlans'), orderBy('createdAt', 'desc'));
       const querySnapshot = await getDocs(q);
       const plans: any[] = [];
-      querySnapshot.forEach((doc) => {
+      querySnapshot.forEach((doc: any) => {
         plans.push({ id: doc.id, ...doc.data() });
       });
       return plans;

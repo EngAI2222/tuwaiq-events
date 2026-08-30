@@ -100,13 +100,20 @@ export function FloatingActions() {
           aria-label={isSocialOpen ? "إغلاق قائمة التواصل" : "فتح قائمة التواصل"}
           className={`
             relative w-14 h-14 rounded-full flex items-center justify-center
-            bg-black/60 backdrop-blur-xl border border-white/10
-            text-white hover:text-[#D4AF37] hover:border-[#D4AF37]/50 hover:shadow-[0_0_15px_rgba(212,175,55,0.2)]
+            bg-black/80 backdrop-blur-xl border
             transition-all duration-300 focus:outline-none
+            ${isSocialOpen
+              ? "border-[#D4AF37]/70 shadow-[0_0_20px_rgba(212,175,55,0.5)] scale-95 rotate-12"
+              : "border-[#D4AF37]/50 hover:border-[#D4AF37] hover:shadow-[0_0_15px_rgba(212,175,55,0.3)] hover:scale-105"
+            }
           `}
         >
-          <Share2 className={`w-6 h-6 transition-transform duration-300 ${isSocialOpen ? "rotate-90 scale-0 opacity-0" : "rotate-0 scale-100 opacity-100"}`} />
-          <X className={`absolute w-6 h-6 transition-transform duration-300 ${isSocialOpen ? "rotate-0 scale-100 opacity-100" : "-rotate-90 scale-0 opacity-0"}`} />
+          <span
+            className="font-serif text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-[#BF953F] to-[#D4AF37] select-none"
+            style={{ paddingBottom: '3px' }}
+          >
+            ل
+          </span>
         </button>
 
         {/* Dial Items */}
