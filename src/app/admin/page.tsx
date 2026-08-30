@@ -1,6 +1,8 @@
 // src/app/admin/page.tsx
 // Dashboard overview — async Server Component connected to the local JSON DB
 
+export const dynamic = 'force-dynamic';
+
 import { db } from '@/lib/db';
 
 // ── Types ─────────────────────────────────────────────────────────────────────

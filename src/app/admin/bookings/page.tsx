@@ -1,6 +1,8 @@
 // src/app/admin/bookings/page.tsx
 // Full bookings management table — async Server Component
 
+export const dynamic = 'force-dynamic';
+
 import type { Metadata } from "next";
 import { db } from "@/lib/db";
 
