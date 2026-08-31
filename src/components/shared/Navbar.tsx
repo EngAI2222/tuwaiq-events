@@ -51,9 +51,9 @@ export function Navbar() {
               <Image 
                 src="/logo.png" 
                 alt="Lamsa Events Logo" 
-                width={40} 
-                height={40} 
-                className="rounded-full border border-[#D4AF37]/40 shrink-0"
+                width={56} 
+                height={56} 
+                className="shrink-0 object-contain"
               />
               <span className="flex items-center gap-2">
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#BF953F] to-[#D4AF37]">
