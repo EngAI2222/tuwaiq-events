@@ -46,11 +46,18 @@ export function Navbar() {
       <header className="sticky top-0 z-40 w-full border-b border-white/10 bg-[#0f1117]/80 backdrop-blur-xl">
         <div className="container mx-auto px-6 h-20 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Link href="/" className="font-extrabold text-2xl tracking-tighter flex items-center gap-2">
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#BF953F] to-[#D4AF37]">
-                لمسة
+            <Link href="/" className="font-extrabold text-2xl tracking-tighter flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-white/5 border border-[#D4AF37]/40 flex items-center justify-center shrink-0">
+                <span className="text-2xl font-serif font-bold bg-clip-text text-transparent bg-gradient-to-b from-[#BF953F] to-[#D4AF37]">
+                  ل
+                </span>
+              </div>
+              <span className="flex items-center gap-2">
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#BF953F] to-[#D4AF37]">
+                  لمسة
+                </span>
+                <span className="text-white">إيفنس</span>
               </span>
-              <span className="text-white">إيفنس</span>
             </Link>
           </div>
 

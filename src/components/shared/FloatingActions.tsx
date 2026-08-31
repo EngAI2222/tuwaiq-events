@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { X, Bot, Send, User, Sparkles, Phone, Plus, MapPin } from "lucide-react";
+import { X, Bot, Send, User, Sparkles, Phone, Plus, MapPin, Share2 } from "lucide-react";
 
 function InstagramIcon({ className }: { className?: string }) {
   return (
@@ -105,7 +105,7 @@ export function FloatingActions() {
             transition-all duration-300 focus:outline-none
           `}
         >
-          <Plus
+          <Share2
             className={`absolute w-6 h-6 transition-all duration-300 ${
               isSocialOpen ? "rotate-45 scale-0 opacity-0" : "rotate-0 scale-100 opacity-100"
             }`}
