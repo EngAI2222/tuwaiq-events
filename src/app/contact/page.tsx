@@ -198,13 +198,24 @@ export default function ContactPage() {
   const set = (key: keyof FormState) => (v: string) =>
     setForm((f) => ({ ...f, [key]: v }));
 
-  function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
+    try {
+      const res = await fetch("/api/bookings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      if (!res.ok) throw new Error("Failed to submit");
       setSubmitted(true);
-    }, 1400);
+    } catch (error) {
+      console.error("Error submitting contact form:", error);
+      alert("عذراً، حدث خطأ أثناء إرسال رسالتك. يرجى المحاولة مرة أخرى.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (

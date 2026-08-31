@@ -14,15 +14,19 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { eventType, date, guests, budget, userId } = body;
+    // Destructure fields from both Booking form and Contact form
+    const { eventType, date, guests, budget, userId, name, phone, message } = body;
 
     const newBooking = await db.booking.create({
       data: {
-        eventType,
-        date,
-        guests,
-        budget,
+        eventType: eventType || null,
+        date: date || null,
+        guests: guests || null,
+        budget: budget || null,
         userId: userId || null,
+        clientName: name || null,
+        phone: phone || null,
+        message: message || null,
         status: "Pending",
       },
     });
