@@ -5,6 +5,7 @@ import {
   getDocs,
   setDoc,
   updateDoc,
+  deleteDoc,
   query,
   orderBy,
   getDoc
@@ -62,6 +63,44 @@ export const db = {
       };
       await setDoc(doc(firestore, 'aiPlans', id), planData);
       return { id, ...planData };
+    }
+  },
+  service: {
+    findMany: async () => {
+      const q = query(collection(firestore, 'services'), orderBy('createdAt', 'desc'));
+      const snap = await getDocs(q);
+      const items: any[] = [];
+      snap.forEach((d: any) => items.push({ id: d.id, ...d.data() }));
+      return items;
+    },
+    create: async ({ data: newData }: any) => {
+      const id = Math.random().toString(36).substring(2, 9);
+      const serviceData = { ...newData, createdAt: new Date().toISOString() };
+      await setDoc(doc(firestore, 'services', id), serviceData);
+      return { id, ...serviceData };
+    },
+    delete: async ({ where }: any) => {
+      await deleteDoc(doc(firestore, 'services', where.id));
+      return { id: where.id };
+    }
+  },
+  gallery: {
+    findMany: async () => {
+      const q = query(collection(firestore, 'gallery'), orderBy('createdAt', 'desc'));
+      const snap = await getDocs(q);
+      const items: any[] = [];
+      snap.forEach((d: any) => items.push({ id: d.id, ...d.data() }));
+      return items;
+    },
+    create: async ({ data: newData }: any) => {
+      const id = Math.random().toString(36).substring(2, 9);
+      const galleryData = { ...newData, createdAt: new Date().toISOString() };
+      await setDoc(doc(firestore, 'gallery', id), galleryData);
+      return { id, ...galleryData };
+    },
+    delete: async ({ where }: any) => {
+      await deleteDoc(doc(firestore, 'gallery', where.id));
+      return { id: where.id };
     }
   }
 };

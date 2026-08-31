@@ -1,13 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import {
-  Flower2,
-  UtensilsCrossed,
-  Sofa,
-  AudioWaveform,
-  Sparkles,
-  ArrowLeft,
-} from "lucide-react";
+import Image from "next/image";
+import { ArrowLeft, Sparkles } from "lucide-react";
+import { db } from "@/lib/db";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "الخدمات | لمسة إيفنس",
@@ -15,79 +12,17 @@ export const metadata: Metadata = {
     "استكشف خدمات لمسة إيفنس الفاخرة: كوش الأفراح، طاولات VIP، جلوس ملكي، أنظمة صوت وإضاءة، وتصميم المناسبات بالذكاء الاصطناعي.",
 };
 
-// ─── Data ────────────────────────────────────────────────────────────────────
+// ─── Types ────────────────────────────────────────────────────────────────────
 
 type Service = {
   id: string;
-  Icon: React.ElementType;
   title: string;
-  subtitle: string;
-  desc: string;
+  description: string;
   price: string;
-  isAI?: boolean;
-  accentFrom: string;
-  accentTo: string;
-  iconColor: string;
+  imageURL: string;
+  category: string;
+  createdAt: string;
 };
-
-const SERVICES: Service[] = [
-  {
-    id: "weddings",
-    Icon: Flower2,
-    title: "كوش الأفراح",
-    subtitle: "Luxury Wedding Stages",
-    desc: "تصاميم كوش فريدة وعصرية تناسب مختلف الأذواق مع إضاءة مدروسة وزهور طبيعية وتنسيق متكامل للقاعة يعكس الفخامة الحقيقية.",
-    price: "يبدأ من 5,000 ريال",
-    accentFrom: "from-rose-500/30",
-    accentTo: "to-pink-600/10",
-    iconColor: "text-rose-400",
-  },
-  {
-    id: "dining",
-    Icon: UtensilsCrossed,
-    title: "طاولات عشاء وضيافة",
-    subtitle: "VIP Dining & Hospitality",
-    desc: "تنسيق طاولات ولائم لكبار الشخصيات مع أرقى أنواع الشراشف وأطقم الضيافة المذهبة والفضية، لتجربة ضيافة لا مثيل لها.",
-    price: "يبدأ من 150 ريال/طاولة",
-    accentFrom: "from-amber-500/30",
-    accentTo: "to-yellow-600/10",
-    iconColor: "text-amber-400",
-  },
-  {
-    id: "vip-seating",
-    Icon: Sofa,
-    title: "جلوس ملكي و VIP",
-    subtitle: "Royal & VIP Seating",
-    desc: "كنب فاخر وجلسات ملكية مريحة تعكس فخامة استقبالك لضيوفك المميزين، مناسبة للرجال والنساء بتصاميم مخصصة.",
-    price: "حسب الطلب",
-    accentFrom: "from-purple-500/30",
-    accentTo: "to-violet-600/10",
-    iconColor: "text-purple-400",
-  },
-  {
-    id: "av-systems",
-    Icon: AudioWaveform,
-    title: "أنظمة صوت وإضاءة",
-    subtitle: "Advanced AV Systems",
-    desc: "تأجير وتركيب أنظمة إضاءة متطورة وسماعات عالية الجودة تناسب حجم القاعة أو المساحة الخارجية، مع دعم فني طوال الحفل.",
-    price: "يبدأ من 1,000 ريال",
-    accentFrom: "from-sky-500/30",
-    accentTo: "to-blue-600/10",
-    iconColor: "text-sky-400",
-  },
-  {
-    id: "ai-design",
-    Icon: Sparkles,
-    title: "تصميم المناسبات بالذكاء الاصطناعي",
-    subtitle: "AI-Powered Event Design",
-    desc: "تقنية حصرية لدى لمسة إيفنس: أدخل تفضيلاتك وميزانيتك، وسيقترح مساعدنا الذكي خطة كاملة تشمل الألوان، الديكور، والخدمات في ثوانٍ.",
-    price: "مجاناً للعملاء",
-    isAI: true,
-    accentFrom: "from-[#D4AF37]/40",
-    accentTo: "to-amber-600/10",
-    iconColor: "text-[#D4AF37]",
-  },
-];
 
 // ─── Shared decorative divider ────────────────────────────────────────────────
 
@@ -101,9 +36,82 @@ function GoldDivider() {
   );
 }
 
+// ─── Service Card ─────────────────────────────────────────────────────────────
+
+function ServiceCard({ service, tall = false }: { service: Service; tall?: boolean }) {
+  const { title, description, price, imageURL } = service;
+
+  return (
+    <article
+      className={`group relative flex flex-col gap-5 rounded-3xl bg-card border overflow-hidden
+        transition-all duration-500 hover:-translate-y-2 cursor-pointer
+        ring-1 ring-border/50 hover:ring-[#D4AF37]/40 hover:shadow-2xl
+        ${tall ? "md:min-h-[320px]" : "md:min-h-[280px]"}`}
+    >
+      {/* Gold top border */}
+      <div
+        className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-[#D4AF37]/60 to-transparent"
+        aria-hidden
+      />
+
+      {/* Cover image (if set) */}
+      {imageURL && (
+        <div className="relative w-full h-48 overflow-hidden">
+          <Image
+            src={imageURL}
+            alt={title}
+            fill
+            sizes="(max-width: 768px) 100vw, 50vw"
+            className="object-cover group-hover:scale-105 transition-transform duration-700"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/10 to-black/50" />
+        </div>
+      )}
+
+      {/* Content */}
+      <div className={`relative z-10 flex flex-col gap-3 flex-1 ${imageURL ? "p-6 pt-4" : "p-8"}`}>
+        {/* Category chip */}
+        <span className="inline-block self-start text-xs font-semibold tracking-[0.15em] text-muted-foreground uppercase">
+          {service.category}
+        </span>
+        <h2 className="text-xl md:text-2xl font-extrabold tracking-tight">{title}</h2>
+        {description && (
+          <p className="text-muted-foreground leading-loose text-sm md:text-base tracking-wide flex-1">
+            {description}
+          </p>
+        )}
+      </div>
+
+      {/* Footer */}
+      <div className="relative z-10 flex items-center justify-between px-6 pb-6 pt-2 border-t border-border/50 mt-auto">
+        <span className="text-sm font-semibold text-[#D4AF37]">{price || "حسب الطلب"}</span>
+        <Link
+          href={`/booking?service=${encodeURIComponent(title)}`}
+          className="inline-flex items-center gap-2 text-sm font-bold text-foreground hover:text-[#D4AF37] transition-colors"
+        >
+          احجز الآن
+          <ArrowLeft className="h-4 w-4" aria-hidden />
+        </Link>
+      </div>
+    </article>
+  );
+}
+
+// ─── Empty state ──────────────────────────────────────────────────────────────
+
+function EmptyServices() {
+  return (
+    <div className="py-24 text-center text-muted-foreground">
+      <p className="text-xl font-light">سيتم إضافة الخدمات قريباً.</p>
+    </div>
+  );
+}
+
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
-export default function ServicesPage() {
+export default async function ServicesPage() {
+  const services: Service[] = await db.service.findMany();
+
   return (
     <div className="flex flex-col min-h-screen overflow-x-hidden">
       {/* ══════════════════════════════
@@ -167,18 +175,26 @@ export default function ServicesPage() {
         />
 
         <div className="relative z-10 container mx-auto px-6 max-w-7xl">
-          {/* First row: 2 wide cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            {SERVICES.slice(0, 2).map((s) => (
-              <ServiceCard key={s.id} service={s} tall />
-            ))}
-          </div>
-          {/* Second row: 3 cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {SERVICES.slice(2).map((s) => (
-              <ServiceCard key={s.id} service={s} />
-            ))}
-          </div>
+          {services.length === 0 ? (
+            <EmptyServices />
+          ) : (
+            <>
+              {/* First row: 2 wide cards */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                {services.slice(0, 2).map((s) => (
+                  <ServiceCard key={s.id} service={s} tall />
+                ))}
+              </div>
+              {/* Remaining cards */}
+              {services.length > 2 && (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {services.slice(2).map((s) => (
+                    <ServiceCard key={s.id} service={s} />
+                  ))}
+                </div>
+              )}
+            </>
+          )}
         </div>
       </section>
 
@@ -222,80 +238,5 @@ export default function ServicesPage() {
         </div>
       </section>
     </div>
-  );
-}
-
-// ─── Service Card Component ────────────────────────────────────────────────────
-
-function ServiceCard({
-  service,
-  tall = false,
-}: {
-  service: Service;
-  tall?: boolean;
-}) {
-  const { Icon, title, subtitle, desc, price, isAI, accentFrom, accentTo, iconColor } =
-    service;
-
-  return (
-    <article
-      className={`group relative flex flex-col gap-5 p-8 rounded-3xl bg-card border overflow-hidden transition-all duration-500 hover:-translate-y-2 cursor-pointer
-        ${isAI
-          ? "ring-2 ring-[#D4AF37]/50 hover:ring-[#D4AF37] shadow-[0_0_40px_rgba(212,175,55,0.15)] hover:shadow-[0_0_60px_rgba(212,175,55,0.3)]"
-          : "ring-1 ring-border/50 hover:ring-[#D4AF37]/40 hover:shadow-2xl"
-        }
-        ${tall ? "md:min-h-[320px]" : "md:min-h-[280px]"}
-      `}
-    >
-      {/* Gold top border */}
-      <div
-        className={`absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent ${isAI ? "via-[#D4AF37]" : "via-[#D4AF37]/60"} to-transparent`}
-        aria-hidden
-      />
-
-      {/* Hover glow bg */}
-      <div
-        className={`absolute inset-0 bg-gradient-to-br ${accentFrom} ${accentTo} opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`}
-        aria-hidden
-      />
-
-      {/* AI badge */}
-      {isAI && (
-        <span className="absolute top-5 left-5 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#D4AF37]/20 border border-[#D4AF37]/40 text-[#F3E5AB] text-xs font-bold tracking-wider uppercase backdrop-blur-sm">
-          <Sparkles className="h-3 w-3" aria-hidden />
-          حصري · AI
-        </span>
-      )}
-
-      {/* Icon */}
-      <div
-        className={`relative z-10 inline-flex items-center justify-center h-14 w-14 rounded-2xl bg-card border ring-1 ring-border/50 shadow-sm ${iconColor} group-hover:scale-110 transition-transform duration-300 ${isAI ? "mt-6" : ""}`}
-      >
-        <Icon className="h-6 w-6" aria-hidden />
-      </div>
-
-      {/* Text */}
-      <div className="relative z-10 flex flex-col gap-2 flex-1">
-        <p className="text-xs font-semibold tracking-[0.2em] text-muted-foreground uppercase">
-          {subtitle}
-        </p>
-        <h2 className="text-xl md:text-2xl font-extrabold tracking-tight">{title}</h2>
-        <p className="text-muted-foreground leading-loose text-sm md:text-base tracking-wide flex-1">
-          {desc}
-        </p>
-      </div>
-
-      {/* Footer */}
-      <div className="relative z-10 flex items-center justify-between pt-4 border-t border-border/50">
-        <span className="text-sm font-semibold text-[#D4AF37]">{price}</span>
-        <Link
-          href={`/booking?service=${encodeURIComponent(title)}`}
-          className="inline-flex items-center gap-2 text-sm font-bold text-foreground hover:text-[#D4AF37] transition-colors"
-        >
-          احجز الآن
-          <ArrowLeft className="h-4 w-4" aria-hidden />
-        </Link>
-      </div>
-    </article>
   );
 }

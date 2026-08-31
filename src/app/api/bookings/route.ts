@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     // Destructure fields from both Booking form and Contact form
-    const { eventType, date, guests, budget, userId, name, phone, message } = body;
+    const { eventType, date, guests, budget, userId, clientName, name, phone, message } = body;
 
     const newBooking = await db.booking.create({
       data: {
@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
         guests: guests || null,
         budget: budget || null,
         userId: userId || null,
-        clientName: name || null,
+        clientName: clientName || name || null,
         phone: phone || null,
         message: message || null,
         status: "Pending",

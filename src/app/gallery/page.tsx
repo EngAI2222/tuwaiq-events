@@ -1,13 +1,26 @@
 "use client";
 
-import { useState } from "react";
+export const dynamic = "force-dynamic";
+
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Eye } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { db } from "@/lib/db";
 
-// ─── Data ─────────────────────────────────────────────────────────────────────
+// ─── Types ─────────────────────────────────────────────────────────────────────
 
-const CATEGORIES = [
+type GalleryItem = {
+  id: string;
+  imageURL: string;
+  caption: string;
+  category: string;
+  createdAt: string;
+};
+
+// ─── Category filter list (dynamically built from data + static set) ──────────
+
+const STATIC_CATEGORIES = [
   "الكل",
   "حفلات زفاف",
   "ليالي الملكة",
@@ -15,72 +28,35 @@ const CATEGORIES = [
   "ديكور وتنسيق",
 ];
 
-const GALLERY_IMAGES = [
-  {
-    id: 1,
-    src: "https://lams-event.com/images/1.jpeg",
-    category: "حفلات زفاف",
-    title: "كوشة زفاف ملكية",
-  },
-  {
-    id: 2,
-    src: "https://lams-event.com/images/2.jpeg",
-    category: "ديكور وتنسيق",
-    title: "تنسيق طاولات VIP",
-  },
-  {
-    id: 3,
-    src: "https://lams-event.com/images/3.jpeg",
-    category: "مؤتمرات وشركات",
-    title: "تجهيز مسرح مؤتمرات",
-  },
-  {
-    id: 4,
-    src: "https://lams-event.com/images/4.jpeg",
-    category: "ليالي الملكة",
-    title: "جلسة ملكة تراثية",
-  },
-  {
-    id: 5,
-    src: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=800&auto=format&fit=crop",
-    category: "حفلات زفاف",
-    title: "قاعة أفراح فندقية",
-  },
-  {
-    id: 6,
-    src: "https://images.unsplash.com/photo-1530103862679-de60920ae15a?q=80&w=800&auto=format&fit=crop",
-    category: "ديكور وتنسيق",
-    title: "ضيافة استقبال",
-  },
-  {
-    id: 7,
-    src: "https://images.unsplash.com/photo-1505912755138-08b27ef3c428?q=80&w=800&auto=format&fit=crop",
-    category: "ليالي الملكة",
-    title: "ديكور رومانسي",
-  },
-  {
-    id: 8,
-    src: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=800&auto=format&fit=crop",
-    category: "مؤتمرات وشركات",
-    title: "إضاءة وصوتيات",
-  },
-  {
-    id: 9,
-    src: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=800&auto=format&fit=crop",
-    category: "حفلات زفاف",
-    title: "زينة مدخل زفاف",
-  },
-];
-
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function GalleryPage() {
+  const [items, setItems] = useState<GalleryItem[]>([]);
+  const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState("الكل");
+
+  useEffect(() => {
+    db.gallery.findMany().then((data) => {
+      setItems(data as GalleryItem[]);
+      setLoading(false);
+    });
+  }, []);
+
+  // Build unique categories from live data, keeping static set as base
+  const categories = [
+    "الكل",
+    ...Array.from(
+      new Set([
+        ...STATIC_CATEGORIES.slice(1),
+        ...items.map((i) => i.category).filter(Boolean),
+      ])
+    ),
+  ];
 
   const filtered =
     activeCategory === "الكل"
-      ? GALLERY_IMAGES
-      : GALLERY_IMAGES.filter((img) => img.category === activeCategory);
+      ? items
+      : items.filter((img) => img.category === activeCategory);
 
   return (
     <div className="flex flex-col min-h-screen overflow-x-hidden">
@@ -117,10 +93,7 @@ export default function GalleryPage() {
           </h1>
 
           {/* Gold divider */}
-          <div
-            className="flex items-center justify-center gap-3 my-6"
-            aria-hidden
-          >
+          <div className="flex items-center justify-center gap-3 my-6" aria-hidden>
             <span className="h-px w-16 bg-gradient-to-l from-[#D4AF37] to-transparent" />
             <span className="h-2 w-2 rotate-45 bg-[#D4AF37] opacity-80 inline-block" />
             <span className="h-px w-16 bg-gradient-to-r from-[#D4AF37] to-transparent" />
@@ -144,7 +117,7 @@ export default function GalleryPage() {
       <section className="py-10 bg-background sticky top-16 z-20 border-b border-border/50 backdrop-blur-md bg-background/80">
         <div className="container mx-auto px-6">
           <div className="flex flex-wrap items-center justify-center gap-3">
-            {CATEGORIES.map((cat) => {
+            {categories.map((cat) => {
               const isActive = activeCategory === cat;
               return (
                 <button
@@ -175,73 +148,89 @@ export default function GalleryPage() {
         />
 
         <div className="container mx-auto px-6 max-w-7xl">
-          {filtered.length === 0 && (
+          {/* Loading skeleton */}
+          {loading && (
+            <div className="columns-1 sm:columns-2 lg:columns-3 gap-5 space-y-5">
+              {Array.from({ length: 6 }).map((_, i) => (
+                <div
+                  key={i}
+                  className="break-inside-avoid rounded-2xl bg-card/50 border border-border/30 animate-pulse"
+                  style={{ height: i % 3 === 0 ? "300px" : i % 2 === 0 ? "240px" : "280px" }}
+                />
+              ))}
+            </div>
+          )}
+
+          {/* Empty state */}
+          {!loading && filtered.length === 0 && (
             <div className="py-24 text-center text-muted-foreground text-lg">
               لا توجد صور في هذا القسم حالياً.
             </div>
           )}
 
-          <div className="columns-1 sm:columns-2 lg:columns-3 gap-5 space-y-5">
-            <AnimatePresence mode="popLayout">
-              {filtered.map((img) => (
-                <motion.div
-                  key={img.id}
-                  layout
-                  initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.85, y: -10 }}
-                  transition={{ duration: 0.4, type: "spring", bounce: 0.2 }}
-                  className="relative group rounded-2xl overflow-hidden break-inside-avoid border border-border/50 ring-1 ring-border/30 hover:ring-[#D4AF37]/50 hover:shadow-[0_0_40px_rgba(212,175,55,0.12)] transition-all duration-500 cursor-pointer bg-card"
-                >
-                  <div
-                    className="relative w-full overflow-hidden"
-                    style={{
-                      aspectRatio:
-                        img.id % 3 === 0
-                          ? "4/5"
-                          : img.id % 2 === 0
-                          ? "1/1"
-                          : "3/4",
-                    }}
+          {/* Masonry grid */}
+          {!loading && filtered.length > 0 && (
+            <div className="columns-1 sm:columns-2 lg:columns-3 gap-5 space-y-5">
+              <AnimatePresence mode="popLayout">
+                {filtered.map((img, idx) => (
+                  <motion.div
+                    key={img.id}
+                    layout
+                    initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.85, y: -10 }}
+                    transition={{ duration: 0.4, type: "spring", bounce: 0.2 }}
+                    className="relative group rounded-2xl overflow-hidden break-inside-avoid
+                      border border-border/50 ring-1 ring-border/30 hover:ring-[#D4AF37]/50
+                      hover:shadow-[0_0_40px_rgba(212,175,55,0.12)] transition-all duration-500
+                      cursor-pointer bg-card"
                   >
-                    <Image
-                      src={img.src}
-                      alt={img.title}
-                      fill
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      className="object-cover group-hover:scale-108 transition-transform duration-700 ease-in-out"
-                    />
-
-                    {/* Gold top border shimmer on hover */}
                     <div
-                      className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20"
-                      aria-hidden
-                    />
+                      className="relative w-full overflow-hidden"
+                      style={{
+                        aspectRatio:
+                          idx % 3 === 0 ? "4/5" : idx % 2 === 0 ? "1/1" : "3/4",
+                      }}
+                    >
+                      <Image
+                        src={img.imageURL}
+                        alt={img.caption}
+                        fill
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        className="object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out"
+                      />
 
-                    {/* Hover overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400 flex flex-col justify-end p-6 z-10">
-                      {/* Category chip */}
-                      <span className="inline-block self-start px-3 py-1 rounded-full bg-[#D4AF37]/20 border border-[#D4AF37]/40 text-[#F3E5AB] text-xs font-semibold tracking-wide mb-2 backdrop-blur-sm">
-                        {img.category}
-                      </span>
+                      {/* Gold top border shimmer on hover */}
+                      <div
+                        className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20"
+                        aria-hidden
+                      />
 
-                      <div className="flex items-end justify-between gap-3">
-                        <h3 className="text-white text-lg font-bold leading-tight translate-y-3 group-hover:translate-y-0 transition-transform duration-400">
-                          {img.title}
-                        </h3>
+                      {/* Hover overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400 flex flex-col justify-end p-6 z-10">
+                        {/* Category chip */}
+                        <span className="inline-block self-start px-3 py-1 rounded-full bg-[#D4AF37]/20 border border-[#D4AF37]/40 text-[#F3E5AB] text-xs font-semibold tracking-wide mb-2 backdrop-blur-sm">
+                          {img.category}
+                        </span>
 
-                        {/* View icon */}
-                        <div className="flex-shrink-0 inline-flex items-center gap-1.5 bg-white/10 border border-white/20 backdrop-blur-md rounded-full px-3 py-1.5 text-white text-xs font-semibold translate-y-3 group-hover:translate-y-0 transition-transform duration-500">
-                          <Eye className="h-3.5 w-3.5" aria-hidden />
-                          تفاصيل
+                        <div className="flex items-end justify-between gap-3">
+                          <h3 className="text-white text-lg font-bold leading-tight translate-y-3 group-hover:translate-y-0 transition-transform duration-400">
+                            {img.caption}
+                          </h3>
+
+                          {/* View icon */}
+                          <div className="flex-shrink-0 inline-flex items-center gap-1.5 bg-white/10 border border-white/20 backdrop-blur-md rounded-full px-3 py-1.5 text-white text-xs font-semibold translate-y-3 group-hover:translate-y-0 transition-transform duration-500">
+                            <Eye className="h-3.5 w-3.5" aria-hidden />
+                            تفاصيل
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </motion.div>
-              ))}
-            </AnimatePresence>
-          </div>
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </div>
+          )}
         </div>
       </section>
     </div>
