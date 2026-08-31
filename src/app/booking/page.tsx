@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Calendar, Users, Loader2, CheckCircle2 } from "lucide-react";
+import { Calendar, Users, Loader2, CheckCircle2, User, Phone } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 
 function BookingForm() {
@@ -15,6 +15,8 @@ function BookingForm() {
   
   const preSelectedService = searchParams.get("service") || "تنسيق حفلة زفاف";
   
+  const [clientName, setClientName] = useState("");
+  const [phone, setPhone] = useState("");
   const [eventType, setEventType] = useState(preSelectedService);
   const [date, setDate] = useState("");
   const [guests, setGuests] = useState("");
@@ -31,6 +33,8 @@ function BookingForm() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          clientName,
+          phone,
           eventType,
           date,
           guests,
@@ -79,6 +83,37 @@ function BookingForm() {
       
       <div className="md:w-2/3 p-8 md:p-10">
         <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label>الاسم الكريم</Label>
+              <div className="relative">
+                <User className="absolute right-3 top-3.5 h-5 w-5 text-muted-foreground" />
+                <Input
+                  type="text"
+                  placeholder="اكتب اسمك هنا"
+                  value={clientName}
+                  onChange={(e) => setClientName(e.target.value)}
+                  className="h-12 pr-10 bg-muted/50 rounded-xl"
+                  required
+                />
+              </div>
+            </div>
+            <div className="space-y-2">
+              <Label>رقم التواصل</Label>
+              <div className="relative">
+                <Phone className="absolute right-3 top-3.5 h-5 w-5 text-muted-foreground" />
+                <Input
+                  type="tel"
+                  placeholder="05XXXXXXXX"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  className="h-12 pr-10 bg-muted/50 rounded-xl"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+
           <div className="space-y-2">
             <Label>نوع المناسبة / الخدمة</Label>
             <Input 
