@@ -95,27 +95,40 @@ export function FloatingActions() {
       {/* ── Social Speed Dial (Bottom-Left) ───────────────────── */}
       <div className="fixed bottom-6 left-6 z-50 flex flex-col-reverse items-center gap-3">
         {/* Main Toggle Button */}
-        <button
-          onClick={() => setIsSocialOpen(!isSocialOpen)}
-          aria-label={isSocialOpen ? "إغلاق قائمة التواصل" : "فتح قائمة التواصل"}
-          className={`
-            relative w-14 h-14 rounded-full flex items-center justify-center
-            bg-black/60 backdrop-blur-xl border border-white/10
-            text-white hover:text-[#D4AF37] hover:border-[#D4AF37]/50 hover:shadow-[0_0_15px_rgba(212,175,55,0.2)]
-            transition-all duration-300 focus:outline-none
-          `}
-        >
-          <Share2
-            className={`absolute w-6 h-6 transition-all duration-300 ${
-              isSocialOpen ? "rotate-45 scale-0 opacity-0" : "rotate-0 scale-100 opacity-100"
-            }`}
-          />
-          <X
-            className={`absolute w-6 h-6 transition-all duration-300 ${
-              isSocialOpen ? "rotate-0 scale-100 opacity-100" : "-rotate-45 scale-0 opacity-0"
-            }`}
-          />
-        </button>
+        <div className="relative">
+          <button
+            onClick={() => setIsSocialOpen(!isSocialOpen)}
+            aria-label={isSocialOpen ? "إغلاق قائمة التواصل" : "فتح قائمة التواصل"}
+            className={`
+              relative w-14 h-14 rounded-full flex items-center justify-center
+              bg-black/60 backdrop-blur-xl border border-white/10
+              text-white hover:text-[#D4AF37] hover:border-[#D4AF37]/50 hover:shadow-[0_0_15px_rgba(212,175,55,0.2)]
+              transition-all duration-300 focus:outline-none z-10
+            `}
+          >
+            <Share2
+              className={`absolute w-6 h-6 transition-all duration-300 ${
+                isSocialOpen ? "rotate-45 scale-0 opacity-0" : "rotate-0 scale-100 opacity-100"
+              }`}
+            />
+            <X
+              className={`absolute w-6 h-6 transition-all duration-300 ${
+                isSocialOpen ? "rotate-0 scale-100 opacity-100" : "-rotate-45 scale-0 opacity-0"
+              }`}
+            />
+          </button>
+
+          {/* Glassmorphic Tooltip */}
+          {!isSocialOpen && (
+            <div className="hidden sm:flex absolute left-16 top-1/2 -translate-y-1/2 items-center justify-center px-4 py-2 rounded-xl bg-black/60 backdrop-blur-md border border-[#D4AF37]/30 shadow-[0_0_15px_rgba(212,175,55,0.2)] animate-pulse pointer-events-none">
+              <div className="absolute -left-1 top-1/2 -translate-y-1/2 border-y-4 border-y-transparent border-r-4 border-r-[#D4AF37]/30" />
+              <div className="absolute -left-[3px] top-1/2 -translate-y-1/2 border-y-[3px] border-y-transparent border-r-[3px] border-r-black/60 z-10" />
+              <span className="text-[#F3E5AB] text-sm font-semibold tracking-wide whitespace-nowrap">
+                تواصل معنا
+              </span>
+            </div>
+          )}
+        </div>
 
         {/* Dial Items */}
         <div

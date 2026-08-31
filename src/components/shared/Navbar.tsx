@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Menu, Moon, Sun, X } from "lucide-react";
 import { useTheme } from "next-themes";
@@ -47,11 +48,13 @@ export function Navbar() {
         <div className="container mx-auto px-6 h-20 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Link href="/" className="font-extrabold text-2xl tracking-tighter flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-white/5 border border-[#D4AF37]/40 flex items-center justify-center shrink-0">
-                <span className="text-2xl font-serif font-bold bg-clip-text text-transparent bg-gradient-to-b from-[#BF953F] to-[#D4AF37]">
-                  ل
-                </span>
-              </div>
+              <Image 
+                src="/logo.png" 
+                alt="Lamsa Events Logo" 
+                width={40} 
+                height={40} 
+                className="rounded-full border border-[#D4AF37]/40 shrink-0"
+              />
               <span className="flex items-center gap-2">
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#BF953F] to-[#D4AF37]">
                   لمسة
