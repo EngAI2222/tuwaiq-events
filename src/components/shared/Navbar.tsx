@@ -46,15 +46,14 @@ export function Navbar() {
     <>
       <header className="sticky top-0 z-40 w-full border-b border-white/10 bg-[#0f1117]/80 backdrop-blur-xl">
         <div className="container mx-auto px-6 h-20 flex items-center justify-between">
-            <Link href="/" className="flex items-center">
-              <Image 
-                src="/logo.png" 
-                alt="Lamsa Events Logo" 
-                width={64} 
-                height={64} 
-                className="shrink-0 object-contain"
-              />
+          <div className="flex items-center gap-2">
+            <Link href="/" className="font-extrabold text-2xl tracking-tighter flex items-center gap-2">
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#BF953F] to-[#D4AF37]">
+                لمسة
+              </span>
+              <span className="text-white">إيفنس</span>
             </Link>
+          </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-8">
