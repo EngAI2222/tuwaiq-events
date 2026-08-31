@@ -110,7 +110,7 @@ export function Navbar() {
           <div className="lg:hidden flex items-center gap-4">
             <button
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className="p-2 rounded-full text-gray-300 hover:text-white transition-all relative"
+              className="p-2 rounded-full text-gray-300 hover:text-white transition-all relative z-[60]"
               aria-label="تبديل المظهر"
             >
               <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
@@ -118,7 +118,7 @@ export function Navbar() {
             </button>
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="relative z-50 p-2 text-white transition-transform duration-300"
+              className="relative z-[60] p-2 text-white transition-transform duration-300"
               aria-label="القائمة"
             >
               {isMobileMenuOpen ? (
@@ -133,7 +133,7 @@ export function Navbar() {
 
       {/* ── Full-Screen Mobile Menu ─────────────────────────────── */}
       <div
-        className={`fixed inset-0 z-40 bg-black/90 backdrop-blur-2xl transition-all duration-500 ease-in-out lg:hidden flex flex-col justify-center px-8 ${
+        className={`fixed inset-0 z-50 bg-black/95 backdrop-blur-xl transition-all duration-500 ease-in-out lg:hidden flex flex-col justify-center px-8 ${
           isMobileMenuOpen
             ? "opacity-100 pointer-events-auto"
             : "opacity-0 pointer-events-none"
@@ -144,6 +144,7 @@ export function Navbar() {
             <Link
               key={link.href}
               href={link.href}
+              onClick={() => setIsMobileMenuOpen(false)}
               className={`text-3xl font-bold text-center py-4 border-b border-[#D4AF37]/30 transition-all duration-300
                 ${
                   pathname === link.href
@@ -172,13 +173,17 @@ export function Navbar() {
             {!isAuthenticated ? (
               <Link
                 href="/login"
+                onClick={() => setIsMobileMenuOpen(false)}
                 className="w-full text-center px-6 py-4 rounded-full border border-white/20 text-white text-xl font-semibold hover:border-[#D4AF37] hover:bg-white/5 transition-all"
               >
                 تسجيل الدخول
               </Link>
             ) : (
               <button
-                onClick={logout}
+                onClick={() => {
+                  logout();
+                  setIsMobileMenuOpen(false);
+                }}
                 className="w-full text-center px-6 py-4 rounded-full border border-white/20 text-white text-xl font-semibold hover:border-red-500 hover:bg-red-500/10 transition-all"
               >
                 تسجيل الخروج ({user?.name})
@@ -186,6 +191,7 @@ export function Navbar() {
             )}
             <Link
               href="/booking"
+              onClick={() => setIsMobileMenuOpen(false)}
               className="w-full text-center px-6 py-4 rounded-full bg-gradient-to-r from-[#BF953F] to-[#D4AF37] text-black text-xl font-bold hover:shadow-[0_0_20px_rgba(212,175,55,0.4)] transition-all"
             >
               طلب عرض

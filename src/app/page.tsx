@@ -29,7 +29,7 @@ export default function Home() {
         {/* Rich multi-layered gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/50 to-[#0f1117]" aria-hidden />
         
-        <div className="relative z-10 container mx-auto px-6 text-center flex flex-col items-center">
+        <div className="relative z-10 container mx-auto px-4 sm:px-8 text-center flex flex-col items-center">
           <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-[#D4AF37]/40 bg-black/30 backdrop-blur-md text-[#F3E5AB] text-sm font-medium tracking-widest mb-8 uppercase">
             <span className="h-1.5 w-1.5 rounded-full bg-[#D4AF37] animate-pulse" />
             المنصة الأولى لتنظيم المناسبات في السعودية
@@ -42,7 +42,7 @@ export default function Home() {
               تحفة فنية لا تُنسى
             </span>
           </h1>
-          <p className="text-gray-300 text-base sm:text-lg md:text-xl lg:text-2xl font-light max-w-3xl mx-auto mt-6 sm:mt-8 mb-10 sm:mb-12 leading-loose tracking-wide">
+          <p className="text-gray-300 text-sm sm:text-base md:text-lg font-light max-w-3xl mx-auto mt-6 sm:mt-8 mb-10 sm:mb-12 leading-loose tracking-wide">
             نجمع بين الفخامة والذكاء الاصطناعي لتصميم وتجهيز حفلات الزفاف والمناسبات الخاصة بدقة متناهية تعكس ذوقك الرفيع.
           </p>
           
@@ -66,7 +66,7 @@ export default function Home() {
       {/* ══════════════════════════════════════════
           AI FEATURE SECTION (فخامة الذكاء الاصطناعي)
       ══════════════════════════════════════════ */}
-      <section className="relative py-24 bg-[#0f1117] overflow-hidden">
+      <section className="relative py-12 sm:py-24 bg-[#0f1117] overflow-hidden">
         {/* Deep glowing radial gradient */}
         <div 
           className="absolute inset-0 pointer-events-none" 
@@ -74,16 +74,16 @@ export default function Home() {
           aria-hidden
         />
         
-        <div className="relative z-10 container mx-auto px-6 max-w-7xl">
-          <div className="text-center mb-16">
+        <div className="relative z-10 container mx-auto px-4 sm:px-8 max-w-7xl">
+          <div className="text-center mb-12 sm:mb-16">
             <div className="inline-flex items-center justify-center gap-2 px-5 py-2 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-[#D4AF37] text-sm font-bold tracking-wider mb-6 backdrop-blur-sm">
               <Sparkles className="h-4 w-4 animate-pulse" aria-hidden />
               حصرياً لدى لمسة
             </div>
-            <h2 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 text-balance">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 text-balance">
               صمّم مناسبتك بالذكاء الاصطناعي
             </h2>
-            <p className="text-gray-300 text-lg md:text-xl max-w-3xl mx-auto leading-loose tracking-wide">
+            <p className="text-gray-300 text-sm sm:text-base md:text-lg max-w-3xl mx-auto leading-loose tracking-wide">
               لا داعي للحيرة! أدخل تفضيلاتك، ميزانيتك، وعدد ضيوفك، وسيقوم مساعدنا الذكي باقتراح خطة كاملة تشمل الألوان، الديكور، والخدمات المناسبة لك في ثوانٍ.
             </p>
           </div>
@@ -125,16 +125,16 @@ export default function Home() {
       {/* ══════════════════════════════════════════
           WHY CHOOSE US (لماذا تختارنا)
       ══════════════════════════════════════════ */}
-      <section className="py-24 bg-[#0a0c10] relative overflow-hidden">
-        <div className="container mx-auto px-6 max-w-7xl">
-          <div className="text-center mb-16">
+      <section className="py-12 sm:py-24 bg-[#0a0c10] relative overflow-hidden">
+        <div className="container mx-auto px-4 sm:px-8 max-w-7xl">
+          <div className="text-center mb-12 sm:mb-16">
             <p className="text-[#D4AF37] text-sm font-semibold tracking-[0.25em] uppercase mb-3">
               Why Choose Us
             </p>
-            <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-6 text-balance">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white mb-6 text-balance">
               لماذا تختارنا
             </h2>
-            <p className="text-gray-300 text-lg max-w-2xl mx-auto leading-loose tracking-wide">
+            <p className="text-gray-300 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-loose tracking-wide">
               مبادئ راسخة تجعل لمسة إيفنس الخيار الأول لكل من يطلب الأفضل.
             </p>
           </div>
@@ -176,15 +176,15 @@ export default function Home() {
       {/* ══════════════════════════════════════════
           FEATURED SERVICES (خدماتنا المتميزة)
       ══════════════════════════════════════════ */}
-      <section className="py-24 bg-[#0f1117] relative">
-        <div className="container mx-auto px-6 max-w-7xl text-center">
+      <section className="py-12 sm:py-24 bg-[#0f1117] relative">
+        <div className="container mx-auto px-4 sm:px-8 max-w-7xl text-center">
           <p className="text-[#D4AF37] text-sm font-semibold tracking-[0.25em] uppercase mb-3">
             Our Services
           </p>
-          <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-6 text-balance">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white mb-6 text-balance">
             خدماتنا المتميزة
           </h2>
-          <p className="text-gray-300 text-lg max-w-2xl mx-auto mb-16 leading-loose tracking-wide">
+          <p className="text-gray-300 text-sm sm:text-base md:text-lg max-w-2xl mx-auto mb-12 sm:mb-16 leading-loose tracking-wide">
             نقدم مجموعة متكاملة من الخدمات الفاخرة لتغطية كافة احتياجات مناسبتك من الألف إلى الياء.
           </p>
           
