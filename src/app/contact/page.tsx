@@ -37,8 +37,8 @@ const CONTACT_INFO = [
     id: "whatsapp",
     Icon: MessageCircle,
     label: "واتساب",
-    value: "+966 50 000 0000",
-    href: "https://wa.me/966500000000",
+    value: "05774257484",
+    href: "https://wa.me/9665774257484",
     iconColor: "text-emerald-400",
     ringColor: "ring-emerald-500/20",
     glowColor: "from-emerald-500/15 to-green-600/5",
@@ -47,8 +47,8 @@ const CONTACT_INFO = [
     id: "phone",
     Icon: Phone,
     label: "هاتف",
-    value: "+966 50 000 0000",
-    href: "tel:+966500000000",
+    value: "05774257484",
+    href: "tel:+9665774257484",
     iconColor: "text-sky-400",
     ringColor: "ring-sky-500/20",
     glowColor: "from-sky-500/15 to-blue-600/5",
@@ -57,8 +57,8 @@ const CONTACT_INFO = [
     id: "email",
     Icon: Mail,
     label: "البريد الإلكتروني",
-    value: "hello@lamsa-events.sa",
-    href: "mailto:hello@lamsa-events.sa",
+    value: "lamsa.events.sa@gmail.com",
+    href: "mailto:lamsa.events.sa@gmail.com",
     iconColor: "text-amber-400",
     ringColor: "ring-amber-500/20",
     glowColor: "from-amber-500/15 to-yellow-600/5",
@@ -68,7 +68,7 @@ const CONTACT_INFO = [
     Icon: MapPin,
     label: "الموقع",
     value: "شارع العليا، الرياض",
-    href: "https://maps.google.com",
+    href: "https://maps.app.goo.gl/17mBiWJeXtBDCjMF9?g_st=aw",
     iconColor: "text-rose-400",
     ringColor: "ring-rose-500/20",
     glowColor: "from-rose-500/15 to-pink-600/5",
@@ -457,7 +457,7 @@ export default function ContactPage() {
 
               {/* WhatsApp quick CTA */}
               <a
-                href="https://wa.me/966500000000?text=مرحباً، أريد الاستفسار عن خدماتكم"
+                href="https://wa.me/9665774257484"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-3 w-full border-2 border-emerald-500/50 hover:border-emerald-400 text-emerald-400 hover:text-white hover:bg-emerald-500 font-bold text-base py-4 px-8 rounded-2xl hover:-translate-y-1 hover:shadow-[0_0_30px_rgba(34,197,94,0.3)] transition-all duration-300 mt-2"
