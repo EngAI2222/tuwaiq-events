@@ -23,7 +23,7 @@ export default function Home() {
         {/* Background Image */}
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat" 
-          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=2098&auto=format&fit=crop')" }} 
+          style={{ backgroundImage: "url('/hero-bg.jpg')" }} 
           aria-hidden
         />
         {/* Rich multi-layered gradient overlay */}
