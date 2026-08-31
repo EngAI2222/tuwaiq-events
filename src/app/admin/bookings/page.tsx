@@ -13,6 +13,9 @@ export const metadata: Metadata = { title: "Bookings | Lamsa Admin" };
 type Booking = {
   id: string;
   userId?: string | null;
+  clientName?: string | null;
+  phone?: string | null;
+  message?: string | null;
   eventType: string;
   date?: string | null;
   guests?: string | null;
@@ -121,10 +124,12 @@ export default async function AdminBookingsPage() {
           ) : (
 
             <div className="overflow-x-auto">
-              <table className="w-full text-sm min-w-[720px]">
+              <table className="w-full text-sm min-w-[920px]">
                 <thead>
                   <tr className="border-b border-white/[0.07] text-xs text-slate-500 uppercase tracking-wider">
                     <th className="text-left px-5 py-3 font-medium">#</th>
+                    <th className="text-left px-5 py-3 font-medium">Client · الاسم</th>
+                    <th className="text-left px-5 py-3 font-medium">Phone · رقم الجوال</th>
                     <th className="text-left px-5 py-3 font-medium">Event Type</th>
                     <th className="text-left px-5 py-3 font-medium">Event Date</th>
                     <th className="text-left px-5 py-3 font-medium">Guests</th>
@@ -144,15 +149,42 @@ export default async function AdminBookingsPage() {
                       <td className="px-5 py-4 text-slate-500 tabular-nums text-xs">
                         {idx + 1}
                       </td>
-                      {/* Event type */}
+                      {/* Client name */}
                       <td className="px-5 py-4">
                         <span className="text-slate-200 font-medium">
-                          {booking.eventType || "—"}
+                          {booking.clientName || "—"}
                         </span>
                         {booking.userId && (
                           <span className="block text-[10px] text-slate-600 mt-0.5 font-mono">
                             uid: {booking.userId.slice(0, 8)}…
                           </span>
+                        )}
+                      </td>
+                      {/* Phone */}
+                      <td className="px-5 py-4">
+                        {booking.phone ? (
+                          <a
+                            href={`tel:${booking.phone}`}
+                            className="text-amber-400/80 hover:text-amber-300 transition-colors tabular-nums text-xs font-mono"
+                          >
+                            {booking.phone}
+                          </a>
+                        ) : (
+                          <span className="text-slate-600">—</span>
+                        )}
+                      </td>
+                      {/* Event type + notes */}
+                      <td className="px-5 py-4 max-w-[200px]">
+                        <span className="text-slate-200 font-medium">
+                          {booking.eventType || "—"}
+                        </span>
+                        {booking.message && (
+                          <p
+                            className="text-[11px] text-slate-500 mt-0.5 leading-snug line-clamp-2"
+                            title={booking.message}
+                          >
+                            {booking.message}
+                          </p>
                         )}
                       </td>
                       {/* Event date */}

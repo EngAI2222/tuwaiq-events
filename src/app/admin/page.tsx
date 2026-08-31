@@ -10,6 +10,9 @@ import { db } from '@/lib/db';
 type Booking = {
   id: string;
   userId?: string | null;
+  clientName?: string | null;
+  phone?: string | null;
+  message?: string | null;
   eventType: string;
   date?: string | null;
   guests?: string | null;
@@ -191,13 +194,15 @@ export default async function AdminDashboardPage() {
               </p>
             </div>
           ) : (
-            <table className="w-full text-sm">
+            <table className="w-full text-sm min-w-[640px]">
               <thead>
                 <tr className="border-b border-white/[0.07] text-xs text-slate-500 uppercase tracking-wider">
                   <th className="text-left px-5 py-3 font-medium">#</th>
+                  <th className="text-left px-5 py-3 font-medium">Client · الاسم</th>
+                  <th className="text-left px-5 py-3 font-medium hidden sm:table-cell">Phone · رقم الجوال</th>
                   <th className="text-left px-5 py-3 font-medium">Event Type</th>
                   <th className="text-left px-5 py-3 font-medium hidden md:table-cell">Budget</th>
-                  <th className="text-left px-5 py-3 font-medium hidden sm:table-cell">Date</th>
+                  <th className="text-left px-5 py-3 font-medium hidden lg:table-cell">Date</th>
                   <th className="text-left px-5 py-3 font-medium hidden lg:table-cell">Submitted</th>
                   <th className="text-left px-5 py-3 font-medium">Status</th>
                 </tr>
@@ -209,13 +214,43 @@ export default async function AdminDashboardPage() {
                     className="hover:bg-white/[0.02] transition-colors duration-150"
                   >
                     <td className="px-5 py-4 text-slate-500 tabular-nums">{idx + 1}</td>
-                    <td className="px-5 py-4 text-slate-300 max-w-[180px] truncate">
-                      {booking.eventType || '—'}
+                    {/* Client name */}
+                    <td className="px-5 py-4">
+                      <span className="text-slate-200 font-medium">
+                        {booking.clientName || '—'}
+                      </span>
+                    </td>
+                    {/* Phone */}
+                    <td className="px-5 py-4 hidden sm:table-cell">
+                      {booking.phone ? (
+                        <a
+                          href={`tel:${booking.phone}`}
+                          className="text-amber-400/80 hover:text-amber-300 transition-colors tabular-nums text-xs font-mono"
+                        >
+                          {booking.phone}
+                        </a>
+                      ) : (
+                        <span className="text-slate-600">—</span>
+                      )}
+                    </td>
+                    {/* Event type + notes snippet */}
+                    <td className="px-5 py-4 max-w-[180px]">
+                      <span className="text-slate-300 font-medium">
+                        {booking.eventType || '—'}
+                      </span>
+                      {booking.message && (
+                        <p
+                          className="text-[11px] text-slate-500 mt-0.5 leading-snug truncate"
+                          title={booking.message}
+                        >
+                          {booking.message}
+                        </p>
+                      )}
                     </td>
                     <td className="px-5 py-4 text-slate-400 hidden md:table-cell">
                       {booking.budget || '—'}
                     </td>
-                    <td className="px-5 py-4 text-slate-400 hidden sm:table-cell tabular-nums">
+                    <td className="px-5 py-4 text-slate-400 hidden lg:table-cell tabular-nums">
                       {formatDate(booking.date)}
                     </td>
                     <td className="px-5 py-4 text-slate-500 hidden lg:table-cell text-xs tabular-nums">
