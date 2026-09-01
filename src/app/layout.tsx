@@ -14,33 +14,50 @@ const tajawal = Tajawal({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://tuwaiq-events.vercel.app'),
-  title: 'لمسة إيفنس | Lamsa Evens',
-  description: 'لمسة إيفنس لتنظيم الحفلات والمناسبات الفاخرة في الرياض. Lamsa Evens for luxury event and wedding planning in Riyadh, Saudi Arabia.',
-  keywords: ['لمسة إيفنس', 'حفلات لمسة إيفنس', 'حفلات إيفنس', 'منظم حفلات بالرياض', 'تنسيق حفلات زفاف', 'Lamsa Evens', 'Event Planner Riyadh', 'Wedding Planner Saudi Arabia'],
+  metadataBase: new URL("https://lamsa-events.com"),
+  title: {
+    default: "لمسة إيفنس | لتنظيم وتجهيز المناسبات الفاخرة",
+    template: "%s | لمسة إيفنس",
+  },
+  description:
+    "المنصة الأولى لتنظيم المناسبات في السعودية. نجمع بين الفخامة والذكاء الاصطناعي لتصميم وتجهيز حفلات الزفاف والمناسبات الخاصة بدقة متناهية تعكس ذوقك الرفيع.",
+  keywords: [
+    "تنظيم مناسبات",
+    "تنسيق حفلات",
+    "حفلات زفاف",
+    "قاعات أفراح",
+    "لمسة إيفنس",
+    "الرياض",
+    "السعودية",
+    "تصميم مناسبات بالذكاء الاصطناعي",
+    "Lamsa Events",
+  ],
   icons: {
-    icon: '/icon.png',
-    apple: '/icon.png',
+    icon: "/icon.png",
+    apple: "/icon.png",
   },
   openGraph: {
-    title: 'لمسة إيفنس | Lamsa Evens',
-    description: 'لمسة إيفنس لتنظيم الحفلات والمناسبات الفاخرة في الرياض. Lamsa Evens for luxury event and wedding planning in Riyadh, Saudi Arabia.',
-    url: 'https://tuwaiq-events.vercel.app',
-    siteName: 'لمسة إيفنس | Lamsa Evens',
+    title: "لمسة إيفنس | لتنظيم وتجهيز المناسبات الفاخرة",
+    description:
+      "المنصة الأولى لتنظيم المناسبات في السعودية. نجمع بين الفخامة والذكاء الاصطناعي لتصميم وتجهيز حفلات الزفاف والمناسبات الخاصة بدقة متناهية تعكس ذوقك الرفيع.",
+    url: "https://lamsa-events.com",
+    siteName: "لمسة إيفنس",
     images: [
       {
-        url: '/logo.jpeg',
-        width: 800,
-        height: 600,
+        url: "/hero-bg.jpg",
+        width: 1200,
+        height: 630,
       },
     ],
-    locale: 'ar_SA',
-    type: 'website',
+    locale: "ar_SA",
+    type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: 'لمسة إيفنس | Lamsa Evens',
-    description: 'لمسة إيفنس لتنظيم الحفلات والمناسبات الفاخرة في الرياض. Lamsa Evens for luxury event and wedding planning in Riyadh, Saudi Arabia.',
+    title: "لمسة إيفنس | لتنظيم وتجهيز المناسبات الفاخرة",
+    description:
+      "المنصة الأولى لتنظيم المناسبات في السعودية. نجمع بين الفخامة والذكاء الاصطناعي لتصميم وتجهيز حفلات الزفاف والمناسبات الخاصة بدقة متناهية تعكس ذوقك الرفيع.",
+    images: ["/hero-bg.jpg"],
   },
 };
 

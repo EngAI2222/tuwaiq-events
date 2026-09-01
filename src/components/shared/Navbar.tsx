@@ -44,7 +44,7 @@ export function Navbar() {
 
   return (
     <>
-      <header className="sticky top-0 z-40 w-full border-b border-white/10 bg-[#0f1117]/80 backdrop-blur-xl">
+      <header className="sticky top-0 z-[110] w-full border-b border-white/10 bg-[#0f1117]/80 backdrop-blur-xl">
         <div className="container mx-auto px-6 h-20 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Link href="/" className="font-extrabold text-2xl tracking-tighter flex items-center gap-2">
@@ -118,7 +118,7 @@ export function Navbar() {
             </button>
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="relative z-[60] p-2 text-white transition-transform duration-300"
+              className="relative z-[105] p-2 text-white transition-transform duration-300"
               aria-label="القائمة"
             >
               {isMobileMenuOpen ? (
@@ -133,46 +133,28 @@ export function Navbar() {
 
       {/* ── Full-Screen Mobile Menu ─────────────────────────────── */}
       <div
-        className={`fixed inset-0 z-50 bg-black/95 backdrop-blur-xl transition-all duration-500 ease-in-out lg:hidden flex flex-col justify-center px-8 ${isMobileMenuOpen
+        className={`fixed inset-0 z-[100] bg-black/98 backdrop-blur-xl transition-all duration-500 ease-in-out lg:hidden ${isMobileMenuOpen
           ? "opacity-100 pointer-events-auto"
           : "opacity-0 pointer-events-none"
           }`}
       >
-        <div className="flex flex-col gap-6 w-full max-w-md mx-auto">
-          {navLinks.map((link, index) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              onClick={() => setIsMobileMenuOpen(false)}
-              className={`text-3xl font-bold text-center py-4 border-b border-[#D4AF37]/30 transition-all duration-300
-                ${pathname === link.href
-                  ? "text-[#D4AF37] border-[#D4AF37]"
-                  : "text-white/80 hover:text-white"
-                }
-              `}
-              style={{
-                transitionDelay: isMobileMenuOpen ? `${index * 50}ms` : "0ms",
-                transform: isMobileMenuOpen ? "translateY(0)" : "translateY(20px)",
-                opacity: isMobileMenuOpen ? 1 : 0,
-              }}
-            >
-              {link.name}
-            </Link>
-          ))}
-
+        <div className="h-full overflow-y-auto pb-32 pt-28 px-6 flex flex-col justify-start w-full max-w-md mx-auto no-scrollbar">
+          {/* Action Buttons at the Top */}
           <div
-            className="flex flex-col gap-4 mt-8"
+            className="flex flex-col gap-3 mb-8 w-full px-4"
             style={{
-              transitionDelay: isMobileMenuOpen ? `${navLinks.length * 50}ms` : "0ms",
+              transitionDelay: isMobileMenuOpen ? "50ms" : "0ms",
               transform: isMobileMenuOpen ? "translateY(0)" : "translateY(20px)",
               opacity: isMobileMenuOpen ? 1 : 0,
+              transitionProperty: "all",
+              transitionDuration: "300ms",
             }}
           >
             {!isAuthenticated ? (
               <Link
                 href="/login"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="w-full text-center px-6 py-4 rounded-full border border-white/20 text-white text-xl font-semibold hover:border-[#D4AF37] hover:bg-white/5 transition-all"
+                className="w-full text-center px-6 py-4 rounded-full border border-white/20 text-white text-lg font-semibold hover:border-[#D4AF37] hover:bg-white/5 transition-all"
               >
                 تسجيل الدخول
               </Link>
@@ -182,7 +164,7 @@ export function Navbar() {
                   logout();
                   setIsMobileMenuOpen(false);
                 }}
-                className="w-full text-center px-6 py-4 rounded-full border border-white/20 text-white text-xl font-semibold hover:border-red-500 hover:bg-red-500/10 transition-all"
+                className="w-full text-center px-6 py-4 rounded-full border border-white/20 text-white text-lg font-semibold hover:border-red-500 hover:bg-red-500/10 transition-all"
               >
                 تسجيل الخروج ({user?.name})
               </button>
@@ -190,10 +172,34 @@ export function Navbar() {
             <Link
               href="/booking"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="w-full text-center px-6 py-4 rounded-full bg-gradient-to-r from-[#BF953F] to-[#D4AF37] text-black text-xl font-bold hover:shadow-[0_0_20px_rgba(212,175,55,0.4)] transition-all"
+              className="w-full text-center px-6 py-4 rounded-full bg-gradient-to-r from-[#BF953F] to-[#D4AF37] text-black text-lg font-bold hover:shadow-[0_0_20px_rgba(212,175,55,0.4)] transition-all"
             >
               طلب عرض
             </Link>
+          </div>
+
+          {/* Navigation Links */}
+          <div className="flex flex-col gap-2">
+            {navLinks.map((link, index) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={`text-3xl font-bold text-center py-4 border-b border-[#D4AF37]/30 transition-all duration-300
+                  ${pathname === link.href
+                    ? "text-[#D4AF37] border-[#D4AF37]"
+                    : "text-white/80 hover:text-white"
+                  }
+                `}
+                style={{
+                  transitionDelay: isMobileMenuOpen ? `${(index + 2) * 50}ms` : "0ms",
+                  transform: isMobileMenuOpen ? "translateY(0)" : "translateY(20px)",
+                  opacity: isMobileMenuOpen ? 1 : 0,
+                }}
+              >
+                {link.name}
+              </Link>
+            ))}
           </div>
         </div>
       </div>
