@@ -134,8 +134,8 @@ export function Navbar() {
       {/* ── Full-Screen Mobile Menu ─────────────────────────────── */}
       <div
         className={`fixed inset-0 z-50 bg-black/95 backdrop-blur-xl transition-all duration-500 ease-in-out lg:hidden flex flex-col justify-center px-8 ${isMobileMenuOpen
-            ? "opacity-100 pointer-events-auto"
-            : "opacity-0 pointer-events-none"
+          ? "opacity-100 pointer-events-auto"
+          : "opacity-0 pointer-events-none"
           }`}
       >
         <div className="flex flex-col gap-6 w-full max-w-md mx-auto">
