@@ -465,8 +465,7 @@ export default function ContactPage() {
                         {href ? (
                           <a
                             href={href}
-                            target="_blank"
-                            rel="noopener noreferrer"
+                            {...(href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                             className="text-sm md:text-base font-semibold hover:text-[#D4AF37] transition-colors duration-200"
                           >
                             {value}

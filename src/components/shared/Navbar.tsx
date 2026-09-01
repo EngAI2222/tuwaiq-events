@@ -78,26 +78,7 @@ export function Navbar() {
               <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
               <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 top-2.5 left-2.5" />
             </button>
-            {!isAuthenticated ? (
-              <Link
-                href="/login"
-                className="px-6 py-2.5 rounded-full border border-white/20 text-white text-sm font-semibold hover:border-[#D4AF37] hover:bg-white/5 transition-all"
-              >
-                تسجيل الدخول
-              </Link>
-            ) : (
-              <div className="flex items-center gap-4">
-                <span className="text-sm font-bold text-[#D4AF37]">
-                  أهلاً، {user?.name}
-                </span>
-                <button
-                  onClick={logout}
-                  className="px-6 py-2.5 rounded-full border border-white/20 text-white text-sm font-semibold hover:border-red-500 hover:bg-red-500/10 hover:text-red-400 transition-all"
-                >
-                  خروج
-                </button>
-              </div>
-            )}
+
             <Link
               href="/booking"
               className="px-6 py-2.5 rounded-full bg-gradient-to-r from-[#BF953F] to-[#D4AF37] text-black text-sm font-bold hover:shadow-[0_0_20px_rgba(212,175,55,0.4)] hover:scale-105 transition-all"
@@ -171,25 +152,7 @@ export function Navbar() {
             
             {/* Action Buttons at the Top */}
             <div className="flex flex-col gap-3 mb-8 w-full">
-              {!isAuthenticated ? (
-                <Link
-                  href="/login"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="w-full text-center px-6 py-3.5 rounded-full border border-gray-200 text-gray-800 text-sm font-semibold hover:border-[#D4AF37] hover:bg-gray-50 transition-all"
-                >
-                  تسجيل الدخول
-                </Link>
-              ) : (
-                <button
-                  onClick={() => {
-                    logout();
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className="w-full text-center px-6 py-3.5 rounded-full border border-gray-200 text-gray-800 text-sm font-semibold hover:border-red-500 hover:bg-red-50 hover:text-red-600 transition-all"
-                >
-                  تسجيل الخروج ({user?.name})
-                </button>
-              )}
+
               <Link
                 href="/booking"
                 onClick={() => setIsMobileMenuOpen(false)}
