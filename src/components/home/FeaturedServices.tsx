@@ -36,9 +36,12 @@ export function FeaturedServices() {
     db.service.findMany().then((data: any[]) => {
       if (data && data.length > 0) {
         setServices(data.slice(0, 4));
+      } else {
+        setServices(MOCK_SERVICES);
       }
     }).catch((err) => {
       console.error("Error fetching featured services:", err);
+      setServices(MOCK_SERVICES);
     });
   }, []);
 
@@ -51,7 +54,7 @@ export function FeaturedServices() {
           className="group relative block rounded-2xl sm:rounded-3xl overflow-hidden border border-white/10 hover:border-[#D4AF37]/50 hover:shadow-[0_0_40px_rgba(212,175,55,0.15)] transition-all duration-500 h-[280px] md:h-[450px]"
         >
           <Image 
-            src={service.imageURL || "https://lams-event.com/images/1.jpeg"} 
+            src={service.imageURL || service.image || "https://lams-event.com/images/1.jpeg"} 
             alt={service.title} 
             fill 
             className="object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out" 
@@ -66,7 +69,7 @@ export function FeaturedServices() {
               {service.title}
             </h3>
             <p className="text-gray-300 text-sm md:text-base leading-loose max-w-md line-clamp-2">
-              {service.description || "استكشف تفاصيل هذه الخدمة الفاخرة لتجعل مناسبتك استثنائية."}
+              {service.description || service.desc || "استكشف تفاصيل هذه الخدمة الفاخرة لتجعل مناسبتك استثنائية."}
             </p>
             
             <div className="mt-6 flex items-center gap-2 text-[#D4AF37] opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 font-semibold text-sm tracking-wide">
