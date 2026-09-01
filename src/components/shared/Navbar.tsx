@@ -206,10 +206,10 @@ export function Navbar() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className={`text-base font-medium py-2 transition-colors border-b border-gray-50 last:border-0
+                  className={`text-lg font-bold py-2 transition-colors border-b border-gray-50 last:border-0
                     ${pathname === link.href
                       ? "text-[#D4AF37]"
-                      : "text-gray-800 hover:text-[#D4AF37]"
+                      : "text-gray-900 hover:text-[#D4AF37]"
                     }
                   `}
                 >
@@ -220,25 +220,25 @@ export function Navbar() {
 
             {/* Contact Info Footer */}
             <div className="mt-auto pt-8">
-              <div className="border-t border-gray-100 my-6" />
+              <div className="border-t border-gray-200 my-4" />
               <div className="flex flex-col gap-4">
                 <div className="flex items-center gap-3">
                   <div className="flex items-center justify-center h-8 w-8 rounded-full bg-gray-50 text-gray-500">
                     <MapPin className="h-4 w-4" />
                   </div>
-                  <span className="text-sm text-gray-600">الرياض، المملكة العربية السعودية</span>
+                  <span className="text-sm text-gray-600">العنوان: الرياض، المملكة العربية السعودية</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="flex items-center justify-center h-8 w-8 rounded-full bg-gray-50 text-gray-500">
                     <Mail className="h-4 w-4" />
                   </div>
-                  <span className="text-sm text-gray-600" dir="ltr">info@lamsa-events.com</span>
+                  <span className="text-sm text-gray-600" dir="ltr">البريد الإلكتروني: info@lamsa-events.com</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="flex items-center justify-center h-8 w-8 rounded-full bg-gray-50 text-gray-500">
                     <Phone className="h-4 w-4" />
                   </div>
-                  <span className="text-sm text-gray-600" dir="ltr">057 425 7484</span>
+                  <span className="text-sm text-gray-600" dir="ltr">الهاتف: 057 425 7484</span>
                 </div>
               </div>
 
