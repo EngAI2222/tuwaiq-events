@@ -194,6 +194,7 @@ export default function ContactPage() {
   });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [countryCode, setCountryCode] = useState("+966");
 
   const set = (key: keyof FormState) => (v: string) =>
     setForm((f) => ({ ...f, [key]: v }));
@@ -205,7 +206,7 @@ export default function ContactPage() {
       const res = await fetch("/api/bookings", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, phone: `${countryCode}${form.phone}` }),
       });
 
       if (!res.ok) throw new Error("Failed to submit");
@@ -324,14 +325,40 @@ export default function ContactPage() {
                       onChange={set("name")}
                       required
                     />
-                    <FloatingInput
-                      id="contact-phone"
-                      label="رقم الجوال"
-                      type="tel"
-                      value={form.phone}
-                      onChange={set("phone")}
-                      required
-                    />
+                    <div className="flex gap-2" dir="ltr">
+                      <select 
+                        value={countryCode} 
+                        onChange={(e) => setCountryCode(e.target.value)}
+                        className="h-[60px] w-[100px] bg-white/5 rounded-2xl px-2 border border-border/60 text-sm focus:outline-none focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 text-center text-foreground appearance-none [&>option]:bg-[#0f1117] cursor-pointer"
+                      >
+                        <option value="+966">+966 🇸🇦</option>
+                        <option value="+971">+971 🇦🇪</option>
+                        <option value="+965">+965 🇰🇼</option>
+                        <option value="+973">+973 🇧🇭</option>
+                        <option value="+974">+974 🇶🇦</option>
+                        <option value="+968">+968 🇴🇲</option>
+                      </select>
+                      <div className="relative flex-1">
+                        <input
+                          id="contact-phone"
+                          type="tel"
+                          value={form.phone}
+                          required
+                          onChange={(e) => set("phone")(e.target.value.replace(/^0+/, ''))}
+                          className="peer w-full px-5 pt-6 pb-2.5 rounded-2xl bg-white/5 border border-border/60 focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 text-foreground placeholder-transparent outline-none transition-all duration-300 backdrop-blur-sm text-sm"
+                          placeholder="رقم الجوال"
+                          dir="ltr"
+                        />
+                        <label
+                          htmlFor="contact-phone"
+                          className={`absolute left-5 pointer-events-none text-muted-foreground transition-all duration-200 ${
+                            form.phone.length > 0 ? "top-2 text-xs text-[#D4AF37]" : "top-4 text-sm"
+                          }`}
+                        >
+                          رقم الجوال
+                        </label>
+                      </div>
+                    </div>
                     <FloatingInput
                       id="contact-date"
                       label="تاريخ المناسبة"

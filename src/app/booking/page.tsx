@@ -16,6 +16,7 @@ function BookingForm() {
   const preSelectedService = searchParams.get("service") || "تنسيق حفلة زفاف";
   
   const [clientName, setClientName] = useState("");
+  const [countryCode, setCountryCode] = useState("+966");
   const [phone, setPhone] = useState("");
   const [eventType, setEventType] = useState(preSelectedService);
   const [date, setDate] = useState("");
@@ -34,7 +35,7 @@ function BookingForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           clientName,
-          phone,
+          phone: `${countryCode}${phone}`,
           eventType,
           date,
           guests,
@@ -100,16 +101,31 @@ function BookingForm() {
             </div>
             <div className="space-y-2">
               <Label>رقم التواصل</Label>
-              <div className="relative">
-                <Phone className="absolute right-3 top-3.5 h-5 w-5 text-muted-foreground" />
-                <Input
-                  type="tel"
-                  placeholder="05XXXXXXXX"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  className="h-12 pr-10 bg-muted/50 rounded-xl"
-                  required
-                />
+              <div className="flex gap-2" dir="ltr">
+                <select 
+                  value={countryCode} 
+                  onChange={(e) => setCountryCode(e.target.value)}
+                  className="h-12 w-[100px] bg-muted/50 rounded-xl px-2 border border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 appearance-none text-center cursor-pointer"
+                >
+                  <option value="+966">+966 🇸🇦</option>
+                  <option value="+971">+971 🇦🇪</option>
+                  <option value="+965">+965 🇰🇼</option>
+                  <option value="+973">+973 🇧🇭</option>
+                  <option value="+974">+974 🇶🇦</option>
+                  <option value="+968">+968 🇴🇲</option>
+                </select>
+                <div className="relative flex-1">
+                  <Phone className="absolute left-3 top-3.5 h-5 w-5 text-muted-foreground" />
+                  <Input
+                    type="tel"
+                    placeholder="5XXXXXXXX"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value.replace(/^0+/, ''))}
+                    className="h-12 pl-10 bg-muted/50 rounded-xl text-left"
+                    required
+                    dir="ltr"
+                  />
+                </div>
               </div>
             </div>
           </div>
