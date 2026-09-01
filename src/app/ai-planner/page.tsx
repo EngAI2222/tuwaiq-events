@@ -23,7 +23,7 @@ export default function AIPlannerPage() {
   const handleGenerate = async () => {
     setIsGenerating(true);
     try {
-      const res = await fetch("/api/ai-planner", {
+      const res = await fetch("/api/planner", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ eventType, city, guests, budget, theme }),
@@ -34,11 +34,10 @@ export default function AIPlannerPage() {
       console.error("Failed to fetch AI plan:", error);
       // Fallback in case of absolute network failure
       setPlan({
-        theme: theme || "ملكي فاخر",
+        suggestedTheme: theme || "ملكي فاخر",
         colors: ["#D4AF37", "#002B5B", "#FDFBF7"],
-        budget: budget ? `${budget} ريال` : "حسب الاختيار",
-        services: ["تنسيق شامل للمناسبة", "استقبال VIP"],
-        timeline: [{ time: "08:00 م", desc: "استقبال الضيوف" }]
+        estimatedCost: budget ? `${budget} ريال` : "حسب الاختيار",
+        equipment: ["تنسيق شامل للمناسبة", "استقبال VIP", "إضاءة متقدمة", "منصة عرض", "تنسيق أزهار طبيعية"]
       });
     } finally {
       setIsGenerating(false);
@@ -236,7 +235,7 @@ export default function AIPlannerPage() {
                     <div className="space-y-8 p-6 bg-card border rounded-3xl shadow-sm">
                       <div>
                         <h3 className="font-bold text-sm uppercase tracking-wider mb-2 text-muted-foreground">الطابع المقترح</h3>
-                        <p className="text-3xl font-bold text-primary">{plan.theme}</p>
+                        <p className="text-3xl font-bold text-primary">{plan.suggestedTheme}</p>
                       </div>
                       
                       <div>
@@ -250,7 +249,7 @@ export default function AIPlannerPage() {
 
                       <div>
                         <h3 className="font-bold text-sm uppercase tracking-wider mb-2 text-muted-foreground">التكلفة التقديرية</h3>
-                        <p className="text-3xl font-black">{plan.budget}</p>
+                        <p className="text-3xl font-black">{plan.estimatedCost}</p>
                       </div>
                     </div>
 
@@ -260,7 +259,7 @@ export default function AIPlannerPage() {
                         أبرز التجهيزات
                       </h3>
                       <ul className="space-y-4">
-                        {plan.services.map((s: string, i: number) => (
+                        {plan.equipment.map((s: string, i: number) => (
                           <li key={i} className="flex items-start gap-3">
                             <CheckCircle2 className="w-6 h-6 text-primary shrink-0" />
                             <span className="font-medium text-lg leading-snug">{s}</span>
