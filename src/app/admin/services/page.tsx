@@ -21,10 +21,14 @@ type Service = {
 };
 
 const SERVICE_CATEGORIES = [
+  "كوش الأفراح",
+  "طاولات وضيافة",
+  "إضاءة وصوتيات",
+  "جلسات ملكية",
+  "تنسيق زهور",
+  "تصميم بالذكاء الاصطناعي",
   "حفلات زفاف",
-  "ديكور وتنسيق",
   "مؤتمرات وشركات",
-  "ليالي الملكة",
   "أخرى",
 ];
 
@@ -193,13 +197,17 @@ export default function AdminServicesPage() {
             </div>
             <div className="space-y-1.5">
               <label className="text-xs text-slate-400 font-medium">Category</label>
-              <select
-                value={category} onChange={(e) => setCategory(e.target.value)}
+              <input
+                list="service-categories"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                placeholder="Select or type a category..."
                 className="w-full h-10 px-3 rounded-xl bg-white/[0.05] border border-white/[0.08]
                   text-white text-sm focus:outline-none focus:border-sky-500/50 transition-colors"
-              >
-                {SERVICE_CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
-              </select>
+              />
+              <datalist id="service-categories">
+                {SERVICE_CATEGORIES.map((c) => <option key={c} value={c} />)}
+              </datalist>
             </div>
             <div className="space-y-1.5">
               <label className="text-xs text-slate-400 font-medium">Starting Price</label>

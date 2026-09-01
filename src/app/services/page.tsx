@@ -1,16 +1,13 @@
-import type { Metadata } from "next";
+"use client";
+
+export const dynamic = "force-dynamic";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, Sparkles } from "lucide-react";
 import { db } from "@/lib/db";
-
-export const dynamic = "force-dynamic";
-
-export const metadata: Metadata = {
-  title: "الخدمات | لمسة إيفنس",
-  description:
-    "استكشف خدمات لمسة إيفنس الفاخرة: كوش الأفراح، طاولات VIP، جلوس ملكي، أنظمة صوت وإضاءة، وتصميم المناسبات بالذكاء الاصطناعي.",
-};
+import { motion, AnimatePresence } from "framer-motion";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -36,6 +33,18 @@ function GoldDivider() {
   );
 }
 
+// ─── Category filter list (dynamically built from data + static set) ──────────
+
+const STATIC_CATEGORIES = [
+  "الكل",
+  "كوش الأفراح",
+  "طاولات وضيافة",
+  "إضاءة وصوتيات",
+  "جلسات ملكية",
+  "تنسيق زهور",
+  "تصميم بالذكاء الاصطناعي",
+];
+
 // ─── Service Card ─────────────────────────────────────────────────────────────
 
 function ServiceCard({ service, tall = false }: { service: Service; tall?: boolean }) {
@@ -45,7 +54,7 @@ function ServiceCard({ service, tall = false }: { service: Service; tall?: boole
     <article
       className={`group relative flex flex-col gap-5 rounded-3xl bg-card border overflow-hidden
         transition-all duration-500 hover:-translate-y-2 cursor-pointer
-        ring-1 ring-border/50 hover:ring-[#D4AF37]/40 hover:shadow-2xl
+        ring-1 ring-border/50 hover:ring-[#D4AF37]/40 hover:shadow-2xl h-full
         ${tall ? "md:min-h-[320px]" : "md:min-h-[280px]"}`}
     >
       {/* Gold top border */}
@@ -56,7 +65,7 @@ function ServiceCard({ service, tall = false }: { service: Service; tall?: boole
 
       {/* Cover image (if set) */}
       {imageURL && (
-        <div className="relative w-full h-48 overflow-hidden">
+        <div className="relative w-full h-48 overflow-hidden shrink-0">
           <Image
             src={imageURL}
             alt={title}
@@ -83,7 +92,7 @@ function ServiceCard({ service, tall = false }: { service: Service; tall?: boole
       </div>
 
       {/* Footer */}
-      <div className="relative z-10 flex items-center justify-between px-4 sm:px-6 pb-4 sm:pb-6 pt-2 border-t border-border/50 mt-auto">
+      <div className="relative z-10 flex items-center justify-between px-4 sm:px-6 pb-4 sm:pb-6 pt-2 border-t border-border/50 mt-auto shrink-0">
         <span className="text-xs sm:text-sm font-semibold text-[#D4AF37]">{price || "حسب الطلب"}</span>
         <Link
           href={`/booking?service=${encodeURIComponent(title)}`}
@@ -101,16 +110,40 @@ function ServiceCard({ service, tall = false }: { service: Service; tall?: boole
 
 function EmptyServices() {
   return (
-    <div className="py-8 sm:py-12 md:py-24 text-center text-muted-foreground">
-      <p className="text-xl font-light">سيتم إضافة الخدمات قريباً.</p>
+    <div className="py-8 sm:py-12 md:py-24 text-center text-muted-foreground col-span-full">
+      <p className="text-xl font-light">لا توجد خدمات متاحة حالياً في هذا القسم.</p>
     </div>
   );
 }
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
-export default async function ServicesPage() {
-  const services: Service[] = await db.service.findMany();
+export default function ServicesPage() {
+  const [services, setServices] = useState<Service[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [activeCategory, setActiveCategory] = useState("الكل");
+
+  useEffect(() => {
+    db.service.findMany().then((data) => {
+      setServices(data as Service[]);
+      setLoading(false);
+    });
+  }, []);
+
+  const categories = [
+    "الكل",
+    ...Array.from(
+      new Set([
+        ...STATIC_CATEGORIES.slice(1),
+        ...services.map((s) => s.category).filter(Boolean),
+      ])
+    ),
+  ];
+
+  const filtered =
+    activeCategory === "الكل"
+      ? services
+      : services.filter((s) => s.category === activeCategory);
 
   return (
     <div className="flex flex-col min-h-screen overflow-x-hidden">
@@ -161,6 +194,33 @@ export default async function ServicesPage() {
       </section>
 
       {/* ══════════════════════════════
+          FILTERS
+      ══════════════════════════════ */}
+      <section className="py-10 bg-background sticky top-16 z-20 border-b border-border/50 backdrop-blur-md bg-background/80">
+        <div className="container mx-auto px-6">
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            {categories.map((cat) => {
+              const isActive = activeCategory === cat;
+              return (
+                <button
+                  key={cat}
+                  onClick={() => setActiveCategory(cat)}
+                  className={`px-6 py-2.5 rounded-full text-sm font-bold tracking-wide transition-all duration-300
+                    ${
+                      isActive
+                        ? "bg-[#D4AF37] text-black shadow-[0_0_20px_rgba(212,175,55,0.4)] scale-105"
+                        : "bg-card/60 border border-border/60 backdrop-blur-sm text-muted-foreground hover:border-[#D4AF37]/50 hover:text-foreground hover:bg-card"
+                    }`}
+                >
+                  {cat}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════
           SERVICES GRID
       ══════════════════════════════ */}
       <section className="py-8 sm:py-12 md:py-24 bg-background relative overflow-hidden">
@@ -175,25 +235,37 @@ export default async function ServicesPage() {
         />
 
         <div className="relative z-10 container mx-auto px-6 max-w-7xl">
-          {services.length === 0 ? (
-            <EmptyServices />
+          {loading ? (
+            <div className="grid grid-cols-2 gap-3 md:gap-6 md:grid-cols-3">
+              {Array.from({ length: 4 }).map((_, i) => (
+                <div
+                  key={i}
+                  className="rounded-3xl bg-card/50 border border-border/30 animate-pulse min-h-[280px]"
+                />
+              ))}
+            </div>
           ) : (
-            <>
-              {/* First row: 2 wide cards */}
-              <div className="grid grid-cols-2 gap-3 md:gap-6 md:grid-cols-2 mb-6">
-                {services.slice(0, 2).map((s) => (
-                  <ServiceCard key={s.id} service={s} tall />
-                ))}
-              </div>
-              {/* Remaining cards */}
-              {services.length > 2 && (
-                <div className="grid grid-cols-2 gap-3 md:gap-6 md:grid-cols-3">
-                  {services.slice(2).map((s) => (
-                    <ServiceCard key={s.id} service={s} />
-                  ))}
-                </div>
-              )}
-            </>
+            <motion.div layout className="grid grid-cols-2 gap-3 md:gap-6 md:grid-cols-3">
+              <AnimatePresence mode="popLayout">
+                {filtered.length === 0 ? (
+                  <EmptyServices key="empty" />
+                ) : (
+                  filtered.map((s, idx) => (
+                    <motion.div
+                      key={s.id}
+                      layout
+                      initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                      animate={{ opacity: 1, scale: 1, y: 0 }}
+                      exit={{ opacity: 0, scale: 0.85, y: -10 }}
+                      transition={{ duration: 0.4, type: "spring", bounce: 0.2 }}
+                      className={idx < 2 && activeCategory === "الكل" ? "col-span-1 md:col-span-1" : ""}
+                    >
+                      <ServiceCard service={s} tall={idx < 2 && activeCategory === "الكل"} />
+                    </motion.div>
+                  ))
+                )}
+              </AnimatePresence>
+            </motion.div>
           )}
         </div>
       </section>

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { db } from "@/lib/db";
 import { 
   Sparkles, 
   Calendar, 
@@ -13,7 +14,36 @@ import {
   Eye 
 } from "lucide-react";
 
-export default function Home() {
+export const dynamic = "force-dynamic";
+
+export default async function Home() {
+  const dbServices = await db.service.findMany();
+  
+  const MOCK_SERVICES = [
+    {
+      title: "كوش الأفراح",
+      description: "تصاميم كوش فريدة وعصرية تناسب مختلف الأذواق مع إضاءة مدروسة وزهور طبيعية.",
+      imageURL: "https://lams-event.com/images/1.jpeg"
+    },
+    {
+      title: "طاولات عشاء وضيافة",
+      description: "تنسيق طاولات ولائم لكبار الشخصيات مع أرقى أنواع الشراشف وأطقم الضيافة.",
+      imageURL: "https://lams-event.com/images/2.jpeg"
+    },
+    {
+      title: "جلوس ملكي و VIP",
+      description: "كنب فاخر وجلسات ملكية مريحة تعكس فخامة استقبالك لضيوفك المميزين.",
+      imageURL: "https://lams-event.com/images/3.jpeg"
+    },
+    {
+      title: "إضاءة وصوتيات",
+      description: "تأجير وتركيب أنظمة إضاءة متطورة وسماعات عالية الجودة تناسب حجم القاعة.",
+      imageURL: "https://lams-event.com/images/4.jpeg"
+    }
+  ];
+
+  const displayServices = dbServices.length > 0 ? dbServices.slice(0, 4) : MOCK_SERVICES;
+
   return (
     <div className="flex flex-col min-h-screen bg-[#0f1117] overflow-x-hidden">
       {/* ══════════════════════════════════════════
@@ -189,35 +219,14 @@ export default function Home() {
           </p>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 text-start">
-            {[
-              {
-                title: "كوش الأفراح",
-                desc: "تصاميم كوش فريدة وعصرية تناسب مختلف الأذواق مع إضاءة مدروسة وزهور طبيعية.",
-                image: "https://lams-event.com/images/1.jpeg"
-              },
-              {
-                title: "طاولات عشاء وضيافة",
-                desc: "تنسيق طاولات ولائم لكبار الشخصيات مع أرقى أنواع الشراشف وأطقم الضيافة.",
-                image: "https://lams-event.com/images/2.jpeg"
-              },
-              {
-                title: "جلوس ملكي و VIP",
-                desc: "كنب فاخر وجلسات ملكية مريحة تعكس فخامة استقبالك لضيوفك المميزين.",
-                image: "https://lams-event.com/images/3.jpeg"
-              },
-              {
-                title: "إضاءة وصوتيات",
-                desc: "تأجير وتركيب أنظمة إضاءة متطورة وسماعات عالية الجودة تناسب حجم القاعة.",
-                image: "https://lams-event.com/images/4.jpeg"
-              }
-            ].map((service, i) => (
+            {displayServices.map((service: any, i: number) => (
               <Link 
                 href="/services" 
                 key={i} 
                 className="group relative block rounded-2xl sm:rounded-3xl overflow-hidden border border-white/10 hover:border-[#D4AF37]/50 hover:shadow-[0_0_40px_rgba(212,175,55,0.15)] transition-all duration-500 h-[280px] md:h-[450px]"
               >
                 <Image 
-                  src={service.image} 
+                  src={service.imageURL || "https://lams-event.com/images/1.jpeg"} 
                   alt={service.title} 
                   fill 
                   className="object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out" 
@@ -231,8 +240,8 @@ export default function Home() {
                   <h3 className="text-2xl md:text-3xl font-bold text-white mb-3 group-hover:text-[#D4AF37] transition-colors duration-300">
                     {service.title}
                   </h3>
-                  <p className="text-gray-300 text-sm md:text-base leading-loose max-w-md">
-                    {service.desc}
+                  <p className="text-gray-300 text-sm md:text-base leading-loose max-w-md line-clamp-2">
+                    {service.description || "استكشف تفاصيل هذه الخدمة الفاخرة لتجعل مناسبتك استثنائية."}
                   </p>
                   
                   <div className="mt-6 flex items-center gap-2 text-[#D4AF37] opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 font-semibold text-sm tracking-wide">
