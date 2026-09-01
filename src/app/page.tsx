@@ -10,8 +10,7 @@ import {
   Gem, 
   Palette, 
   ShieldCheck, 
-  Clock, 
-  Eye 
+  Clock
 } from "lucide-react";
 
 export default function Home() {
@@ -65,18 +64,51 @@ export default function Home() {
       </section>
 
       {/* ══════════════════════════════════════════
+          FEATURED SERVICES (خدماتنا المتميزة)
+      ══════════════════════════════════════════ */}
+      <section className="py-12 sm:py-16 md:py-24 bg-[#0f1117] relative">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 text-center">
+          <p className="text-[#D4AF37] text-sm font-semibold tracking-[0.25em] uppercase mb-3">
+            Our Services
+          </p>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white mb-6 text-balance">
+            خدماتنا المتميزة
+          </h2>
+          <p className="text-gray-300 text-sm sm:text-base md:text-lg max-w-2xl mx-auto mb-10 sm:mb-16 leading-loose tracking-wide">
+            نقدم مجموعة متكاملة من الخدمات الفاخرة لتغطية كافة احتياجات مناسبتك من الألف إلى الياء.
+          </p>
+          
+          <FeaturedServices />
+          
+          <div className="mt-12 sm:mt-16">
+            <Link 
+              href="/services" 
+              className="inline-block bg-white/5 backdrop-blur-md border border-white/20 hover:border-[#D4AF37] text-white font-semibold text-lg py-4 px-10 rounded-full hover:bg-white/10 hover:-translate-y-1 transition-all duration-300"
+            >
+              عرض جميع الخدمات
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Luxury Divider */}
+      <div className="w-full flex items-center justify-center py-4 bg-[#0f1117]">
+        <div className="w-full max-w-4xl h-px bg-gradient-to-r from-transparent via-[#D4AF37]/30 to-transparent" aria-hidden />
+      </div>
+
+      {/* ══════════════════════════════════════════
           AI FEATURE SECTION (فخامة الذكاء الاصطناعي)
       ══════════════════════════════════════════ */}
-      <section className="relative py-8 sm:py-12 md:py-24 bg-[#0f1117] overflow-hidden">
+      <section className="relative py-12 sm:py-16 md:py-24 bg-[#0f1117] overflow-hidden">
         {/* Deep glowing radial gradient */}
         <div 
           className="absolute inset-0 pointer-events-none" 
-          style={{ background: 'radial-gradient(circle at center, rgba(212,175,55,0.1) 0%, transparent 70%)' }} 
+          style={{ background: 'radial-gradient(circle at center, rgba(212,175,55,0.08) 0%, transparent 60%)' }} 
           aria-hidden
         />
         
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-6 sm:mb-10">
+          <div className="text-center mb-8 sm:mb-12">
             <div className="inline-flex items-center justify-center gap-2 px-5 py-2 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-[#D4AF37] text-sm font-bold tracking-wider mb-6 backdrop-blur-sm">
               <Sparkles className="h-4 w-4 animate-pulse" aria-hidden />
               حصرياً لدى لمسة
@@ -126,9 +158,9 @@ export default function Home() {
       {/* ══════════════════════════════════════════
           WHY CHOOSE US (لماذا تختارنا)
       ══════════════════════════════════════════ */}
-      <section className="py-8 sm:py-12 md:py-24 bg-[#0a0c10] relative overflow-hidden">
+      <section className="py-12 sm:py-16 md:py-24 bg-[#0a0c10] relative overflow-hidden">
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-6 sm:mb-10">
+          <div className="text-center mb-8 sm:mb-12">
             <p className="text-[#D4AF37] text-sm font-semibold tracking-[0.25em] uppercase mb-3">
               Why Choose Us
             </p>
@@ -174,33 +206,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════
-          FEATURED SERVICES (خدماتنا المتميزة)
-      ══════════════════════════════════════════ */}
-      <section className="py-8 sm:py-12 md:py-24 bg-[#0f1117] relative">
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 text-center">
-          <p className="text-[#D4AF37] text-sm font-semibold tracking-[0.25em] uppercase mb-3">
-            Our Services
-          </p>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white mb-6 text-balance">
-            خدماتنا المتميزة
-          </h2>
-          <p className="text-gray-300 text-sm sm:text-base md:text-lg max-w-2xl mx-auto mb-6 sm:mb-10 leading-loose tracking-wide">
-            نقدم مجموعة متكاملة من الخدمات الفاخرة لتغطية كافة احتياجات مناسبتك من الألف إلى الياء.
-          </p>
-          
-          <FeaturedServices />
-          
-          <div className="mt-16">
-            <Link 
-              href="/services" 
-              className="inline-block bg-white/5 backdrop-blur-md border border-white/20 hover:border-[#D4AF37] text-white font-semibold text-lg py-4 px-10 rounded-full hover:bg-white/10 hover:-translate-y-1 transition-all duration-300"
-            >
-              عرض جميع الخدمات
-            </Link>
-          </div>
-        </div>
-      </section>
     </div>
   );
 }
