@@ -63,31 +63,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════
-          ABOUT US (من نحن)
-      ══════════════════════════════════════════ */}
-      <section className="py-16 sm:py-24 bg-[#0a0c10] relative">
-        <div className="w-full max-w-5xl mx-auto px-4 sm:px-6">
-          <div className="relative rounded-3xl border border-[#D4AF37]/20 bg-[#0f1117] p-8 sm:p-12 md:p-16 text-center overflow-hidden shadow-[0_0_50px_rgba(212,175,55,0.05)]">
-            {/* Subtle glow inside the card */}
-            <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/10 to-transparent pointer-events-none" aria-hidden />
-            
-            <div className="relative z-10">
-              <p className="text-[#D4AF37] text-sm font-semibold tracking-[0.25em] uppercase mb-4">
-                About Us
-              </p>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-6">
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#BF953F] via-[#FCF6BA] to-[#B38728]">
-                  عن لمسة إيفنس
-                </span>
-              </h2>
-              <p className="text-gray-300 text-base md:text-xl lg:text-2xl leading-relaxed md:leading-loose font-light max-w-4xl mx-auto">
-                تُعد لمسة إيفنس الوجهة الرائدة والرمز الأرقى لتنظيم وتجهيز الفعّاليات الفاخرة، الأعراس الملكية، والمناسبات الكبرى. نجمع بين براعة التخطيط وأحدث الابتكارات لنصنع تجارب استثنائية تحاكي تطلعات النخب وتلبي كافة الاحتياجات بأعلى معايير الجودة والفخامة.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* ══════════════════════════════════════════
           FEATURED SERVICES (خدماتنا المتميزة)
