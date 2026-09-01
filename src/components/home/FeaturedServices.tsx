@@ -33,14 +33,18 @@ export function FeaturedServices() {
   const [services, setServices] = useState<any[]>(MOCK_SERVICES);
 
   useEffect(() => {
-    db.service.findMany().then((data: any[]) => {
-      if (data && data.length > 0) {
-        setServices(data.slice(0, 4));
+    Promise.all([
+      db.service.findMany().catch(() => []),
+      db.gallery.findMany().catch(() => [])
+    ]).then(([servicesData, galleryData]) => {
+      const combined = [...(servicesData || []), ...(galleryData || [])];
+      if (combined && combined.length > 0) {
+        setServices(combined.slice(0, 4));
       } else {
         setServices(MOCK_SERVICES);
       }
     }).catch((err) => {
-      console.error("Error fetching featured services:", err);
+      console.error("Error fetching featured items:", err);
       setServices(MOCK_SERVICES);
     });
   }, []);

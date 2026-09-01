@@ -19,17 +19,16 @@ type GalleryItem = {
 };
 
 const CATEGORIES = [
+  "حفلات زفاف",
+  "ليالي الملكة",
+  "مؤتمرات وشركات",
+  "ديكور وتنسيق",
   "كوش الأفراح",
   "طاولات وضيافة",
   "إضاءة وصوتيات",
   "جلسات ملكية",
   "تنسيق زهور",
-  "تصميم بالذكاء الاصطناعي",
-  "حفلات زفاف",
-  "ليالي الملكة",
-  "مؤتمرات وشركات",
-  "ديكور وتنسيق",
-  "أخرى"
+  "تصميم بالذكاء الاصطناعي"
 ];
 
 // ── Component ──────────────────────────────────────────────────────────────────
@@ -203,17 +202,14 @@ export default function AdminGalleryPage() {
             </div>
             <div className="space-y-1.5">
               <label className="text-xs text-slate-400 font-medium">Category</label>
-              <input
-                list="gallery-categories"
+              <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                placeholder="Select or type a category..."
                 className="w-full h-10 px-3 rounded-xl bg-white/[0.05] border border-white/[0.08]
-                  text-white text-sm focus:outline-none focus:border-violet-500/50 transition-colors"
-              />
-              <datalist id="gallery-categories">
-                {CATEGORIES.map((c) => <option key={c} value={c} />)}
-              </datalist>
+                  text-white text-sm focus:outline-none focus:border-violet-500/50 transition-colors [&>option]:bg-[#0f1117]"
+              >
+                {CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
+              </select>
             </div>
           </div>
 

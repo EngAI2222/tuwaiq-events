@@ -124,8 +124,14 @@ export default function ServicesPage() {
   const [activeCategory, setActiveCategory] = useState("الكل");
 
   useEffect(() => {
-    db.service.findMany().then((data) => {
-      setServices(data as Service[]);
+    Promise.all([
+      db.service.findMany().catch(() => []),
+      db.gallery.findMany().catch(() => [])
+    ]).then(([servicesData, galleryData]) => {
+      const combined = [...(servicesData || []), ...(galleryData || [])];
+      // Sort combined by createdAt (newest first) since they might be out of order after merging
+      combined.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+      setServices(combined as Service[]);
       setLoading(false);
     });
   }, []);
