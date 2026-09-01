@@ -66,7 +66,7 @@ export default function AdminDashboard() {
   if (authLoading || !isAuthenticated || user?.role !== "admin") return null;
 
   return (
-    <div className="py-24 container mx-auto px-4 min-h-screen">
+    <div className="py-8 sm:py-12 md:py-24 w-full max-w-7xl mx-auto px-4 sm:px-6 min-h-screen">
       <div className="flex justify-between items-end mb-8">
         <div>
           <h1 className="text-4xl font-bold mb-2 text-primary">لوحة الإدارة</h1>

@@ -71,7 +71,7 @@ export default function CustomerDashboard() {
   if (authLoading || !isAuthenticated || user?.role !== "user") return null;
 
   return (
-    <div className="py-24 container mx-auto px-4 min-h-screen">
+    <div className="py-8 sm:py-12 md:py-24 w-full max-w-7xl mx-auto px-4 sm:px-6 min-h-screen">
       <div className="mb-12 text-center md:text-right">
         <h1 className="text-4xl font-bold mb-2 text-primary">مرحباً، {user?.name}</h1>
         <p className="text-lg text-muted-foreground">تابع تفاصيل مناسبتك وتصاميمك الذكية من مكان واحد.</p>

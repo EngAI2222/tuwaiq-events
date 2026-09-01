@@ -110,7 +110,7 @@ export default async function AdminBookingsPage() {
           {bookings.length === 0 ? (
 
             /* ── Empty state ── */
-            <div className="flex flex-col items-center justify-center gap-3 py-20 text-center">
+            <div className="flex flex-col items-center justify-center gap-3 py-8 sm:py-12 md:py-24 text-center">
               <div className="w-14 h-14 rounded-2xl bg-white/[0.04] border border-white/[0.07]
                 flex items-center justify-center text-3xl select-none">
                 📋

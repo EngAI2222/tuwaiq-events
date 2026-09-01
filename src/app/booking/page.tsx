@@ -176,7 +176,7 @@ function BookingForm() {
 
 export default function BookingPage() {
   return (
-    <div className="py-24 container mx-auto px-4 min-h-screen flex items-center justify-center">
+    <div className="py-8 sm:py-12 md:py-24 w-full max-w-7xl mx-auto px-4 sm:px-6 min-h-screen flex items-center justify-center">
       <div className="w-full max-w-2xl">
         <Suspense fallback={<div className="flex justify-center p-12"><Loader2 className="w-8 h-8 animate-spin text-primary" /></div>}>
           <BookingForm />

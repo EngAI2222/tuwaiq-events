@@ -76,8 +76,8 @@ export default function AIPlannerPage() {
   };
 
   return (
-    <div className="py-20 min-h-screen bg-muted/20 overflow-hidden">
-      <div className="container mx-auto px-4 max-w-4xl">
+    <div className="py-8 sm:py-12 md:py-24 min-h-screen bg-muted/20 overflow-hidden">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 max-w-4xl">
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold mb-4 flex items-center justify-center gap-4 text-primary">
             <Sparkles className="w-10 h-10" />

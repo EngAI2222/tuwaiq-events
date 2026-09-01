@@ -19,17 +19,17 @@ export default function Home() {
       {/* ══════════════════════════════════════════
           HERO SECTION (واجهة الاستقبال)
       ══════════════════════════════════════════ */}
-      <section className="relative w-full h-[90vh] min-h-[600px] flex items-center justify-center overflow-hidden">
+      <section className="relative w-full min-h-[100dvh] flex items-center justify-center overflow-hidden">
         {/* Background Image */}
         <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat" 
+          className="bg-cover bg-center bg-no-repeat w-full absolute inset-0" 
           style={{ backgroundImage: "url('/hero-bg.jpg')" }} 
           aria-hidden
         />
         {/* Rich multi-layered gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/50 to-[#0f1117]" aria-hidden />
         
-        <div className="relative z-10 container mx-auto px-4 sm:px-8 text-center flex flex-col items-center">
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 flex flex-col justify-center items-center h-full text-center">
           <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-[#D4AF37]/40 bg-black/30 backdrop-blur-md text-[#F3E5AB] text-sm font-medium tracking-widest mb-8 uppercase">
             <span className="h-1.5 w-1.5 rounded-full bg-[#D4AF37] animate-pulse" />
             المنصة الأولى لتنظيم المناسبات في السعودية
@@ -46,16 +46,16 @@ export default function Home() {
             نجمع بين الفخامة والذكاء الاصطناعي لتصميم وتجهيز حفلات الزفاف والمناسبات الخاصة بدقة متناهية تعكس ذوقك الرفيع.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-5 items-center justify-center">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-center justify-center w-full">
             <Link
               href="/booking"
-              className="bg-[#D4AF37] hover:bg-[#F3E5AB] text-black font-bold text-lg py-4 px-10 rounded-full shadow-[0_0_24px_rgba(212,175,55,0.4)] hover:shadow-[0_0_36px_rgba(212,175,55,0.65)] hover:-translate-y-1 transition-all duration-300"
+              className="bg-[#D4AF37] hover:bg-[#F3E5AB] text-black font-bold px-4 py-2 sm:px-6 sm:py-3 text-sm sm:text-base w-full sm:w-auto rounded-full shadow-[0_0_24px_rgba(212,175,55,0.4)] hover:shadow-[0_0_36px_rgba(212,175,55,0.65)] hover:-translate-y-1 transition-all duration-300"
             >
               احجز مناسبتك الآن
             </Link>
             <Link
               href="/gallery"
-              className="bg-white/5 backdrop-blur-md border border-white/20 hover:border-[#D4AF37] text-white font-semibold text-lg py-4 px-10 rounded-full hover:bg-white/10 hover:-translate-y-1 transition-all duration-300"
+              className="bg-white/5 backdrop-blur-md border border-white/20 hover:border-[#D4AF37] text-white font-semibold px-4 py-2 sm:px-6 sm:py-3 text-sm sm:text-base w-full sm:w-auto rounded-full hover:bg-white/10 hover:-translate-y-1 transition-all duration-300"
             >
               استكشف أعمالنا
             </Link>
@@ -66,7 +66,7 @@ export default function Home() {
       {/* ══════════════════════════════════════════
           AI FEATURE SECTION (فخامة الذكاء الاصطناعي)
       ══════════════════════════════════════════ */}
-      <section className="relative py-12 sm:py-24 bg-[#0f1117] overflow-hidden">
+      <section className="relative py-8 sm:py-12 md:py-24 bg-[#0f1117] overflow-hidden">
         {/* Deep glowing radial gradient */}
         <div 
           className="absolute inset-0 pointer-events-none" 
@@ -74,7 +74,7 @@ export default function Home() {
           aria-hidden
         />
         
-        <div className="relative z-10 container mx-auto px-4 sm:px-8 max-w-7xl">
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-12 sm:mb-16">
             <div className="inline-flex items-center justify-center gap-2 px-5 py-2 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-[#D4AF37] text-sm font-bold tracking-wider mb-6 backdrop-blur-sm">
               <Sparkles className="h-4 w-4 animate-pulse" aria-hidden />
@@ -125,8 +125,8 @@ export default function Home() {
       {/* ══════════════════════════════════════════
           WHY CHOOSE US (لماذا تختارنا)
       ══════════════════════════════════════════ */}
-      <section className="py-12 sm:py-24 bg-[#0a0c10] relative overflow-hidden">
-        <div className="container mx-auto px-4 sm:px-8 max-w-7xl">
+      <section className="py-8 sm:py-12 md:py-24 bg-[#0a0c10] relative overflow-hidden">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-12 sm:mb-16">
             <p className="text-[#D4AF37] text-sm font-semibold tracking-[0.25em] uppercase mb-3">
               Why Choose Us
@@ -176,8 +176,8 @@ export default function Home() {
       {/* ══════════════════════════════════════════
           FEATURED SERVICES (خدماتنا المتميزة)
       ══════════════════════════════════════════ */}
-      <section className="py-12 sm:py-24 bg-[#0f1117] relative">
-        <div className="container mx-auto px-4 sm:px-8 max-w-7xl text-center">
+      <section className="py-8 sm:py-12 md:py-24 bg-[#0f1117] relative">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 text-center">
           <p className="text-[#D4AF37] text-sm font-semibold tracking-[0.25em] uppercase mb-3">
             Our Services
           </p>

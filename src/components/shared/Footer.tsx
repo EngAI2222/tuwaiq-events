@@ -65,7 +65,7 @@ function PaymentBadge({ label }: { label: string }) {
 export function Footer() {
   return (
     <footer className="bg-muted/50 border-t mt-auto">
-      <div className="container mx-auto px-4 py-12 md:py-16">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 py-12 md:py-16">
 
         {/* ── 3-Column Grid ────────────────────────────────── */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">

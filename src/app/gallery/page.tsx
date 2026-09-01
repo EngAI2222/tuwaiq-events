@@ -141,7 +141,7 @@ export default function GalleryPage() {
       {/* ══════════════════════════════
           IMAGE GRID
       ══════════════════════════════ */}
-      <section className="py-16 md:py-24 bg-background relative overflow-hidden">
+      <section className="py-8 sm:py-12 md:py-24 bg-background relative overflow-hidden">
         <div
           className="absolute -top-40 -right-40 w-[400px] h-[400px] rounded-full bg-amber-500/5 blur-3xl pointer-events-none"
           aria-hidden
@@ -163,7 +163,7 @@ export default function GalleryPage() {
 
           {/* Empty state */}
           {!loading && filtered.length === 0 && (
-            <div className="py-24 text-center text-muted-foreground text-lg">
+            <div className="py-8 sm:py-12 md:py-24 text-center text-muted-foreground text-lg">
               لا توجد صور في هذا القسم حالياً.
             </div>
           )}

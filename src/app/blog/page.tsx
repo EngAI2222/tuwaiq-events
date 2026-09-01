@@ -144,7 +144,7 @@ export default function BlogPage() {
       {/* ══════════════════════════════════════════
           UPCOMING TOPICS TEASE
       ══════════════════════════════════════════ */}
-      <section className="py-20 bg-background relative overflow-hidden">
+      <section className="py-8 sm:py-12 md:py-24 bg-background relative overflow-hidden">
         <div
           className="absolute -top-32 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-amber-500/5 blur-3xl pointer-events-none"
           aria-hidden

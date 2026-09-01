@@ -162,7 +162,7 @@ export default function AreasPage() {
       {/* ══════════════════════════════
           AREAS GRID
       ══════════════════════════════ */}
-      <section className="py-24 md:py-32 bg-background relative overflow-hidden">
+      <section className="py-8 sm:py-12 md:py-24 bg-background relative overflow-hidden">
         {/* Map-like background texture */}
         <div
           className="absolute inset-0 opacity-[0.025] pointer-events-none"

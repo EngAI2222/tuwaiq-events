@@ -268,7 +268,7 @@ export default function ContactPage() {
       {/* ══════════════════════════════
           MAIN CONTENT: 2 COLUMNS
       ══════════════════════════════ */}
-      <section className="py-20 md:py-32 bg-background relative overflow-hidden">
+      <section className="py-8 sm:py-12 md:py-24 bg-background relative overflow-hidden">
         {/* Ambient glows */}
         <div
           className="absolute -top-40 -right-40 w-[500px] h-[500px] rounded-full bg-amber-500/5 blur-3xl pointer-events-none"

@@ -101,7 +101,7 @@ function ServiceCard({ service, tall = false }: { service: Service; tall?: boole
 
 function EmptyServices() {
   return (
-    <div className="py-24 text-center text-muted-foreground">
+    <div className="py-8 sm:py-12 md:py-24 text-center text-muted-foreground">
       <p className="text-xl font-light">سيتم إضافة الخدمات قريباً.</p>
     </div>
   );
@@ -163,7 +163,7 @@ export default async function ServicesPage() {
       {/* ══════════════════════════════
           SERVICES GRID
       ══════════════════════════════ */}
-      <section className="py-24 md:py-32 bg-background relative overflow-hidden">
+      <section className="py-8 sm:py-12 md:py-24 bg-background relative overflow-hidden">
         {/* Ambient glows */}
         <div
           className="absolute -top-40 -right-40 w-[500px] h-[500px] rounded-full bg-amber-500/5 blur-3xl pointer-events-none"
@@ -201,7 +201,7 @@ export default async function ServicesPage() {
       {/* ══════════════════════════════
           CTA STRIP
       ══════════════════════════════ */}
-      <section className="relative py-20 overflow-hidden bg-gradient-to-r from-[#1a1100] via-[#2a1d00] to-[#1a1100]">
+      <section className="relative py-8 sm:py-12 md:py-24 overflow-hidden bg-gradient-to-r from-[#1a1100] via-[#2a1d00] to-[#1a1100]">
         <div
           className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#D4AF37]/50 to-transparent"
           aria-hidden

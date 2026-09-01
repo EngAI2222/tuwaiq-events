@@ -61,9 +61,8 @@ export function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`text-sm font-semibold transition-colors duration-300 hover:text-[#D4AF37] ${
-                  pathname === link.href ? "text-[#D4AF37]" : "text-gray-300"
-                }`}
+                className={`text-sm font-semibold transition-colors duration-300 hover:text-[#D4AF37] ${pathname === link.href ? "text-[#D4AF37]" : "text-gray-300"
+                  }`}
               >
                 {link.name}
               </Link>
@@ -134,11 +133,10 @@ export function Navbar() {
 
       {/* ── Full-Screen Mobile Menu ─────────────────────────────── */}
       <div
-        className={`fixed inset-0 z-50 bg-black/95 backdrop-blur-xl transition-all duration-500 ease-in-out lg:hidden flex flex-col justify-center px-8 ${
-          isMobileMenuOpen
+        className={`fixed inset-0 z-50 bg-black/95 backdrop-blur-xl transition-all duration-500 ease-in-out lg:hidden flex flex-col justify-center px-8 ${isMobileMenuOpen
             ? "opacity-100 pointer-events-auto"
             : "opacity-0 pointer-events-none"
-        }`}
+          }`}
       >
         <div className="flex flex-col gap-6 w-full max-w-md mx-auto">
           {navLinks.map((link, index) => (
@@ -147,10 +145,9 @@ export function Navbar() {
               href={link.href}
               onClick={() => setIsMobileMenuOpen(false)}
               className={`text-3xl font-bold text-center py-4 border-b border-[#D4AF37]/30 transition-all duration-300
-                ${
-                  pathname === link.href
-                    ? "text-[#D4AF37] border-[#D4AF37]"
-                    : "text-white/80 hover:text-white"
+                ${pathname === link.href
+                  ? "text-[#D4AF37] border-[#D4AF37]"
+                  : "text-white/80 hover:text-white"
                 }
               `}
               style={{
@@ -163,7 +160,7 @@ export function Navbar() {
             </Link>
           ))}
 
-          <div 
+          <div
             className="flex flex-col gap-4 mt-8"
             style={{
               transitionDelay: isMobileMenuOpen ? `${navLinks.length * 50}ms` : "0ms",

@@ -257,11 +257,11 @@ export default function AdminServicesPage() {
         </h3>
 
         {loading ? (
-          <div className="py-20 flex items-center justify-center">
+          <div className="py-8 sm:py-12 md:py-24 flex items-center justify-center">
             <div className="w-8 h-8 rounded-full border-2 border-sky-500 border-t-transparent animate-spin" />
           </div>
         ) : services.length === 0 ? (
-          <div className="py-20 text-center text-slate-500 text-sm">
+          <div className="py-8 sm:py-12 md:py-24 text-center text-slate-500 text-sm">
             No services yet. Click &quot;Add Service&quot; to create the first one.
           </div>
         ) : (

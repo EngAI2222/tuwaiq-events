@@ -137,7 +137,7 @@ export default function AboutPage() {
       {/* ══════════════════════════════════════════
           OUR STORY SECTION
       ══════════════════════════════════════════ */}
-      <section className="py-24 md:py-32 bg-background relative overflow-hidden">
+      <section className="py-8 sm:py-12 md:py-24 bg-background relative overflow-hidden">
         {/* Ambient background glow */}
         <div
           className="absolute -top-40 -right-40 w-[500px] h-[500px] rounded-full bg-amber-500/5 blur-3xl pointer-events-none"
@@ -223,7 +223,7 @@ export default function AboutPage() {
       {/* ══════════════════════════════════════════
           VISION SECTION
       ══════════════════════════════════════════ */}
-      <section className="relative py-24 md:py-32 overflow-hidden">
+      <section className="relative py-8 sm:py-12 md:py-24 overflow-hidden">
         {/* Full-width gradient background */}
         <div
           className="absolute inset-0 bg-gradient-to-br from-neutral-950 via-zinc-900 to-stone-900 dark:from-zinc-950 dark:via-stone-900 dark:to-neutral-900"
@@ -273,7 +273,7 @@ export default function AboutPage() {
       {/* ══════════════════════════════════════════
           WHY CHOOSE US SECTION
       ══════════════════════════════════════════ */}
-      <section className="py-24 md:py-32 bg-background relative overflow-hidden">
+      <section className="py-8 sm:py-12 md:py-24 bg-background relative overflow-hidden">
         <div
           className="absolute -bottom-40 -left-40 w-[600px] h-[600px] rounded-full bg-rose-500/5 blur-3xl pointer-events-none"
           aria-hidden
@@ -343,7 +343,7 @@ export default function AboutPage() {
       {/* ══════════════════════════════════════════
           CLOSING CTA STRIP
       ══════════════════════════════════════════ */}
-      <section className="relative py-20 overflow-hidden bg-gradient-to-r from-[#1a1100] via-[#2a1d00] to-[#1a1100] dark:from-zinc-950 dark:via-[#1e1600] dark:to-zinc-950">
+      <section className="relative py-8 sm:py-12 md:py-24 overflow-hidden bg-gradient-to-r from-[#1a1100] via-[#2a1d00] to-[#1a1100] dark:from-zinc-950 dark:via-[#1e1600] dark:to-zinc-950">
         <div
           className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=40&w=1200&auto=format&fit=crop')] bg-cover bg-center opacity-10"
           aria-hidden
