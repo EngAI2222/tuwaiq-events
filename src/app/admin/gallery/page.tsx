@@ -110,12 +110,10 @@ export default function AdminGalleryPage() {
     if (!confirm(`Delete "${item.caption}"?`)) return;
     setDeletingId(item.id);
     try {
-      // Try to delete from Storage (best-effort — URL might be external)
-      try {
-        const storageRef = ref(storage, item.imageURL);
-        await deleteObject(storageRef);
-      } catch (_) {
-        // Ignore if file was already deleted or is an external URL
+      if (item.imageURL) {
+        try {
+          await deleteObject(ref(storage, item.imageURL));
+        } catch (_) { /* ignore if already deleted or external */ }
       }
       await db.gallery.delete({ where: { id: item.id } });
       setItems((prev) => prev.filter((i) => i.id !== item.id));
