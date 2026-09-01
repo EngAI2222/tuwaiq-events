@@ -10,8 +10,8 @@ export async function POST(req: NextRequest) {
     }
 
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-    // Use gemini-1.5-flash for fast text and JSON generation
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    // Use gemini-2.5-flash for fast text and JSON generation
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
     const prompt = `You are an elite "Luxury Saudi Event Planner" working for Lamsa Events. 
 Generate a premium event plan based on the following details:
@@ -21,7 +21,7 @@ Generate a premium event plan based on the following details:
 - Budget: ${budget} Riyals
 - Preferred Theme: ${theme}
 
-You must return ONLY a raw JSON object. Do not include markdown formatting, backticks, or any other text.
+Return ONLY valid JSON. No markdown formatting, no backticks.
 The JSON schema MUST exactly match:
 {
   "suggestedTheme": "اسم الطابع المقترح (مثال: ملكي فاخر)",
@@ -34,20 +34,24 @@ The JSON schema MUST exactly match:
     const response = await result.response;
     let text = response.text().trim();
 
+    console.log("Gemini Raw Response:", text);
+
     // Clean up markdown block if Gemini ignores instruction
-    if (text.startsWith("```json")) {
-      text = text.substring(7, text.length - 3).trim();
-    } else if (text.startsWith("```")) {
-      text = text.substring(3, text.length - 3).trim();
-    }
+    text = text.replace(/^```json/i, "").replace(/^```/, "").replace(/```$/, "").trim();
 
     const data = JSON.parse(text);
 
     return NextResponse.json(data);
   } catch (error) {
-    console.error("AI Planner Error:", error);
+    console.error("DETAILED GEMINI API ERROR:", error);
     return NextResponse.json(
-      { error: "Failed to generate event plan." },
+      { 
+        error: error instanceof Error ? error.message : "Unknown error",
+        suggestedTheme: "خطأ في الاتصال",
+        colors: [],
+        estimatedCost: "غير محدد",
+        equipment: []
+      },
       { status: 500 }
     );
   }

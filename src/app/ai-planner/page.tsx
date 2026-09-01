@@ -222,7 +222,7 @@ export default function AIPlannerPage() {
                 </motion.div>
               )}
 
-              {step === 4 && plan && (
+              {step === 4 && plan && !isGenerating && (
                 <motion.div key="step4" variants={variants} initial="initial" animate="animate" exit="exit" className="space-y-8">
                   <div className="bg-gradient-to-r from-primary/10 to-transparent rounded-3xl p-8 text-center border border-primary/20 relative overflow-hidden">
                     <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary/20 blur-3xl rounded-full"></div>
@@ -241,7 +241,7 @@ export default function AIPlannerPage() {
                       <div>
                         <h3 className="font-bold text-sm uppercase tracking-wider mb-3 text-muted-foreground">لوحة الألوان</h3>
                         <div className="flex gap-4">
-                          {plan.colors.map((c: string, i: number) => (
+                          {(plan?.colors || []).map((c: string, i: number) => (
                             <div key={i} className="w-14 h-14 rounded-full shadow-lg border-2 border-white/10" style={{ backgroundColor: c }} />
                           ))}
                         </div>
@@ -259,7 +259,7 @@ export default function AIPlannerPage() {
                         أبرز التجهيزات
                       </h3>
                       <ul className="space-y-4">
-                        {plan.equipment.map((s: string, i: number) => (
+                        {(plan?.equipment || []).map((s: string, i: number) => (
                           <li key={i} className="flex items-start gap-3">
                             <CheckCircle2 className="w-6 h-6 text-primary shrink-0" />
                             <span className="font-medium text-lg leading-snug">{s}</span>

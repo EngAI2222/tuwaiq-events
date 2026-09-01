@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { Menu, Moon, Sun, X } from "lucide-react";
+import { Menu, Moon, Sun, X, MapPin, Mail, Phone, MessageCircle, Twitter, Linkedin } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useAuth } from "@/context/AuthContext";
 import { usePathname } from "next/navigation";
@@ -131,75 +131,130 @@ export function Navbar() {
         </div>
       </header>
 
-      {/* ── Full-Screen Mobile Menu ─────────────────────────────── */}
+      {/* ── Mobile Menu Drawer Overlay ─────────────────────────────── */}
       <div
-        className={`fixed inset-0 z-[100] bg-black/98 backdrop-blur-xl transition-all duration-500 ease-in-out lg:hidden ${isMobileMenuOpen
+        className={`fixed inset-0 z-[120] transition-all duration-500 ease-in-out lg:hidden ${isMobileMenuOpen
           ? "opacity-100 pointer-events-auto"
           : "opacity-0 pointer-events-none"
           }`}
       >
-        <div className="h-full overflow-y-auto pb-32 pt-28 px-6 flex flex-col justify-start w-full max-w-md mx-auto no-scrollbar">
-          {/* Action Buttons at the Top */}
-          <div
-            className="flex flex-col gap-3 mb-8 w-full px-4"
-            style={{
-              transitionDelay: isMobileMenuOpen ? "50ms" : "0ms",
-              transform: isMobileMenuOpen ? "translateY(0)" : "translateY(20px)",
-              opacity: isMobileMenuOpen ? 1 : 0,
-              transitionProperty: "all",
-              transitionDuration: "300ms",
-            }}
-          >
-            {!isAuthenticated ? (
-              <Link
-                href="/login"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="w-full text-center px-6 py-4 rounded-full border border-white/20 text-white text-lg font-semibold hover:border-[#D4AF37] hover:bg-white/5 transition-all"
-              >
-                تسجيل الدخول
-              </Link>
-            ) : (
-              <button
-                onClick={() => {
-                  logout();
-                  setIsMobileMenuOpen(false);
-                }}
-                className="w-full text-center px-6 py-4 rounded-full border border-white/20 text-white text-lg font-semibold hover:border-red-500 hover:bg-red-500/10 transition-all"
-              >
-                تسجيل الخروج ({user?.name})
-              </button>
-            )}
-            <Link
-              href="/booking"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="w-full text-center px-6 py-4 rounded-full bg-gradient-to-r from-[#BF953F] to-[#D4AF37] text-black text-lg font-bold hover:shadow-[0_0_20px_rgba(212,175,55,0.4)] transition-all"
-            >
-              طلب عرض
+        {/* Dark Backdrop */}
+        <div 
+          className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+          onClick={() => setIsMobileMenuOpen(false)}
+          aria-hidden="true"
+        />
+
+        {/* Drawer Panel */}
+        <div 
+          className={`absolute top-0 right-0 h-full w-[85%] max-w-sm bg-white text-gray-900 shadow-2xl flex flex-col transition-transform duration-500 ease-in-out ${isMobileMenuOpen ? "translate-x-0" : "translate-x-full"}`}
+        >
+          {/* Header inside drawer */}
+          <div className="flex items-center justify-between p-6 border-b border-gray-100">
+            <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="font-extrabold text-2xl tracking-tighter flex items-center gap-2">
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#BF953F] to-[#D4AF37]">
+                لمسة
+              </span>
+              <span className="text-gray-900">إيفنس</span>
             </Link>
+            <button
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="p-2 bg-gray-100 rounded-full text-gray-500 hover:text-gray-900 transition-colors"
+              aria-label="إغلاق القائمة"
+            >
+              <X className="h-5 w-5" />
+            </button>
           </div>
 
-          {/* Navigation Links */}
-          <div className="flex flex-col gap-2">
-            {navLinks.map((link, index) => (
+          {/* Scrollable Content */}
+          <div className="flex-1 overflow-y-auto px-6 py-8 flex flex-col no-scrollbar">
+            
+            {/* Action Buttons at the Top */}
+            <div className="flex flex-col gap-3 mb-8 w-full">
+              {!isAuthenticated ? (
+                <Link
+                  href="/login"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="w-full text-center px-6 py-3.5 rounded-full border border-gray-200 text-gray-800 text-sm font-semibold hover:border-[#D4AF37] hover:bg-gray-50 transition-all"
+                >
+                  تسجيل الدخول
+                </Link>
+              ) : (
+                <button
+                  onClick={() => {
+                    logout();
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="w-full text-center px-6 py-3.5 rounded-full border border-gray-200 text-gray-800 text-sm font-semibold hover:border-red-500 hover:bg-red-50 hover:text-red-600 transition-all"
+                >
+                  تسجيل الخروج ({user?.name})
+                </button>
+              )}
               <Link
-                key={link.href}
-                href={link.href}
+                href="/booking"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className={`text-3xl font-bold text-center py-4 border-b border-[#D4AF37]/30 transition-all duration-300
-                  ${pathname === link.href
-                    ? "text-[#D4AF37] border-[#D4AF37]"
-                    : "text-white/80 hover:text-white"
-                  }
-                `}
-                style={{
-                  transitionDelay: isMobileMenuOpen ? `${(index + 2) * 50}ms` : "0ms",
-                  transform: isMobileMenuOpen ? "translateY(0)" : "translateY(20px)",
-                  opacity: isMobileMenuOpen ? 1 : 0,
-                }}
+                className="w-full text-center px-6 py-3.5 rounded-full bg-[#D4AF37] text-white text-sm font-bold shadow-md hover:shadow-lg transition-all"
               >
-                {link.name}
+                طلب عرض
               </Link>
-            ))}
+            </div>
+
+            {/* Navigation Links */}
+            <nav className="flex flex-col gap-2">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`text-base font-medium py-2 transition-colors border-b border-gray-50 last:border-0
+                    ${pathname === link.href
+                      ? "text-[#D4AF37]"
+                      : "text-gray-800 hover:text-[#D4AF37]"
+                    }
+                  `}
+                >
+                  {link.name}
+                </Link>
+              ))}
+            </nav>
+
+            {/* Contact Info Footer */}
+            <div className="mt-auto pt-8">
+              <div className="border-t border-gray-100 my-6" />
+              <div className="flex flex-col gap-4">
+                <div className="flex items-center gap-3">
+                  <div className="flex items-center justify-center h-8 w-8 rounded-full bg-gray-50 text-gray-500">
+                    <MapPin className="h-4 w-4" />
+                  </div>
+                  <span className="text-sm text-gray-600">الرياض، المملكة العربية السعودية</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="flex items-center justify-center h-8 w-8 rounded-full bg-gray-50 text-gray-500">
+                    <Mail className="h-4 w-4" />
+                  </div>
+                  <span className="text-sm text-gray-600" dir="ltr">info@lamsa-events.com</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="flex items-center justify-center h-8 w-8 rounded-full bg-gray-50 text-gray-500">
+                    <Phone className="h-4 w-4" />
+                  </div>
+                  <span className="text-sm text-gray-600" dir="ltr">057 425 7484</span>
+                </div>
+              </div>
+
+              {/* Social Media Icons */}
+              <div className="flex items-center gap-4 mt-8">
+                <a href="https://wa.me/966574257484" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center h-10 w-10 rounded-full border border-gray-200 text-gray-500 hover:text-[#D4AF37] hover:border-[#D4AF37] transition-all">
+                  <MessageCircle className="h-4 w-4" />
+                </a>
+                <a href="#" className="flex items-center justify-center h-10 w-10 rounded-full border border-gray-200 text-gray-500 hover:text-[#D4AF37] hover:border-[#D4AF37] transition-all">
+                  <Twitter className="h-4 w-4" />
+                </a>
+                <a href="#" className="flex items-center justify-center h-10 w-10 rounded-full border border-gray-200 text-gray-500 hover:text-[#D4AF37] hover:border-[#D4AF37] transition-all">
+                  <Linkedin className="h-4 w-4" />
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
