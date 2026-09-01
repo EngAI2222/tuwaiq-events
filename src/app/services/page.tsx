@@ -69,28 +69,28 @@ function ServiceCard({ service, tall = false }: { service: Service; tall?: boole
       )}
 
       {/* Content */}
-      <div className={`relative z-10 flex flex-col gap-3 flex-1 ${imageURL ? "p-6 pt-4" : "p-8"}`}>
+      <div className={`relative z-10 flex flex-col gap-3 flex-1 ${imageURL ? "p-4 sm:p-6 pt-3 sm:pt-4" : "p-4 sm:p-6"}`}>
         {/* Category chip */}
-        <span className="inline-block self-start text-xs font-semibold tracking-[0.15em] text-muted-foreground uppercase">
+        <span className="inline-block self-start text-[10px] sm:text-xs font-semibold tracking-[0.15em] text-muted-foreground uppercase">
           {service.category}
         </span>
-        <h2 className="text-xl md:text-2xl font-extrabold tracking-tight">{title}</h2>
+        <h2 className="text-sm sm:text-base md:text-2xl font-extrabold tracking-tight">{title}</h2>
         {description && (
-          <p className="text-muted-foreground leading-loose text-sm md:text-base tracking-wide flex-1">
+          <p className="text-muted-foreground leading-relaxed sm:leading-loose text-xs sm:text-base tracking-wide flex-1">
             {description}
           </p>
         )}
       </div>
 
       {/* Footer */}
-      <div className="relative z-10 flex items-center justify-between px-6 pb-6 pt-2 border-t border-border/50 mt-auto">
-        <span className="text-sm font-semibold text-[#D4AF37]">{price || "حسب الطلب"}</span>
+      <div className="relative z-10 flex items-center justify-between px-4 sm:px-6 pb-4 sm:pb-6 pt-2 border-t border-border/50 mt-auto">
+        <span className="text-xs sm:text-sm font-semibold text-[#D4AF37]">{price || "حسب الطلب"}</span>
         <Link
           href={`/booking?service=${encodeURIComponent(title)}`}
-          className="inline-flex items-center gap-2 text-sm font-bold text-foreground hover:text-[#D4AF37] transition-colors"
+          className="inline-flex items-center gap-1 sm:gap-2 text-xs sm:text-sm font-bold text-foreground hover:text-[#D4AF37] transition-colors"
         >
           احجز الآن
-          <ArrowLeft className="h-4 w-4" aria-hidden />
+          <ArrowLeft className="h-3 w-3 sm:h-4 sm:w-4" aria-hidden />
         </Link>
       </div>
     </article>
@@ -180,14 +180,14 @@ export default async function ServicesPage() {
           ) : (
             <>
               {/* First row: 2 wide cards */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+              <div className="grid grid-cols-2 gap-3 md:gap-6 md:grid-cols-2 mb-6">
                 {services.slice(0, 2).map((s) => (
                   <ServiceCard key={s.id} service={s} tall />
                 ))}
               </div>
               {/* Remaining cards */}
               {services.length > 2 && (
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-2 gap-3 md:gap-6 md:grid-cols-3">
                   {services.slice(2).map((s) => (
                     <ServiceCard key={s.id} service={s} />
                   ))}

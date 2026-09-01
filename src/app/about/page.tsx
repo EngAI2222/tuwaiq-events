@@ -197,7 +197,7 @@ export default function AboutPage() {
           </div>
 
           {/* Stats row */}
-          <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="mt-10 sm:mt-16 grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6">
             {[
               { value: "+500", label: "مناسبة نُفِّذت" },
               { value: "+200", label: "عميل سعيد" },
@@ -206,12 +206,12 @@ export default function AboutPage() {
             ].map((stat) => (
               <div
                 key={stat.label}
-                className="flex flex-col items-center text-center gap-1 p-5 rounded-2xl bg-card border ring-1 ring-border/50 hover:ring-[#D4AF37]/40 transition-all duration-300"
+                className="flex flex-col items-center text-center gap-1 p-3 sm:p-5 rounded-xl sm:rounded-2xl bg-card border ring-1 ring-border/50 hover:ring-[#D4AF37]/40 transition-all duration-300"
               >
-                <span className="text-3xl md:text-4xl font-extrabold bg-clip-text text-transparent bg-gradient-to-b from-[#D4AF37] to-[#B38728]">
+                <span className="text-2xl sm:text-3xl md:text-4xl font-extrabold bg-clip-text text-transparent bg-gradient-to-b from-[#D4AF37] to-[#B38728]">
                   {stat.value}
                 </span>
-                <span className="text-xs md:text-sm text-muted-foreground tracking-wide">
+                <span className="text-[10px] sm:text-xs md:text-sm text-muted-foreground tracking-wide">
                   {stat.label}
                 </span>
               </div>
@@ -284,7 +284,7 @@ export default function AboutPage() {
         />
 
         <div className="relative z-10 container mx-auto px-6 max-w-6xl">
-          <div className="text-center mb-16">
+          <div className="text-center mb-6 sm:mb-10">
             <p className="text-[#D4AF37] text-sm font-semibold tracking-[0.25em] uppercase mb-3">
               Why Choose Us
             </p>
@@ -298,32 +298,32 @@ export default function AboutPage() {
             <GoldDivider />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-2 gap-3 md:gap-8 md:grid-cols-3">
             {whyCards.map(
               ({ id, Icon, title, text, gradient, iconColor, ringColor }) => (
                 <article
                   key={id}
-                  className={`group relative flex flex-col gap-6 p-8 rounded-3xl bg-card border ring-1 ${ringColor} backdrop-blur-sm hover:ring-[#D4AF37]/50 hover:-translate-y-2 hover:shadow-2xl transition-all duration-500 overflow-hidden`}
+                  className={`group relative flex flex-col gap-3 sm:gap-6 p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-card border ring-1 ${ringColor} backdrop-blur-sm hover:ring-[#D4AF37]/50 hover:-translate-y-2 hover:shadow-2xl transition-all duration-500 overflow-hidden`}
                 >
                   {/* Card glow bg */}
                   <div
-                    className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl pointer-events-none`}
+                    className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl sm:rounded-3xl pointer-events-none`}
                     aria-hidden
                   />
 
                   {/* Icon */}
                   <div
-                    className={`relative z-10 inline-flex items-center justify-center h-14 w-14 rounded-2xl bg-card border ring-1 ${ringColor} shadow-sm ${iconColor} group-hover:scale-110 transition-transform duration-300`}
+                    className={`relative z-10 inline-flex items-center justify-center h-10 w-10 sm:h-14 sm:w-14 rounded-xl sm:rounded-2xl bg-card border ring-1 ${ringColor} shadow-sm ${iconColor} group-hover:scale-110 transition-transform duration-300`}
                   >
-                    <Icon className="h-6 w-6" aria-hidden />
+                    <Icon className="h-5 w-5 sm:h-6 sm:w-6" aria-hidden />
                   </div>
 
                   {/* Content */}
-                  <div className="relative z-10 flex flex-col gap-3">
-                    <h3 className="text-xl md:text-2xl font-bold tracking-tight">
+                  <div className="relative z-10 flex flex-col gap-2 sm:gap-3">
+                    <h3 className="text-sm sm:text-base md:text-xl font-bold tracking-tight">
                       {title}
                     </h3>
-                    <p className="text-muted-foreground leading-loose tracking-wide text-sm md:text-base">
+                    <p className="text-muted-foreground leading-relaxed sm:leading-loose tracking-wide text-xs sm:text-sm">
                       {text}
                     </p>
                   </div>

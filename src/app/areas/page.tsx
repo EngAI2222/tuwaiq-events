@@ -178,7 +178,7 @@ export default function AreasPage() {
         />
 
         <div className="relative z-10 container mx-auto px-6 max-w-6xl">
-          <div className="text-center mb-16">
+          <div className="text-center mb-6 sm:mb-10">
             <p className="text-[#D4AF37] text-sm font-semibold tracking-[0.25em] uppercase mb-3">
               Coverage Areas
             </p>
@@ -191,11 +191,11 @@ export default function AreasPage() {
             <GoldDivider />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-2 gap-3 md:gap-6 md:grid-cols-2 lg:grid-cols-3">
             {AREAS.map(({ id, Icon, name, desc, tag, isHighlight, iconColor, ringColor, glowColor }) => (
               <article
                 key={id}
-                className={`group relative flex flex-col gap-5 p-8 rounded-3xl bg-card border overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl
+                className={`group relative flex flex-col gap-3 sm:gap-5 p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-card border overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl
                   ${isHighlight
                     ? `ring-2 ring-[#D4AF37]/50 hover:ring-[#D4AF37] shadow-[0_0_30px_rgba(212,175,55,0.12)] hover:shadow-[0_0_50px_rgba(212,175,55,0.25)]`
                     : `ring-1 ${ringColor} hover:ring-[#D4AF37]/40`
@@ -214,25 +214,25 @@ export default function AreasPage() {
 
                 {/* Tag badge */}
                 {tag && (
-                  <span className="absolute top-5 left-5 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#D4AF37]/15 border border-[#D4AF37]/30 text-[#F3E5AB] text-xs font-bold tracking-wider uppercase backdrop-blur-sm">
-                    {isHighlight && <Star className="h-3 w-3" aria-hidden />}
+                  <span className="absolute top-3 sm:top-5 left-3 sm:left-5 inline-flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-0.5 sm:py-1 rounded-full bg-[#D4AF37]/15 border border-[#D4AF37]/30 text-[#F3E5AB] text-[10px] sm:text-xs font-bold tracking-wider uppercase backdrop-blur-sm">
+                    {isHighlight && <Star className="h-2 w-2 sm:h-3 sm:w-3" aria-hidden />}
                     {tag}
                   </span>
                 )}
 
                 {/* Icon */}
                 <div
-                  className={`relative z-10 inline-flex items-center justify-center h-14 w-14 rounded-2xl bg-card border ring-1 ring-border/50 shadow-sm ${iconColor} group-hover:scale-110 transition-transform duration-300 ${tag ? "mt-5" : ""}`}
+                  className={`relative z-10 inline-flex items-center justify-center h-10 w-10 sm:h-14 sm:w-14 rounded-xl sm:rounded-2xl bg-card border ring-1 ring-border/50 shadow-sm ${iconColor} group-hover:scale-110 transition-transform duration-300 ${tag ? "mt-5 sm:mt-5" : ""}`}
                 >
-                  <Icon className="h-6 w-6" aria-hidden />
+                  <Icon className="h-5 w-5 sm:h-6 sm:w-6" aria-hidden />
                 </div>
 
                 {/* Content */}
-                <div className="relative z-10 flex flex-col gap-2 flex-1">
-                  <h3 className="text-xl md:text-2xl font-extrabold tracking-tight">
+                <div className="relative z-10 flex flex-col gap-1 sm:gap-2 flex-1">
+                  <h3 className="text-sm sm:text-base md:text-2xl font-extrabold tracking-tight">
                     {name}
                   </h3>
-                  <p className="text-muted-foreground leading-loose text-sm md:text-base tracking-wide">
+                  <p className="text-muted-foreground leading-relaxed sm:leading-loose text-xs sm:text-base tracking-wide">
                     {desc}
                   </p>
                 </div>

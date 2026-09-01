@@ -150,7 +150,7 @@ export default function GalleryPage() {
         <div className="container mx-auto px-6 max-w-7xl">
           {/* Loading skeleton */}
           {loading && (
-            <div className="columns-1 sm:columns-2 lg:columns-3 gap-5 space-y-5">
+            <div className="columns-2 md:columns-3 gap-3 sm:gap-5 space-y-3 sm:space-y-5">
               {Array.from({ length: 6 }).map((_, i) => (
                 <div
                   key={i}
@@ -170,7 +170,7 @@ export default function GalleryPage() {
 
           {/* Masonry grid */}
           {!loading && filtered.length > 0 && (
-            <div className="columns-1 sm:columns-2 lg:columns-3 gap-5 space-y-5">
+            <div className="columns-2 md:columns-3 gap-3 sm:gap-5 space-y-3 sm:space-y-5">
               <AnimatePresence mode="popLayout">
                 {filtered.map((img, idx) => (
                   <motion.div
@@ -196,7 +196,7 @@ export default function GalleryPage() {
                         src={img.imageURL}
                         alt={img.caption}
                         fill
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        sizes="(max-width: 640px) 50vw, 33vw"
                         className="object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out"
                       />
 
@@ -207,21 +207,21 @@ export default function GalleryPage() {
                       />
 
                       {/* Hover overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400 flex flex-col justify-end p-6 z-10">
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400 flex flex-col justify-end p-4 sm:p-6 z-10">
                         {/* Category chip */}
-                        <span className="inline-block self-start px-3 py-1 rounded-full bg-[#D4AF37]/20 border border-[#D4AF37]/40 text-[#F3E5AB] text-xs font-semibold tracking-wide mb-2 backdrop-blur-sm">
+                        <span className="inline-block self-start px-2 py-0.5 sm:px-3 sm:py-1 rounded-full bg-[#D4AF37]/20 border border-[#D4AF37]/40 text-[#F3E5AB] text-[10px] sm:text-xs font-semibold tracking-wide mb-2 backdrop-blur-sm">
                           {img.category}
                         </span>
 
-                        <div className="flex items-end justify-between gap-3">
-                          <h3 className="text-white text-lg font-bold leading-tight translate-y-3 group-hover:translate-y-0 transition-transform duration-400">
+                        <div className="flex items-end justify-between gap-2 sm:gap-3">
+                          <h3 className="text-white text-sm sm:text-lg font-bold leading-tight translate-y-3 group-hover:translate-y-0 transition-transform duration-400">
                             {img.caption}
                           </h3>
 
                           {/* View icon */}
-                          <div className="flex-shrink-0 inline-flex items-center gap-1.5 bg-white/10 border border-white/20 backdrop-blur-md rounded-full px-3 py-1.5 text-white text-xs font-semibold translate-y-3 group-hover:translate-y-0 transition-transform duration-500">
-                            <Eye className="h-3.5 w-3.5" aria-hidden />
-                            تفاصيل
+                          <div className="flex-shrink-0 inline-flex items-center gap-1 sm:gap-1.5 bg-white/10 border border-white/20 backdrop-blur-md rounded-full px-2 py-1 sm:px-3 sm:py-1.5 text-white text-[10px] sm:text-xs font-semibold translate-y-3 group-hover:translate-y-0 transition-transform duration-500">
+                            <Eye className="h-3 w-3 sm:h-3.5 sm:w-3.5" aria-hidden />
+                            <span className="hidden sm:inline">تفاصيل</span>
                           </div>
                         </div>
                       </div>

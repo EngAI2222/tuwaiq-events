@@ -57,18 +57,18 @@ export default function PackagesPage() {
   return (
     <div className="py-8 sm:py-12 md:py-24">
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-10">
           <h1 className="text-4xl md:text-5xl font-bold mb-6 text-primary">الباقات والأسعار</h1>
           <p className="text-lg text-muted-foreground">
             صممنا باقات متكاملة تلبي كافة احتياجاتك وتناسب مختلف الميزانيات. اختر الباقة التي تناسبك أو استخدم مساعدنا الذكي لتصميم باقة مخصصة.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="flex flex-row md:grid md:grid-cols-3 overflow-x-auto snap-x snap-mandatory gap-4 md:gap-8 pb-4 md:pb-0 no-scrollbar max-w-6xl mx-auto">
           {packages.map((pkg) => (
             <div 
               key={pkg.id} 
-              className={`relative flex flex-col rounded-3xl p-8 border shadow-lg transition-transform hover:-translate-y-2 ${pkg.isPopular ? 'border-primary shadow-primary/20 md:-mt-8 md:mb-8' : 'bg-card'}`}
+              className={`relative flex flex-col rounded-2xl sm:rounded-3xl p-4 sm:p-8 min-w-[85%] md:min-w-0 snap-center border shadow-lg transition-transform hover:-translate-y-2 ${pkg.isPopular ? 'border-primary shadow-primary/20 md:-mt-8 md:mb-8' : 'bg-card'}`}
             >
               {pkg.isPopular && (
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary text-primary-foreground px-4 py-1 rounded-full text-sm font-bold flex items-center gap-1 shadow-md">
@@ -77,21 +77,21 @@ export default function PackagesPage() {
                 </div>
               )}
               
-              <div className="mb-8">
-                <h2 className={`text-2xl font-bold mb-2 ${pkg.isPopular ? 'text-primary' : ''}`}>{pkg.name}</h2>
-                <p className="text-muted-foreground min-h-[48px]">{pkg.desc}</p>
+              <div className="mb-4 sm:mb-8">
+                <h2 className={`text-lg sm:text-2xl font-bold mb-2 ${pkg.isPopular ? 'text-primary' : ''}`}>{pkg.name}</h2>
+                <p className="text-muted-foreground text-xs sm:text-base min-h-[48px]">{pkg.desc}</p>
               </div>
               
-              <div className="mb-8">
-                <span className="text-4xl font-black">{pkg.price}</span>
-                <span className="text-muted-foreground"> ريال سعودي</span>
+              <div className="mb-6 sm:mb-8">
+                <span className="text-2xl sm:text-4xl font-black">{pkg.price}</span>
+                <span className="text-muted-foreground text-xs sm:text-base"> ريال سعودي</span>
               </div>
               
               <ul className="flex flex-col gap-4 mb-8 flex-1">
                 {pkg.features.map((feature, i) => (
-                  <li key={i} className="flex items-start gap-3">
-                    <Check className={`w-5 h-5 shrink-0 ${pkg.isPopular ? 'text-primary' : 'text-green-500'}`} />
-                    <span className="text-sm font-medium">{feature}</span>
+                  <li key={i} className="flex items-start gap-2 sm:gap-3">
+                    <Check className={`w-4 h-4 sm:w-5 sm:h-5 shrink-0 ${pkg.isPopular ? 'text-primary' : 'text-green-500'}`} />
+                    <span className="text-xs sm:text-sm font-medium">{feature}</span>
                   </li>
                 ))}
               </ul>
@@ -107,7 +107,7 @@ export default function PackagesPage() {
           ))}
         </div>
 
-        <div className="mt-24 bg-primary/5 rounded-3xl p-8 md:p-12 border border-primary/20 flex flex-col md:flex-row items-center justify-between gap-8 max-w-5xl mx-auto">
+        <div className="mt-12 sm:mt-24 bg-primary/5 rounded-2xl sm:rounded-3xl p-6 sm:p-12 border border-primary/20 flex flex-col md:flex-row items-center justify-between gap-6 sm:gap-8 max-w-5xl mx-auto">
           <div>
             <h3 className="text-2xl font-bold mb-3 text-primary">هل تبحث عن شيء مختلف؟</h3>
             <p className="text-muted-foreground text-lg max-w-xl">

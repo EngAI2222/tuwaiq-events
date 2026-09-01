@@ -316,7 +316,7 @@ export default function ContactPage() {
                   aria-label="نموذج التواصل"
                 >
                   {/* Glass form container */}
-                  <div className="p-6 rounded-3xl bg-card border ring-1 ring-border/50 flex flex-col gap-5 backdrop-blur-sm">
+                  <div className="p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-card border ring-1 ring-border/50 flex flex-col gap-4 sm:gap-5 backdrop-blur-sm">
                     <FloatingInput
                       id="contact-name"
                       label="الاسم الكريم"
@@ -415,7 +415,7 @@ export default function ContactPage() {
                   ({ id, Icon, label, value, href, iconColor, ringColor, glowColor }) => (
                     <article
                       key={id}
-                      className={`group relative flex items-center gap-5 p-5 rounded-2xl bg-card border ring-1 ${ringColor} hover:ring-[#D4AF37]/40 hover:-translate-y-1 hover:shadow-lg transition-all duration-400 overflow-hidden cursor-pointer`}
+                      className={`group relative flex items-center gap-3 sm:gap-5 p-3 sm:p-5 rounded-xl sm:rounded-2xl bg-card border ring-1 ${ringColor} hover:ring-[#D4AF37]/40 hover:-translate-y-1 hover:shadow-lg transition-all duration-400 overflow-hidden cursor-pointer`}
                     >
                       {/* Hover glow bg */}
                       <div
@@ -425,9 +425,9 @@ export default function ContactPage() {
 
                       {/* Icon */}
                       <div
-                        className={`relative z-10 flex-shrink-0 inline-flex items-center justify-center h-12 w-12 rounded-xl bg-card border ring-1 ${ringColor} shadow-sm ${iconColor} group-hover:scale-110 transition-transform duration-300`}
+                        className={`relative z-10 flex-shrink-0 inline-flex items-center justify-center h-10 w-10 sm:h-12 sm:w-12 rounded-lg sm:rounded-xl bg-card border ring-1 ${ringColor} shadow-sm ${iconColor} group-hover:scale-110 transition-transform duration-300`}
                       >
-                        <Icon className="h-5 w-5" aria-hidden />
+                        <Icon className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden />
                       </div>
 
                       {/* Text */}

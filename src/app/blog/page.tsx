@@ -153,11 +153,11 @@ export default function BlogPage() {
           <p className="text-[#D4AF37] text-sm font-semibold tracking-[0.25em] uppercase mb-3">
             مواضيع قادمة
           </p>
-          <h2 className="text-3xl md:text-4xl font-extrabold text-balance mb-12">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-balance mb-6 sm:mb-10">
             ماذا ستجد في مدونتنا؟
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-2 gap-3 md:gap-6 md:grid-cols-3">
             {[
               {
                 Icon: Sparkles,
@@ -177,13 +177,13 @@ export default function BlogPage() {
             ].map(({ Icon, title, desc }) => (
               <div
                 key={title}
-                className="group flex flex-col items-center gap-4 p-8 rounded-3xl bg-card border ring-1 ring-border/50 hover:ring-[#D4AF37]/40 hover:-translate-y-2 hover:shadow-xl transition-all duration-400"
+                className="group flex flex-col items-center gap-3 sm:gap-4 p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-card border ring-1 ring-border/50 hover:ring-[#D4AF37]/40 hover:-translate-y-2 hover:shadow-xl transition-all duration-400"
               >
-                <div className="inline-flex items-center justify-center h-12 w-12 rounded-2xl bg-[#D4AF37]/10 border border-[#D4AF37]/20 text-[#D4AF37] group-hover:scale-110 transition-transform duration-300">
-                  <Icon className="h-5 w-5" aria-hidden />
+                <div className="inline-flex items-center justify-center h-10 w-10 sm:h-12 sm:w-12 rounded-xl sm:rounded-2xl bg-[#D4AF37]/10 border border-[#D4AF37]/20 text-[#D4AF37] group-hover:scale-110 transition-transform duration-300">
+                  <Icon className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden />
                 </div>
-                <h3 className="text-lg font-bold">{title}</h3>
-                <p className="text-muted-foreground text-sm leading-loose">
+                <h3 className="text-sm sm:text-base md:text-lg font-bold">{title}</h3>
+                <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed sm:leading-loose">
                   {desc}
                 </p>
                 <span className="text-xs font-semibold text-[#D4AF37]/70 tracking-wider uppercase mt-auto">
