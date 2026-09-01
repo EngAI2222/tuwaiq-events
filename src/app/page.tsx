@@ -75,7 +75,7 @@ export default function Home() {
         />
         
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-12 sm:mb-16">
+          <div className="text-center mb-6 sm:mb-10">
             <div className="inline-flex items-center justify-center gap-2 px-5 py-2 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-[#D4AF37] text-sm font-bold tracking-wider mb-6 backdrop-blur-sm">
               <Sparkles className="h-4 w-4 animate-pulse" aria-hidden />
               حصرياً لدى لمسة
@@ -88,7 +88,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+          <div className="grid grid-cols-2 gap-3 md:gap-6 md:grid-cols-2 lg:grid-cols-4 mb-10 sm:mb-16">
             {[
               { icon: Calendar, title: "تخطيط زمني", desc: "جدول دقيق لجميع التجهيزات والمهام" },
               { icon: MapPin, title: "اختيار المكان", desc: "اقتراحات لأفخم القاعات والمخيمات" },
@@ -97,13 +97,13 @@ export default function Home() {
             ].map((feat, i) => (
               <div 
                 key={i} 
-                className="group flex flex-col items-center text-center p-8 rounded-3xl bg-white/5 border border-white/10 hover:border-[#D4AF37] backdrop-blur-xl hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(212,175,55,0.2)] transition-all duration-500"
+                className="group flex flex-col items-center text-center p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-white/5 border border-white/10 hover:border-[#D4AF37] backdrop-blur-xl hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(212,175,55,0.2)] transition-all duration-500"
               >
-                <div className="h-16 w-16 rounded-2xl bg-[#D4AF37]/10 border border-[#D4AF37]/20 flex items-center justify-center text-[#D4AF37] mb-6 group-hover:scale-110 group-hover:bg-[#D4AF37]/20 transition-all duration-300">
-                  <feat.icon className="h-8 w-8" aria-hidden />
+                <div className="h-12 w-12 sm:h-16 sm:w-16 rounded-xl sm:rounded-2xl bg-[#D4AF37]/10 border border-[#D4AF37]/20 flex items-center justify-center text-[#D4AF37] mb-4 sm:mb-6 group-hover:scale-110 group-hover:bg-[#D4AF37]/20 transition-all duration-300">
+                  <feat.icon className="h-6 w-6 sm:h-8 sm:w-8" aria-hidden />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-3">{feat.title}</h3>
-                <p className="text-gray-400 text-sm leading-relaxed">{feat.desc}</p>
+                <h3 className="text-sm sm:text-base md:text-lg font-bold text-white mb-2 sm:mb-3">{feat.title}</h3>
+                <p className="text-gray-400 text-xs sm:text-sm leading-relaxed">{feat.desc}</p>
               </div>
             ))}
           </div>
@@ -127,7 +127,7 @@ export default function Home() {
       ══════════════════════════════════════════ */}
       <section className="py-8 sm:py-12 md:py-24 bg-[#0a0c10] relative overflow-hidden">
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-12 sm:mb-16">
+          <div className="text-center mb-6 sm:mb-10">
             <p className="text-[#D4AF37] text-sm font-semibold tracking-[0.25em] uppercase mb-3">
               Why Choose Us
             </p>
@@ -138,7 +138,7 @@ export default function Home() {
               مبادئ راسخة تجعل لمسة إيفنس الخيار الأول لكل من يطلب الأفضل.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-2 gap-3 md:gap-8 md:grid-cols-2 lg:grid-cols-3">
             {[
               { icon: Calendar, title: "التخطيط للمناسبة", desc: "تفاصيل مرتبة وتجربة انسيابية من البداية للنهاية." },
               { icon: Users, title: "الخبرة في التنفيذ", desc: "مشهد متناغم وتنفيذ سلس في أرض الواقع." },
@@ -149,13 +149,13 @@ export default function Home() {
             ].map((item, i) => (
               <div 
                 key={i} 
-                className="group relative bg-white/5 border border-white/10 border-b border-b-[#D4AF37]/50 p-8 rounded-3xl backdrop-blur-lg hover:bg-white/10 hover:border-b-[#D4AF37] hover:-translate-y-2 hover:shadow-[0_10px_40px_-10px_rgba(212,175,55,0.2)] transition-all duration-500 flex flex-col gap-5 overflow-hidden"
+                className="group relative bg-white/5 border border-white/10 border-b border-b-[#D4AF37]/50 p-4 sm:p-6 rounded-2xl sm:rounded-3xl backdrop-blur-lg hover:bg-white/10 hover:border-b-[#D4AF37] hover:-translate-y-2 hover:shadow-[0_10px_40px_-10px_rgba(212,175,55,0.2)] transition-all duration-500 flex flex-col gap-3 sm:gap-5 overflow-hidden"
               >
-                <div className="h-14 w-14 rounded-2xl bg-[#D4AF37]/10 flex items-center justify-center text-[#D4AF37] border border-[#D4AF37]/20 group-hover:scale-110 transition-transform duration-300">
-                  <item.icon className="h-7 w-7" aria-hidden />
+                <div className="h-10 w-10 sm:h-14 sm:w-14 rounded-xl sm:rounded-2xl bg-[#D4AF37]/10 flex items-center justify-center text-[#D4AF37] border border-[#D4AF37]/20 group-hover:scale-110 transition-transform duration-300">
+                  <item.icon className="h-5 w-5 sm:h-7 sm:w-7" aria-hidden />
                 </div>
-                <h3 className="text-xl font-bold text-white tracking-tight">{item.title}</h3>
-                <p className="text-gray-400 leading-loose text-sm md:text-base">{item.desc}</p>
+                <h3 className="text-sm sm:text-base md:text-lg font-bold text-white tracking-tight">{item.title}</h3>
+                <p className="text-gray-400 leading-relaxed sm:leading-loose text-xs sm:text-sm">{item.desc}</p>
                 {/* Internal hover glow */}
                 <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" aria-hidden />
               </div>
@@ -184,11 +184,11 @@ export default function Home() {
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white mb-6 text-balance">
             خدماتنا المتميزة
           </h2>
-          <p className="text-gray-300 text-sm sm:text-base md:text-lg max-w-2xl mx-auto mb-12 sm:mb-16 leading-loose tracking-wide">
+          <p className="text-gray-300 text-sm sm:text-base md:text-lg max-w-2xl mx-auto mb-6 sm:mb-10 leading-loose tracking-wide">
             نقدم مجموعة متكاملة من الخدمات الفاخرة لتغطية كافة احتياجات مناسبتك من الألف إلى الياء.
           </p>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-start">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 text-start">
             {[
               {
                 title: "كوش الأفراح",
@@ -214,7 +214,7 @@ export default function Home() {
               <Link 
                 href="/services" 
                 key={i} 
-                className="group relative block rounded-3xl overflow-hidden border border-white/10 hover:border-[#D4AF37]/50 hover:shadow-[0_0_40px_rgba(212,175,55,0.15)] transition-all duration-500 h-[350px] md:h-[450px]"
+                className="group relative block rounded-2xl sm:rounded-3xl overflow-hidden border border-white/10 hover:border-[#D4AF37]/50 hover:shadow-[0_0_40px_rgba(212,175,55,0.15)] transition-all duration-500 h-[280px] md:h-[450px]"
               >
                 <Image 
                   src={service.image} 
