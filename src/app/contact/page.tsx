@@ -68,7 +68,7 @@ const CONTACT_INFO = [
     Icon: MapPin,
     label: "الموقع",
     value: "شارع العليا، الرياض",
-    href: "https://maps.app.goo.gl/17mBiWJeXtBDCjMF9?g_st=aw",
+    href: "https://maps.app.goo.gl/QrMvv7oZLZwQ1iw46?g_st=aw",
     iconColor: "text-rose-400",
     ringColor: "ring-rose-500/20",
     glowColor: "from-rose-500/15 to-pink-600/5",

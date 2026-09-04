@@ -139,7 +139,7 @@ export function FloatingActions() {
           {/* Location (Map Pin) — delay 150ms */}
           <div className="group relative" style={{ transitionDelay: isSocialOpen ? "150ms" : "0ms" }}>
             <a
-              href="https://maps.app.goo.gl/17mBiWJeXtBDCjMF9?g_st=aw"
+              href="https://maps.app.goo.gl/QrMvv7oZLZwQ1iw46?g_st=aw"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="الموقع"
