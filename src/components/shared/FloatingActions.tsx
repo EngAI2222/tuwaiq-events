@@ -185,7 +185,7 @@ export function FloatingActions() {
           {/* WhatsApp — delay 0ms (appears first) */}
           <div className="group relative" style={{ transitionDelay: "0ms" }}>
             <a
-              href="https://wa.me/966547498239"
+              href="https://wa.me/966574257484"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="واتساب"

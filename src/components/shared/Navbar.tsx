@@ -207,7 +207,7 @@ export function Navbar() {
 
               {/* Social Media Icons */}
               <div className="flex items-center gap-4 mt-8">
-                <a href="https://wa.me/966547498239" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center h-10 w-10 rounded-full border border-gray-200 text-gray-500 hover:text-[#D4AF37] hover:border-[#D4AF37] transition-all">
+                <a href="https://wa.me/966574257484" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center h-10 w-10 rounded-full border border-gray-200 text-gray-500 hover:text-[#D4AF37] hover:border-[#D4AF37] transition-all">
                   <MessageCircle className="h-4 w-4" />
                 </a>
                 <a href="#" className="flex items-center justify-center h-10 w-10 rounded-full border border-gray-200 text-gray-500 hover:text-[#D4AF37] hover:border-[#D4AF37] transition-all">

@@ -37,8 +37,8 @@ const CONTACT_INFO = [
     id: "whatsapp",
     Icon: MessageCircle,
     label: "واتساب",
-    value: "054 749 8239",
-    href: "https://wa.me/966547498239",
+    value: "057 425 7484",
+    href: "https://wa.me/966574257484",
     iconColor: "text-emerald-400",
     ringColor: "ring-emerald-500/20",
     glowColor: "from-emerald-500/15 to-green-600/5",
@@ -483,7 +483,7 @@ export default function ContactPage() {
 
               {/* WhatsApp quick CTA */}
               <a
-                href="https://wa.me/966547498239"
+                href="https://wa.me/966574257484"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-3 w-full border-2 border-emerald-500/50 hover:border-emerald-400 text-emerald-400 hover:text-white hover:bg-emerald-500 font-bold text-base py-4 px-8 rounded-2xl hover:-translate-y-1 hover:shadow-[0_0_30px_rgba(34,197,94,0.3)] transition-all duration-300 mt-2"
