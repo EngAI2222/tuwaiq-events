@@ -1,15 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
 import { FeaturedServices } from "@/components/home/FeaturedServices";
-import { 
-  Sparkles, 
-  Calendar, 
-  Users, 
-  MapPin, 
-  ArrowLeft, 
-  Gem, 
-  Palette, 
-  ShieldCheck, 
+import {
+  Sparkles,
+  Calendar,
+  Users,
+  MapPin,
+  ArrowLeft,
+  Gem,
+  Palette,
+  ShieldCheck,
   Clock
 } from "lucide-react";
 
@@ -21,14 +21,14 @@ export default function Home() {
       ══════════════════════════════════════════ */}
       <section className="relative w-full min-h-[100dvh] flex items-center justify-center overflow-hidden">
         {/* Background Image */}
-        <div 
-          className="bg-cover bg-center bg-no-repeat w-full absolute inset-0" 
-          style={{ backgroundImage: "url('/hero-bg.jpg')" }} 
+        <div
+          className="bg-cover bg-center bg-no-repeat w-full absolute inset-0"
+          style={{ backgroundImage: "url('/hero-bg.jpg')" }}
           aria-hidden
         />
         {/* Rich multi-layered gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/50 to-[#0f1117]" aria-hidden />
-        
+
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 flex flex-col justify-center items-center h-full text-center">
           <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-[#D4AF37]/40 bg-black/30 backdrop-blur-md text-[#F3E5AB] text-sm font-medium tracking-widest mb-8 uppercase">
             <span className="h-1.5 w-1.5 rounded-full bg-[#D4AF37] animate-pulse" />
@@ -45,7 +45,7 @@ export default function Home() {
           <p className="text-gray-300 text-sm sm:text-base md:text-lg font-light max-w-3xl mx-auto mt-6 sm:mt-8 mb-10 sm:mb-12 leading-loose tracking-wide">
             نجمع بين الفخامة والذكاء الاصطناعي لتصميم وتجهيز حفلات الزفاف والمناسبات الخاصة بدقة متناهية تعكس ذوقك الرفيع.
           </p>
-          
+
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-center justify-center w-full">
             <Link
               href="/booking"
@@ -78,12 +78,12 @@ export default function Home() {
           <p className="text-gray-300 text-sm sm:text-base md:text-lg max-w-2xl mx-auto mb-10 sm:mb-16 leading-loose tracking-wide">
             نقدم مجموعة متكاملة من الخدمات الفاخرة لتغطية كافة احتياجات مناسبتك من الألف إلى الياء.
           </p>
-          
+
           <FeaturedServices />
-          
+
           <div className="mt-12 sm:mt-16">
-            <Link 
-              href="/services" 
+            <Link
+              href="/services"
               className="inline-block bg-white/5 backdrop-blur-md border border-white/20 hover:border-[#D4AF37] text-white font-semibold text-lg py-4 px-10 rounded-full hover:bg-white/10 hover:-translate-y-1 transition-all duration-300"
             >
               عرض جميع الخدمات
@@ -102,12 +102,12 @@ export default function Home() {
       ══════════════════════════════════════════ */}
       <section className="relative py-12 sm:py-16 md:py-24 bg-[#0f1117] overflow-hidden">
         {/* Deep glowing radial gradient */}
-        <div 
-          className="absolute inset-0 pointer-events-none" 
-          style={{ background: 'radial-gradient(circle at center, rgba(212,175,55,0.08) 0%, transparent 60%)' }} 
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{ background: 'radial-gradient(circle at center, rgba(212,175,55,0.08) 0%, transparent 60%)' }}
           aria-hidden
         />
-        
+
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-8 sm:mb-12">
             <div className="inline-flex items-center justify-center gap-2 px-5 py-2 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-[#D4AF37] text-sm font-bold tracking-wider mb-6 backdrop-blur-sm">
@@ -129,8 +129,8 @@ export default function Home() {
               { icon: Users, title: "إدارة الضيوف", desc: "توزيع الطاولات واستقبال كبار الشخصيات" },
               { icon: Sparkles, title: "لمسات سحرية", desc: "تصاميم وديكورات فريدة وحصرية" },
             ].map((feat, i) => (
-              <div 
-                key={i} 
+              <div
+                key={i}
                 className="group flex flex-col items-center text-center p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-white/5 border border-white/10 hover:border-[#D4AF37] backdrop-blur-xl hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(212,175,55,0.2)] transition-all duration-500"
               >
                 <div className="h-12 w-12 sm:h-16 sm:w-16 rounded-xl sm:rounded-2xl bg-[#D4AF37]/10 border border-[#D4AF37]/20 flex items-center justify-center text-[#D4AF37] mb-4 sm:mb-6 group-hover:scale-110 group-hover:bg-[#D4AF37]/20 transition-all duration-300">
@@ -141,10 +141,10 @@ export default function Home() {
               </div>
             ))}
           </div>
-          
+
           <div className="text-center">
-            <Link 
-              href="/ai-planner" 
+            <Link
+              href="/ai-planner"
               className="group relative inline-flex items-center justify-center gap-3 bg-transparent border-2 border-[#D4AF37] text-[#D4AF37] font-bold text-lg py-4 px-10 rounded-full hover:bg-[#D4AF37] hover:text-black hover:shadow-[0_0_30px_rgba(212,175,55,0.4)] transition-all duration-500 overflow-hidden"
             >
               <span className="relative z-10 flex items-center gap-2">
@@ -181,8 +181,8 @@ export default function Home() {
               { icon: Palette, title: "تنوع الخيارات", desc: "حلول لزفاف وملكة وأعياد واستقبالات بمرونة." },
               { icon: ShieldCheck, title: "تجربة أكثر راحة", desc: "تشغيل وجمال معًا لتجربة مرتبة وهادئة." },
             ].map((item, i) => (
-              <div 
-                key={i} 
+              <div
+                key={i}
                 className="group relative bg-white/5 border border-white/10 border-b border-b-[#D4AF37]/50 p-4 sm:p-6 rounded-2xl sm:rounded-3xl backdrop-blur-lg hover:bg-white/10 hover:border-b-[#D4AF37] hover:-translate-y-2 hover:shadow-[0_10px_40px_-10px_rgba(212,175,55,0.2)] transition-all duration-500 flex flex-col gap-3 sm:gap-5 overflow-hidden"
               >
                 <div className="h-10 w-10 sm:h-14 sm:w-14 rounded-xl sm:rounded-2xl bg-[#D4AF37]/10 flex items-center justify-center text-[#D4AF37] border border-[#D4AF37]/20 group-hover:scale-110 transition-transform duration-300">
@@ -196,13 +196,13 @@ export default function Home() {
             ))}
           </div>
           <div className="mt-16 text-center">
-             <Link 
-               href="/about" 
-               className="inline-flex items-center gap-2 text-[#D4AF37] hover:text-[#F3E5AB] font-semibold text-lg transition-colors duration-300"
-             >
-               اقرأ المزيد عن قصتنا
-               <ArrowLeft className="h-5 w-5" aria-hidden />
-             </Link>
+            <Link
+              href="/about"
+              className="inline-flex items-center gap-2 text-[#D4AF37] hover:text-[#F3E5AB] font-semibold text-lg transition-colors duration-300"
+            >
+              اقرأ المزيد عن قصتنا
+              <ArrowLeft className="h-5 w-5" aria-hidden />
+            </Link>
           </div>
         </div>
       </section>

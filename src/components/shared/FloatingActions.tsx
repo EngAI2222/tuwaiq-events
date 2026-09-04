@@ -171,7 +171,7 @@ export function FloatingActions() {
           {/* Phone — delay 50ms */}
           <div className="group relative" style={{ transitionDelay: isSocialOpen ? "50ms" : "0ms" }}>
             <a
-              href="tel:+966574257484"
+              href="tel:0547498239"
               aria-label="اتصال"
               className="w-12 h-12 rounded-full flex items-center justify-center bg-black/80 backdrop-blur-md border border-[#D4AF37]/30 text-white hover:text-[#D4AF37] hover:scale-110 hover:border-[#D4AF37] hover:shadow-[0_0_15px_rgba(212,175,55,0.3)] transition-all duration-300"
             >
@@ -185,7 +185,7 @@ export function FloatingActions() {
           {/* WhatsApp — delay 0ms (appears first) */}
           <div className="group relative" style={{ transitionDelay: "0ms" }}>
             <a
-              href="https://wa.me/966574257484"
+              href="https://wa.me/966547498239"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="واتساب"
