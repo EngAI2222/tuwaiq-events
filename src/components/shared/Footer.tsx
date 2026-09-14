@@ -106,7 +106,7 @@ export function Footer() {
               <SocialLink href="https://www.instagram.com/hflatayfns?utm_source=qr&stkn=MW1taTgzYjhzaW1waw%3D%3D" label="إنستقرام">
                 <InstagramIcon />
               </SocialLink>
-              <SocialLink href="https://www.snapchat.com/add/lamsa.events8?share_id=zexUlKgyxoM&locale=ar-EG" label="سناب شات">
+              <SocialLink href="#" label="سناب شات">
                 <SnapchatIcon />
               </SocialLink>
               <SocialLink href="https://www.tiktok.com/@lamsa.events8" label="تيك توك">
