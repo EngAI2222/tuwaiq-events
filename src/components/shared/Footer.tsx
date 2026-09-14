@@ -109,7 +109,7 @@ export function Footer() {
               <SocialLink href="#" label="سناب شات">
                 <SnapchatIcon />
               </SocialLink>
-              <SocialLink href="#" label="تيك توك">
+              <SocialLink href="https://www.tiktok.com/@lamsa.events8" label="تيك توك">
                 <TikTokIcon />
               </SocialLink>
               <SocialLink href="#" label="يوتيوب">
