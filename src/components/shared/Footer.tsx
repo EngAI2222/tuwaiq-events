@@ -112,7 +112,7 @@ export function Footer() {
               <SocialLink href="https://www.tiktok.com/@lamsa.events8" label="تيك توك">
                 <TikTokIcon />
               </SocialLink>
-              <SocialLink href="#" label="يوتيوب">
+              <SocialLink href="https://youtube.com/@lamsaevens?si=sA-0DOUsebGrBZdi" label="يوتيوب">
                 <YouTubeIcon />
               </SocialLink>
             </div>
