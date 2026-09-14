@@ -149,24 +149,6 @@ export function Footer() {
 
         </div>
 
-        {/* ── Bottom Bar ───────────────────────────────────── */}
-        <div className="border-t mt-12 pt-6 flex flex-col items-center gap-1 text-center">
-          <span suppressHydrationWarning className="text-muted-foreground text-sm">
-            جميع الحقوق محفوظة لشركة لمسة إيفنس © {new Date().getFullYear()}
-          </span>
-          <span className="text-muted-foreground/60 text-xs">
-            تم التصميم بواسطة{" "}
-            <a
-              href="https://github.com/EngAI2222"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-primary transition-colors"
-            >
-              EngAI2222
-            </a>
-          </span>
-        </div>
-
       </div>
     </footer>
   );
