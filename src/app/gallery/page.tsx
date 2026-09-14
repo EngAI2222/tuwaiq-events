@@ -158,12 +158,11 @@ export default function GalleryPage() {
         <div className="container mx-auto px-6 max-w-7xl">
           {/* Loading skeleton */}
           {loading && (
-            <div className="columns-2 md:columns-3 gap-3 sm:gap-5 space-y-3 sm:space-y-5">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-5">
               {Array.from({ length: 6 }).map((_, i) => (
                 <div
                   key={i}
-                  className="break-inside-avoid rounded-2xl bg-card/50 border border-border/30 animate-pulse"
-                  style={{ height: i % 3 === 0 ? "300px" : i % 2 === 0 ? "240px" : "280px" }}
+                  className="rounded-2xl bg-card/50 border border-border/30 animate-pulse aspect-[4/3]"
                 />
               ))}
             </div>
@@ -176,11 +175,11 @@ export default function GalleryPage() {
             </div>
           )}
 
-          {/* Masonry grid */}
+          {/* Image grid */}
           {!loading && filtered.length > 0 && (
-            <div className="columns-2 md:columns-3 gap-3 sm:gap-5 space-y-3 sm:space-y-5">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-5">
               <AnimatePresence mode="popLayout">
-                {filtered.map((img, idx) => (
+                {filtered.map((img) => (
                   <motion.div
                     key={img.id}
                     layout
@@ -188,19 +187,13 @@ export default function GalleryPage() {
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.85, y: -10 }}
                     transition={{ duration: 0.4, type: "spring", bounce: 0.2 }}
-                    className="relative group rounded-2xl overflow-hidden break-inside-avoid
+                    className="group flex flex-col rounded-2xl overflow-hidden
                       border border-border/50 ring-1 ring-border/30 hover:ring-[#D4AF37]/50
                       hover:shadow-[0_0_40px_rgba(212,175,55,0.12)] transition-all duration-500
-                      cursor-pointer bg-card flex flex-col"
+                      cursor-pointer bg-card"
                   >
-                    {/* ── Image area ── */}
-                    <div
-                      className="relative w-full overflow-hidden"
-                      style={{
-                        aspectRatio:
-                          idx % 3 === 0 ? "4/5" : idx % 2 === 0 ? "1/1" : "3/4",
-                      }}
-                    >
+                    {/* ── Image (fixed 4:3 ratio, clean, no text overlay) ── */}
+                    <div className="relative w-full aspect-[4/3] overflow-hidden shrink-0">
                       <Image
                         src={img.imageURL}
                         alt={img.caption}
@@ -209,14 +202,14 @@ export default function GalleryPage() {
                         className="object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out"
                       />
 
-                      {/* Gold top border shimmer on hover */}
+                      {/* Gold shimmer on hover */}
                       <div
                         className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20"
                         aria-hidden
                       />
 
-                      {/* Hover overlay — view icon only */}
-                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-400 flex items-center justify-center z-10">
+                      {/* Hover scrim + view pill */}
+                      <div className="absolute inset-0 bg-black/35 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
                         <div className="inline-flex items-center gap-1.5 bg-white/10 border border-white/20 backdrop-blur-md rounded-full px-4 py-2 text-white text-xs font-semibold scale-90 group-hover:scale-100 transition-transform duration-300">
                           <Eye className="h-3.5 w-3.5" aria-hidden />
                           <span>تفاصيل</span>
@@ -224,13 +217,11 @@ export default function GalleryPage() {
                       </div>
                     </div>
 
-                    {/* ── Always-visible caption bar ── */}
-                    <div className="px-3 pt-2.5 pb-3 flex flex-col gap-1 bg-card">
-                      {/* Category chip */}
+                    {/* ── Caption body (always visible, below image) ── */}
+                    <div className="px-4 pt-3 pb-4 flex flex-col gap-1.5 bg-card flex-1">
                       <span className="self-start px-2 py-0.5 rounded-full bg-[#D4AF37]/15 border border-[#D4AF37]/30 text-[#F3E5AB] text-[10px] font-semibold tracking-wide">
                         {img.category}
                       </span>
-                      {/* Caption / title */}
                       <p className="text-foreground text-sm font-bold leading-snug line-clamp-2">
                         {img.caption}
                       </p>

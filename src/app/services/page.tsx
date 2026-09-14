@@ -67,7 +67,7 @@ function ServiceCard({ service, tall = false }: { service: Service; tall?: boole
         aria-hidden
       />
 
-      {/* Cover image (if set) */}
+      {/* Cover image */}
       {imageURL && (
         <div className="relative w-full h-48 overflow-hidden shrink-0">
           <Image
@@ -77,30 +77,23 @@ function ServiceCard({ service, tall = false }: { service: Service; tall?: boole
             sizes="(max-width: 768px) 100vw, 50vw"
             className="object-cover group-hover:scale-105 transition-transform duration-700"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/10 to-black/50" />
-          {/* Always-visible title overlay at bottom of image — prominent for gallery items */}
-          {displayTitle && (
-            <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 to-transparent px-4 pt-6 pb-3 z-10">
-              <p className="text-white text-sm sm:text-base font-bold leading-tight line-clamp-2 drop-shadow">
-                {displayTitle}
-              </p>
-            </div>
-          )}
+          {/* Subtle scrim so image edges look polished */}
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/20" aria-hidden />
         </div>
       )}
 
-      {/* Content */}
-      <div className={`relative z-10 flex flex-col gap-3 flex-1 ${imageURL ? "p-4 sm:p-6 pt-3 sm:pt-4" : "p-4 sm:p-6"}`}>
+      {/* Card body */}
+      <div className={`relative z-10 flex flex-col gap-2 flex-1 px-4 sm:px-5 pt-3 pb-1 ${!imageURL ? "pt-5" : ""}`}>
         {/* Category chip */}
-        <span className="inline-block self-start text-[10px] sm:text-xs font-semibold tracking-[0.15em] text-muted-foreground uppercase">
+        <span className="inline-block self-start px-2 py-0.5 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/25 text-[#F3E5AB] text-[10px] sm:text-[11px] font-semibold tracking-wider uppercase">
           {service.category}
         </span>
-        {/* Title — prominent, always rendered */}
-        <h2 className="text-sm sm:text-base md:text-xl font-extrabold tracking-tight leading-snug">
+        {/* Title — one place, always visible */}
+        <h2 className="text-sm sm:text-base md:text-lg font-extrabold tracking-tight leading-snug">
           {displayTitle || <span className="text-muted-foreground italic text-xs">بدون عنوان</span>}
         </h2>
         {description && (
-          <p className="text-muted-foreground leading-relaxed sm:leading-loose text-xs sm:text-base tracking-wide flex-1">
+          <p className="text-muted-foreground leading-relaxed text-xs sm:text-sm tracking-wide flex-1 line-clamp-3">
             {description}
           </p>
         )}
