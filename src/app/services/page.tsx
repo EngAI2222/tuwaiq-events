@@ -13,9 +13,10 @@ import { motion, AnimatePresence } from "framer-motion";
 
 type Service = {
   id: string;
-  title: string;
-  description: string;
-  price: string;
+  title?: string;
+  caption?: string;   // gallery items use this instead of title
+  description?: string;
+  price?: string;
   imageURL: string;
   category: string;
   createdAt: string;
@@ -49,7 +50,9 @@ const STATIC_CATEGORIES = [
 // ─── Service Card ─────────────────────────────────────────────────────────────
 
 function ServiceCard({ service, tall = false }: { service: Service; tall?: boolean }) {
-  const { title, description, price, imageURL } = service;
+  // Gallery items store their name in `caption`; service items use `title`.
+  const displayTitle = service.title || service.caption || "";
+  const { description, price, imageURL } = service;
 
   return (
     <article
@@ -69,12 +72,20 @@ function ServiceCard({ service, tall = false }: { service: Service; tall?: boole
         <div className="relative w-full h-48 overflow-hidden shrink-0">
           <Image
             src={imageURL}
-            alt={title}
+            alt={displayTitle}
             fill
             sizes="(max-width: 768px) 100vw, 50vw"
             className="object-cover group-hover:scale-105 transition-transform duration-700"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/10 to-black/50" />
+          {/* Always-visible title overlay at bottom of image — prominent for gallery items */}
+          {displayTitle && (
+            <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 to-transparent px-4 pt-6 pb-3 z-10">
+              <p className="text-white text-sm sm:text-base font-bold leading-tight line-clamp-2 drop-shadow">
+                {displayTitle}
+              </p>
+            </div>
+          )}
         </div>
       )}
 
@@ -84,7 +95,10 @@ function ServiceCard({ service, tall = false }: { service: Service; tall?: boole
         <span className="inline-block self-start text-[10px] sm:text-xs font-semibold tracking-[0.15em] text-muted-foreground uppercase">
           {service.category}
         </span>
-        <h2 className="text-sm sm:text-base md:text-2xl font-extrabold tracking-tight">{title}</h2>
+        {/* Title — prominent, always rendered */}
+        <h2 className="text-sm sm:text-base md:text-xl font-extrabold tracking-tight leading-snug">
+          {displayTitle || <span className="text-muted-foreground italic text-xs">بدون عنوان</span>}
+        </h2>
         {description && (
           <p className="text-muted-foreground leading-relaxed sm:leading-loose text-xs sm:text-base tracking-wide flex-1">
             {description}
@@ -96,7 +110,7 @@ function ServiceCard({ service, tall = false }: { service: Service; tall?: boole
       <div className="relative z-10 flex items-center justify-between px-4 sm:px-6 pb-4 sm:pb-6 pt-2 border-t border-border/50 mt-auto shrink-0">
         <span className="text-xs sm:text-sm font-semibold text-[#D4AF37]">{price || "حسب الطلب"}</span>
         <Link
-          href={`/booking?service=${encodeURIComponent(title)}`}
+          href={`/booking?service=${encodeURIComponent(displayTitle)}`}
           className="inline-flex items-center gap-1 sm:gap-2 text-xs sm:text-sm font-bold text-foreground hover:text-[#D4AF37] transition-colors"
         >
           احجز الآن
