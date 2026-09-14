@@ -272,13 +272,6 @@ export default function ServicesPage() {
             >
               احجز مناسبتك الآن
             </Link>
-            <Link
-              href="/ai-planner"
-              className="border border-[#D4AF37]/50 hover:border-[#D4AF37] text-[#F3E5AB] hover:text-white font-semibold text-base py-3 px-10 rounded-full hover:bg-white/5 hover:-translate-y-1 transition-all duration-300 flex items-center gap-2"
-            >
-              <Sparkles className="h-4 w-4" aria-hidden />
-              جرّب المخطط الذكي
-            </Link>
           </div>
         </div>
       </section>
