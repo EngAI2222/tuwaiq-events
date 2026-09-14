@@ -42,10 +42,16 @@ export default function AdminGalleryPage() {
   const [showForm, setShowForm] = useState(false);
   const [caption, setCaption] = useState("");
   const [category, setCategory] = useState(CATEGORIES[0]);
-  const [file, setFile] = useState<File | null>(null);
-  const [previewURL, setPreviewURL] = useState<string | null>(null);
+
+  // Multi-file state
+  const [files, setFiles] = useState<File[]>([]);
+  const [previewURLs, setPreviewURLs] = useState<string[]>([]);
+
+  // Upload progress: per-file index + overall percentage
+  const [uploadingIndex, setUploadingIndex] = useState<number | null>(null); // which file is currently uploading
   const [uploadProgress, setUploadProgress] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
+
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -62,47 +68,76 @@ export default function AdminGalleryPage() {
 
   useEffect(() => { fetchItems(); }, []);
 
-  // ── File preview ─────────────────────────────────────────────────────────────
+  // Revoke object URLs on unmount / file change to avoid memory leaks
+  useEffect(() => {
+    return () => previewURLs.forEach((u) => URL.revokeObjectURL(u));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [previewURLs]);
+
+  // ── File selection ────────────────────────────────────────────────────────────
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const f = e.target.files?.[0] ?? null;
-    setFile(f);
-    setPreviewURL(f ? URL.createObjectURL(f) : null);
+    const selected = Array.from(e.target.files ?? []);
+    if (!selected.length) return;
+    // Revoke any previous previews
+    previewURLs.forEach((u) => URL.revokeObjectURL(u));
+    setFiles(selected);
+    setPreviewURLs(selected.map((f) => URL.createObjectURL(f)));
   };
 
-  // ── Upload ────────────────────────────────────────────────────────────────────
+  // Remove a single file from the selection
+  const removeFile = (index: number) => {
+    URL.revokeObjectURL(previewURLs[index]);
+    setFiles((prev) => prev.filter((_, i) => i !== index));
+    setPreviewURLs((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  // ── Upload (sequential per-file) ──────────────────────────────────────────────
+  const uploadSingleFile = (file: File): Promise<string> =>
+    new Promise((resolve, reject) => {
+      const storageRef = ref(storage, `gallery/${Date.now()}_${file.name}`);
+      const task = uploadBytesResumable(storageRef, file);
+      task.on(
+        "state_changed",
+        (snap) => {
+          const pct = Math.round((snap.bytesTransferred / snap.totalBytes) * 100);
+          setUploadProgress(pct);
+        },
+        reject,
+        async () => {
+          const url = await getDownloadURL(task.snapshot.ref);
+          resolve(url);
+        }
+      );
+    });
+
   const handleUpload = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!file || !caption.trim()) return;
+    if (!files.length || !caption.trim()) return;
 
     setIsUploading(true);
-    setUploadProgress(0);
 
-    const storageRef = ref(storage, `gallery/${Date.now()}_${file.name}`);
-    const uploadTask = uploadBytesResumable(storageRef, file);
-
-    uploadTask.on(
-      "state_changed",
-      (snap) => {
-        const pct = Math.round((snap.bytesTransferred / snap.totalBytes) * 100);
-        setUploadProgress(pct);
-      },
-      (err) => {
-        console.error("Upload error", err);
-        setIsUploading(false);
-      },
-      async () => {
-        const imageURL = await getDownloadURL(uploadTask.snapshot.ref);
-        await db.gallery.create({ data: { imageURL, caption, category } });
-        setShowForm(false);
-        setFile(null);
-        setPreviewURL(null);
-        setCaption("");
-        setCategory(CATEGORIES[0]);
+    try {
+      for (let i = 0; i < files.length; i++) {
+        setUploadingIndex(i);
         setUploadProgress(0);
-        setIsUploading(false);
-        await fetchItems();
+        const imageURL = await uploadSingleFile(files[i]);
+        await db.gallery.create({ data: { imageURL, caption, category } });
       }
-    );
+    } catch (err) {
+      console.error("Upload error", err);
+    } finally {
+      // Reset form
+      previewURLs.forEach((u) => URL.revokeObjectURL(u));
+      setFiles([]);
+      setPreviewURLs([]);
+      setCaption("");
+      setCategory(CATEGORIES[0]);
+      setUploadProgress(0);
+      setUploadingIndex(null);
+      setIsUploading(false);
+      setShowForm(false);
+      await fetchItems();
+    }
   };
 
   // ── Delete ────────────────────────────────────────────────────────────────────
@@ -145,7 +180,7 @@ export default function AdminGalleryPage() {
               bg-violet-600 hover:bg-violet-500 text-white text-sm font-bold
               shadow-lg shadow-violet-500/20 transition-all duration-200 shrink-0"
           >
-            {showForm ? "✕ Cancel" : "+ Upload Photo"}
+            {showForm ? "✕ Cancel" : "+ Upload Photos"}
           </button>
         </div>
         <div className="absolute -top-10 -right-10 w-48 h-48 rounded-full bg-violet-500/10 blur-3xl pointer-events-none" />
@@ -157,32 +192,79 @@ export default function AdminGalleryPage() {
           onSubmit={handleUpload}
           className="rounded-2xl border border-violet-500/20 bg-[#0f1117] p-6 space-y-5"
         >
-          <p className="text-sm font-bold text-white">New Gallery Image</p>
+          <p className="text-sm font-bold text-white">New Gallery Images</p>
 
           {/* File drop zone */}
           <div
             onClick={() => fileInputRef.current?.click()}
-            className="relative h-52 rounded-xl border-2 border-dashed border-white/10
+            className="relative min-h-52 rounded-xl border-2 border-dashed border-white/10
               hover:border-violet-500/40 bg-white/[0.02] flex flex-col items-center
-              justify-center cursor-pointer transition-all duration-200 overflow-hidden"
+              justify-center cursor-pointer transition-all duration-200 overflow-hidden p-4"
           >
-            {previewURL ? (
-              <Image src={previewURL} alt="preview" fill className="object-cover rounded-xl" />
+            {previewURLs.length > 0 ? (
+              /* ── Preview strip ── */
+              <div className="w-full flex flex-wrap gap-3 justify-center" onClick={(e) => e.stopPropagation()}>
+                {previewURLs.map((url, idx) => (
+                  <div key={idx} className="relative w-24 h-24 rounded-lg overflow-hidden border border-white/10 flex-shrink-0">
+                    <Image src={url} alt={`preview-${idx}`} fill className="object-cover" />
+                    {/* Remove button */}
+                    <button
+                      type="button"
+                      onClick={() => removeFile(idx)}
+                      className="absolute top-1 right-1 w-5 h-5 rounded-full bg-black/70 text-red-400
+                        text-[10px] flex items-center justify-center hover:bg-red-500/40 transition-colors"
+                    >
+                      ✕
+                    </button>
+                    {/* Uploading indicator */}
+                    {isUploading && uploadingIndex === idx && (
+                      <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
+                        <span className="text-white text-[10px] font-bold">{uploadProgress}%</span>
+                      </div>
+                    )}
+                    {/* Done indicator */}
+                    {isUploading && uploadingIndex !== null && idx < uploadingIndex && (
+                      <div className="absolute inset-0 bg-green-500/20 flex items-center justify-center">
+                        <span className="text-green-400 text-base">✓</span>
+                      </div>
+                    )}
+                  </div>
+                ))}
+                {/* Add more button */}
+                <div
+                  onClick={() => fileInputRef.current?.click()}
+                  className="w-24 h-24 rounded-lg border-2 border-dashed border-white/10
+                    hover:border-violet-500/40 flex items-center justify-center
+                    text-slate-500 hover:text-violet-400 transition-colors cursor-pointer"
+                >
+                  <span className="text-2xl">+</span>
+                </div>
+              </div>
             ) : (
               <>
                 <span className="text-4xl mb-2">🖼️</span>
-                <p className="text-sm text-slate-400">Click to select an image</p>
-                <p className="text-xs text-slate-600 mt-1">JPG, PNG, WEBP up to 10 MB</p>
+                <p className="text-sm text-slate-400">Click to select one or more images</p>
+                <p className="text-xs text-slate-600 mt-1">JPG, PNG, WEBP up to 10 MB each · multiple files supported</p>
               </>
             )}
+
             <input
               ref={fileInputRef}
               type="file"
               accept="image/*"
+              multiple
               className="hidden"
               onChange={handleFileChange}
             />
           </div>
+
+          {/* Selected count badge */}
+          {files.length > 0 && (
+            <p className="text-xs text-violet-400 font-semibold">
+              {files.length} image{files.length !== 1 ? "s" : ""} selected
+              {files.length > 1 && " · all will share the same caption & category"}
+            </p>
+          )}
 
           {/* Caption + Category */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -212,11 +294,14 @@ export default function AdminGalleryPage() {
             </div>
           </div>
 
-          {/* Progress bar */}
+          {/* Overall progress bar (shown while uploading) */}
           {isUploading && (
             <div className="space-y-1.5">
               <div className="flex justify-between text-xs text-slate-400">
-                <span>Uploading…</span><span>{uploadProgress}%</span>
+                <span>
+                  Uploading {uploadingIndex !== null ? uploadingIndex + 1 : 0} of {files.length}…
+                </span>
+                <span>{uploadProgress}%</span>
               </div>
               <div className="h-1.5 rounded-full bg-white/[0.06] overflow-hidden">
                 <div
@@ -229,12 +314,14 @@ export default function AdminGalleryPage() {
 
           <button
             type="submit"
-            disabled={isUploading || !file}
+            disabled={isUploading || files.length === 0}
             className="w-full h-11 rounded-xl bg-violet-600 hover:bg-violet-500 text-white
               font-bold text-sm disabled:opacity-50 disabled:cursor-not-allowed
               transition-all duration-200 shadow-lg shadow-violet-500/20"
           >
-            {isUploading ? "Uploading…" : "Save to Gallery"}
+            {isUploading
+              ? `Uploading ${(uploadingIndex ?? 0) + 1} / ${files.length}…`
+              : `Save ${files.length > 1 ? `${files.length} Images` : "to Gallery"}`}
           </button>
         </form>
       )}
@@ -251,7 +338,7 @@ export default function AdminGalleryPage() {
           </div>
         ) : items.length === 0 ? (
           <div className="py-8 sm:py-12 md:py-24 text-center text-slate-500 text-sm">
-            No images yet. Click &quot;Upload Photo&quot; to add the first one.
+            No images yet. Click &quot;Upload Photos&quot; to add the first one.
           </div>
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">

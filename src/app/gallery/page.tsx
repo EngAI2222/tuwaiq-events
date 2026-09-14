@@ -191,8 +191,9 @@ export default function GalleryPage() {
                     className="relative group rounded-2xl overflow-hidden break-inside-avoid
                       border border-border/50 ring-1 ring-border/30 hover:ring-[#D4AF37]/50
                       hover:shadow-[0_0_40px_rgba(212,175,55,0.12)] transition-all duration-500
-                      cursor-pointer bg-card"
+                      cursor-pointer bg-card flex flex-col"
                   >
+                    {/* ── Image area ── */}
                     <div
                       className="relative w-full overflow-hidden"
                       style={{
@@ -214,25 +215,25 @@ export default function GalleryPage() {
                         aria-hidden
                       />
 
-                      {/* Hover overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400 flex flex-col justify-end p-4 sm:p-6 z-10">
-                        {/* Category chip */}
-                        <span className="inline-block self-start px-2 py-0.5 sm:px-3 sm:py-1 rounded-full bg-[#D4AF37]/20 border border-[#D4AF37]/40 text-[#F3E5AB] text-[10px] sm:text-xs font-semibold tracking-wide mb-2 backdrop-blur-sm">
-                          {img.category}
-                        </span>
-
-                        <div className="flex items-end justify-between gap-2 sm:gap-3">
-                          <h3 className="text-white text-sm sm:text-lg font-bold leading-tight translate-y-3 group-hover:translate-y-0 transition-transform duration-400">
-                            {img.caption}
-                          </h3>
-
-                          {/* View icon */}
-                          <div className="flex-shrink-0 inline-flex items-center gap-1 sm:gap-1.5 bg-white/10 border border-white/20 backdrop-blur-md rounded-full px-2 py-1 sm:px-3 sm:py-1.5 text-white text-[10px] sm:text-xs font-semibold translate-y-3 group-hover:translate-y-0 transition-transform duration-500">
-                            <Eye className="h-3 w-3 sm:h-3.5 sm:w-3.5" aria-hidden />
-                            <span className="hidden sm:inline">تفاصيل</span>
-                          </div>
+                      {/* Hover overlay — view icon only */}
+                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-400 flex items-center justify-center z-10">
+                        <div className="inline-flex items-center gap-1.5 bg-white/10 border border-white/20 backdrop-blur-md rounded-full px-4 py-2 text-white text-xs font-semibold scale-90 group-hover:scale-100 transition-transform duration-300">
+                          <Eye className="h-3.5 w-3.5" aria-hidden />
+                          <span>تفاصيل</span>
                         </div>
                       </div>
+                    </div>
+
+                    {/* ── Always-visible caption bar ── */}
+                    <div className="px-3 pt-2.5 pb-3 flex flex-col gap-1 bg-card">
+                      {/* Category chip */}
+                      <span className="self-start px-2 py-0.5 rounded-full bg-[#D4AF37]/15 border border-[#D4AF37]/30 text-[#F3E5AB] text-[10px] font-semibold tracking-wide">
+                        {img.category}
+                      </span>
+                      {/* Caption / title */}
+                      <p className="text-foreground text-sm font-bold leading-snug line-clamp-2">
+                        {img.caption}
+                      </p>
                     </div>
                   </motion.div>
                 ))}
