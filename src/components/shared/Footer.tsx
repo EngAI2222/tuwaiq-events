@@ -103,7 +103,7 @@ export function Footer() {
 
             {/* Social Icons */}
             <div className="flex items-center gap-3">
-              <SocialLink href="https://vercel.com/2-de4e/tuwaiq-events" label="إنستقرام">
+              <SocialLink href="https://www.instagram.com/hflatayfns?utm_source=qr&stkn=MW1taTgzYjhzaW1waw%3D%3D" label="إنستقرام">
                 <InstagramIcon />
               </SocialLink>
               <SocialLink href="#" label="سناب شات">

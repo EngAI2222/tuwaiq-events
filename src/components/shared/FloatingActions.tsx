@@ -155,7 +155,7 @@ export function FloatingActions() {
           {/* Instagram — delay 100ms */}
           <div className="group relative" style={{ transitionDelay: isSocialOpen ? "100ms" : "0ms" }}>
             <a
-              href="#"
+              href="https://www.instagram.com/hflatayfns?utm_source=qr&stkn=MW1taTgzYjhzaW1waw%3D%3D"
               target="_blank"
               rel="noreferrer"
               aria-label="انستقرام"

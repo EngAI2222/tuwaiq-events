@@ -1,3 +1,4 @@
+
 import type { Metadata } from "next";
 import { Tajawal } from "next/font/google";
 import { Navbar } from "@/components/shared/Navbar";
