@@ -117,16 +117,19 @@ function Lightbox({
           </div>
 
           {/* ── Details strip ── */}
-          <div className="px-6 py-5 flex flex-col gap-2 border-t border-white/[0.07]" dir="rtl">
+          <div className="px-4 py-5 sm:px-6 flex flex-col gap-3 border-t border-white/[0.07]" dir="rtl">
             {/* Category chip */}
             <span className="self-start px-3 py-1 rounded-full bg-[#D4AF37]/15 border border-[#D4AF37]/35
               text-[#F3E5AB] text-xs font-semibold tracking-widest uppercase">
               {item.category}
             </span>
-            {/* Caption / title */}
-            <h2 className="text-white text-lg sm:text-2xl font-extrabold leading-snug">
+            {/* Caption / title — full text, readable line-height on mobile */}
+            <p
+              className="text-white text-base sm:text-lg font-semibold"
+              style={{ lineHeight: "1.75", whiteSpace: "pre-wrap", wordBreak: "break-word" }}
+            >
               {item.caption}
-            </h2>
+            </p>
           </div>
         </motion.div>
       </motion.div>
@@ -287,47 +290,56 @@ export default function GalleryPage() {
                     exit={{ opacity: 0, scale: 0.88 }}
                     transition={{ duration: 0.3, type: "spring", bounce: 0.15 }}
                     onClick={() => setSelected(img)}
-                    className="group relative aspect-square rounded-2xl overflow-hidden
-                      border border-border/40 ring-1 ring-transparent
+                    className="group relative flex flex-col rounded-2xl overflow-hidden
+                      border border-border/40 ring-1 ring-transparent bg-card
                       hover:ring-[#D4AF37]/60 hover:shadow-[0_0_30px_rgba(212,175,55,0.15)]
-                      transition-all duration-400 cursor-pointer text-left focus:outline-none
+                      transition-all duration-400 cursor-pointer text-right focus:outline-none
                       focus-visible:ring-[#D4AF37]/80"
                     aria-label={`عرض: ${img.caption}`}
                   >
-                    {/* Image */}
-                    <Image
-                      src={img.imageURL}
-                      alt={img.caption}
-                      fill
-                      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                      className="object-cover group-hover:scale-108 transition-transform duration-700 ease-out"
-                      style={{ transform: undefined }}
-                    />
+                    {/* ── Image (fixed aspect ratio at top) ── */}
+                    <div className="relative w-full aspect-[4/3] overflow-hidden shrink-0">
+                      <Image
+                        src={img.imageURL}
+                        alt={img.caption}
+                        fill
+                        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                        className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                      />
 
-                    {/* Category badge — always visible, top-left */}
-                    <div className="absolute top-2.5 right-2.5 z-10">
-                      <span className="px-2 py-0.5 rounded-full bg-black/60 backdrop-blur-sm
-                        border border-white/15 text-white text-[10px] font-semibold tracking-wide
-                        line-clamp-1 max-w-[120px] block">
-                        {img.category}
-                      </span>
-                    </div>
-
-                    {/* Hover scrim + zoom icon */}
-                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100
-                      transition-opacity duration-300 flex items-center justify-center z-10">
-                      <div className="w-10 h-10 rounded-full bg-white/10 border border-white/20
-                        backdrop-blur-md flex items-center justify-center
-                        scale-75 group-hover:scale-100 transition-transform duration-300">
-                        <ZoomIn className="w-4 h-4 text-white" aria-hidden />
+                      {/* Category badge — top-right inside image */}
+                      <div className="absolute top-2 right-2 z-10">
+                        <span className="px-2 py-0.5 rounded-full bg-black/60 backdrop-blur-sm
+                          border border-white/15 text-white text-[10px] font-semibold tracking-wide
+                          line-clamp-1 max-w-[110px] block">
+                          {img.category}
+                        </span>
                       </div>
+
+                      {/* Hover scrim + zoom icon */}
+                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100
+                        transition-opacity duration-300 flex items-center justify-center z-10">
+                        <div className="w-10 h-10 rounded-full bg-white/10 border border-white/20
+                          backdrop-blur-md flex items-center justify-center
+                          scale-75 group-hover:scale-100 transition-transform duration-300">
+                          <ZoomIn className="w-4 h-4 text-white" aria-hidden />
+                        </div>
+                      </div>
+
+                      {/* Gold top shimmer on hover */}
+                      <div
+                        className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20"
+                        aria-hidden
+                      />
                     </div>
 
-                    {/* Gold top shimmer on hover */}
-                    <div
-                      className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20"
-                      aria-hidden
-                    />
+                    {/* ── Caption below image ── */}
+                    <div className="px-3 py-2.5" dir="rtl">
+                      <p className="text-xs sm:text-sm text-foreground/80 font-medium leading-snug
+                        line-clamp-2 overflow-hidden text-right">
+                        {img.caption}
+                      </p>
+                    </div>
                   </motion.button>
                 ))}
               </AnimatePresence>

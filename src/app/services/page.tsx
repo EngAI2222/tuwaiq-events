@@ -136,7 +136,7 @@ function ServiceModal({
           )}
 
           {/* Details */}
-          <div className="px-6 py-5 flex flex-col gap-3 border-t border-white/[0.07]" dir="rtl">
+          <div className="px-4 py-5 sm:px-6 flex flex-col gap-3 border-t border-white/[0.07]" dir="rtl">
             {/* Category + price row */}
             <div className="flex items-center justify-between gap-4 flex-wrap">
               <span className="px-3 py-1 rounded-full bg-[#D4AF37]/15 border border-[#D4AF37]/35
@@ -149,13 +149,16 @@ function ServiceModal({
             </div>
 
             {/* Title */}
-            <h2 className="text-white text-xl sm:text-2xl font-extrabold leading-snug">
+            <h2 className="text-white text-xl sm:text-2xl font-extrabold" style={{ lineHeight: "1.6" }}>
               {title || <span className="text-white/40 italic text-base">بدون عنوان</span>}
             </h2>
 
             {/* Description */}
             {service.description && (
-              <p className="text-white/60 text-sm leading-relaxed">
+              <p
+                className="text-white/65 text-sm"
+                style={{ lineHeight: "1.85", whiteSpace: "pre-wrap", wordBreak: "break-word" }}
+              >
                 {service.description}
               </p>
             )}
@@ -344,63 +347,73 @@ export default function ServicesPage() {
                         exit={{ opacity: 0, scale: 0.88 }}
                         transition={{ duration: 0.3, type: "spring", bounce: 0.15 }}
                         onClick={() => setSelected(s)}
-                        className="group relative aspect-square rounded-2xl overflow-hidden
+                        className="group relative flex flex-col rounded-2xl overflow-hidden
                           border border-border/40 ring-1 ring-transparent
                           hover:ring-[#D4AF37]/60 hover:shadow-[0_0_30px_rgba(212,175,55,0.15)]
-                          transition-all duration-400 cursor-pointer text-left focus:outline-none
+                          transition-all duration-400 cursor-pointer text-right focus:outline-none
                           focus-visible:ring-[#D4AF37]/80 bg-card"
                         aria-label={`عرض: ${title}`}
                       >
-                        {/* Image */}
-                        {s.imageURL ? (
-                          <Image
-                            src={s.imageURL}
-                            alt={title}
-                            fill
-                            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                            className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                          />
-                        ) : (
-                          /* Placeholder if no image */
-                          <div className="absolute inset-0 flex items-center justify-center bg-card text-muted-foreground text-4xl">
-                            🎪
-                          </div>
-                        )}
+                        {/* ── Image at top (fixed aspect ratio) ── */}
+                        <div className="relative w-full aspect-[4/3] overflow-hidden shrink-0">
+                          {s.imageURL ? (
+                            <Image
+                              src={s.imageURL}
+                              alt={title}
+                              fill
+                              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                              className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                            />
+                          ) : (
+                            /* Placeholder if no image */
+                            <div className="absolute inset-0 flex items-center justify-center bg-card text-muted-foreground text-4xl">
+                              🎪
+                            </div>
+                          )}
 
-                        {/* Category badge */}
-                        <div className="absolute top-2.5 right-2.5 z-10">
-                          <span className="px-2 py-0.5 rounded-full bg-black/60 backdrop-blur-sm
-                            border border-white/15 text-white text-[10px] font-semibold tracking-wide
-                            line-clamp-1 max-w-[120px] block">
-                            {s.category}
-                          </span>
-                        </div>
-
-                        {/* Price badge (if service has a price) */}
-                        {s.price && (
-                          <div className="absolute bottom-2.5 right-2.5 z-10">
-                            <span className="px-2 py-0.5 rounded-full bg-[#D4AF37]/80 backdrop-blur-sm
-                              text-black text-[10px] font-bold tracking-wide block">
-                              {s.price}
+                          {/* Category badge */}
+                          <div className="absolute top-2 right-2 z-10">
+                            <span className="px-2 py-0.5 rounded-full bg-black/60 backdrop-blur-sm
+                              border border-white/15 text-white text-[10px] font-semibold tracking-wide
+                              line-clamp-1 max-w-[110px] block">
+                              {s.category}
                             </span>
                           </div>
-                        )}
 
-                        {/* Hover scrim + zoom icon */}
-                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100
-                          transition-opacity duration-300 flex items-center justify-center z-10">
-                          <div className="w-10 h-10 rounded-full bg-white/10 border border-white/20
-                            backdrop-blur-md flex items-center justify-center
-                            scale-75 group-hover:scale-100 transition-transform duration-300">
-                            <ZoomIn className="w-4 h-4 text-white" aria-hidden />
+                          {/* Price badge (if service has a price) */}
+                          {s.price && (
+                            <div className="absolute bottom-2 right-2 z-10">
+                              <span className="px-2 py-0.5 rounded-full bg-[#D4AF37]/80 backdrop-blur-sm
+                                text-black text-[10px] font-bold tracking-wide block">
+                                {s.price}
+                              </span>
+                            </div>
+                          )}
+
+                          {/* Hover scrim + zoom icon */}
+                          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100
+                            transition-opacity duration-300 flex items-center justify-center z-10">
+                            <div className="w-10 h-10 rounded-full bg-white/10 border border-white/20
+                              backdrop-blur-md flex items-center justify-center
+                              scale-75 group-hover:scale-100 transition-transform duration-300">
+                              <ZoomIn className="w-4 h-4 text-white" aria-hidden />
+                            </div>
                           </div>
+
+                          {/* Gold top shimmer */}
+                          <div
+                            className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20"
+                            aria-hidden
+                          />
                         </div>
 
-                        {/* Gold top shimmer */}
-                        <div
-                          className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20"
-                          aria-hidden
-                        />
+                        {/* ── Title/caption below image ── */}
+                        <div className="px-3 py-2.5" dir="rtl">
+                          <p className="text-xs sm:text-sm text-foreground/80 font-medium leading-snug
+                            line-clamp-2 overflow-hidden text-right">
+                            {title}
+                          </p>
+                        </div>
                       </motion.button>
                     );
                   })
