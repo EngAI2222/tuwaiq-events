@@ -6,31 +6,42 @@ import Link from "next/link";
 import { Eye } from "lucide-react";
 import { db } from "@/lib/db";
 
-const MOCK_SERVICES = [
+import { Service, displayTitle, ServiceModal } from "@/components/shared/ServiceModal";
+
+const MOCK_SERVICES: Service[] = [
   {
+    id: "mock1",
+    category: "كوش الأفراح",
     title: "كوش الأفراح",
     description: "تصاميم كوش فريدة وعصرية تناسب مختلف الأذواق مع إضاءة مدروسة وزهور طبيعية.",
-    imageURL: "https://lams-event.com/images/1.jpeg"
+    imageURL: "https://lams-event.com/images/1.jpeg",
   },
   {
+    id: "mock2",
+    category: "طاولات وضيافة",
     title: "طاولات عشاء وضيافة",
     description: "تنسيق طاولات ولائم لكبار الشخصيات مع أرقى أنواع الشراشف وأطقم الضيافة.",
-    imageURL: "https://lams-event.com/images/2.jpeg"
+    imageURL: "https://lams-event.com/images/2.jpeg",
   },
   {
+    id: "mock3",
+    category: "جلسات ملكية",
     title: "جلوس ملكي و VIP",
     description: "كنب فاخر وجلسات ملكية مريحة تعكس فخامة استقبالك لضيوفك المميزين.",
-    imageURL: "https://lams-event.com/images/3.jpeg"
+    imageURL: "https://lams-event.com/images/3.jpeg",
   },
   {
+    id: "mock4",
+    category: "إضاءة وصوتيات",
     title: "إضاءة وصوتيات",
     description: "تأجير وتركيب أنظمة إضاءة متطورة وسماعات عالية الجودة تناسب حجم القاعة.",
-    imageURL: "https://lams-event.com/images/4.jpeg"
+    imageURL: "https://lams-event.com/images/4.jpeg",
   }
 ];
 
 export function FeaturedServices() {
-  const [services, setServices] = useState<any[]>(MOCK_SERVICES);
+  const [services, setServices] = useState<Service[]>(MOCK_SERVICES);
+  const [selected, setSelected] = useState<Service | null>(null);
 
   useEffect(() => {
     Promise.all([
@@ -50,40 +61,54 @@ export function FeaturedServices() {
   }, []);
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-8 text-start">
-      {services.map((service, i) => {
-        // Gallery items store their name in `caption`; service items use `title`.
-        const displayTitle = service.title || service.caption || "";
-        return (
-          <Link
-            href="/services"
-            key={i}
-            className="group relative block aspect-square rounded-2xl sm:rounded-3xl overflow-hidden border border-white/10 hover:border-[#D4AF37]/50 hover:shadow-[0_0_40px_rgba(212,175,55,0.15)] transition-all duration-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D4AF37]/80"
-            aria-label={`عرض التفاصيل: ${displayTitle}`}
-          >
-            <Image
-              src={service.imageURL || service.image || "https://lams-event.com/images/1.jpeg"}
-              alt={displayTitle}
-              fill
-              className="object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out"
-              sizes="(max-width: 768px) 50vw, 25vw"
-            />
-            
-            {/* Hover scrim + zoom icon */}
-            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
-              <div className="w-10 h-10 rounded-full bg-white/10 border border-white/20 backdrop-blur-md flex items-center justify-center scale-75 group-hover:scale-100 transition-transform duration-300">
-                <Eye className="w-4 h-4 text-white" aria-hidden />
+    <>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-8 text-start">
+        {services.map((service, i) => {
+          // Gallery items store their name in `caption`; service items use `title`.
+          const currentTitle = displayTitle(service);
+          // Handle legacy schema mappings just in case
+          const imgUrl = service.imageURL || (service as any).image || "https://lams-event.com/images/1.jpeg";
+          
+          return (
+            <button
+              onClick={() => setSelected(service)}
+              key={service.id || i}
+              className="group relative block aspect-square rounded-2xl sm:rounded-3xl overflow-hidden border border-white/10 hover:border-[#D4AF37]/50 hover:shadow-[0_0_40px_rgba(212,175,55,0.15)] transition-all duration-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D4AF37]/80 text-left"
+              aria-label={`عرض التفاصيل: ${currentTitle}`}
+            >
+              <Image
+                src={imgUrl}
+                alt={currentTitle}
+                fill
+                className="object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out"
+                sizes="(max-width: 768px) 50vw, 25vw"
+              />
+              
+              {/* Hover scrim + zoom icon */}
+              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
+                <div className="w-10 h-10 rounded-full bg-white/10 border border-white/20 backdrop-blur-md flex items-center justify-center scale-75 group-hover:scale-100 transition-transform duration-300">
+                  <Eye className="w-4 h-4 text-white" aria-hidden />
+                </div>
               </div>
-            </div>
 
-            {/* Gold top shimmer on hover */}
-            <div
-              className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20"
-              aria-hidden
-            />
-          </Link>
-        );
-      })}
-    </div>
+              {/* Gold top shimmer on hover */}
+              <div
+                className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20"
+                aria-hidden
+              />
+            </button>
+          );
+        })}
+      </div>
+
+      {selected && (
+        <ServiceModal
+          service={selected}
+          services={services}
+          onClose={() => setSelected(null)}
+          onSelect={setSelected}
+        />
+      )}
+    </>
   );
 }

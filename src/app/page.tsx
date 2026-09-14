@@ -97,64 +97,6 @@ export default function Home() {
         <div className="w-full max-w-4xl h-px bg-gradient-to-r from-transparent via-[#D4AF37]/30 to-transparent" aria-hidden />
       </div>
 
-      {/* ══════════════════════════════════════════
-          AI FEATURE SECTION (فخامة الذكاء الاصطناعي)
-      ══════════════════════════════════════════ */}
-      <section className="relative py-12 sm:py-16 md:py-24 bg-[#0f1117] overflow-hidden">
-        {/* Deep glowing radial gradient */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{ background: 'radial-gradient(circle at center, rgba(212,175,55,0.08) 0%, transparent 60%)' }}
-          aria-hidden
-        />
-
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-8 sm:mb-12">
-            <div className="inline-flex items-center justify-center gap-2 px-5 py-2 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-[#D4AF37] text-sm font-bold tracking-wider mb-6 backdrop-blur-sm">
-              <Sparkles className="h-4 w-4 animate-pulse" aria-hidden />
-              حصرياً لدى لمسة
-            </div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 text-balance">
-              صمّم مناسبتك بالذكاء الاصطناعي
-            </h2>
-            <p className="text-gray-300 text-sm sm:text-base md:text-lg max-w-3xl mx-auto leading-loose tracking-wide">
-              لا داعي للحيرة! أدخل تفضيلاتك، ميزانيتك، وعدد ضيوفك، وسيقوم مساعدنا الذكي باقتراح خطة كاملة تشمل الألوان، الديكور، والخدمات المناسبة لك في ثوانٍ.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 gap-3 md:gap-6 md:grid-cols-2 lg:grid-cols-4 mb-10 sm:mb-16">
-            {[
-              { icon: Calendar, title: "تخطيط زمني", desc: "جدول دقيق لجميع التجهيزات والمهام" },
-              { icon: MapPin, title: "اختيار المكان", desc: "اقتراحات لأفخم القاعات والمخيمات" },
-              { icon: Users, title: "إدارة الضيوف", desc: "توزيع الطاولات واستقبال كبار الشخصيات" },
-              { icon: Sparkles, title: "لمسات سحرية", desc: "تصاميم وديكورات فريدة وحصرية" },
-            ].map((feat, i) => (
-              <div
-                key={i}
-                className="group flex flex-col items-center text-center p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-white/5 border border-white/10 hover:border-[#D4AF37] backdrop-blur-xl hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(212,175,55,0.2)] transition-all duration-500"
-              >
-                <div className="h-12 w-12 sm:h-16 sm:w-16 rounded-xl sm:rounded-2xl bg-[#D4AF37]/10 border border-[#D4AF37]/20 flex items-center justify-center text-[#D4AF37] mb-4 sm:mb-6 group-hover:scale-110 group-hover:bg-[#D4AF37]/20 transition-all duration-300">
-                  <feat.icon className="h-6 w-6 sm:h-8 sm:w-8" aria-hidden />
-                </div>
-                <h3 className="text-sm sm:text-base md:text-lg font-bold text-white mb-2 sm:mb-3">{feat.title}</h3>
-                <p className="text-gray-400 text-xs sm:text-sm leading-relaxed">{feat.desc}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="text-center">
-            <Link
-              href="/ai-planner"
-              className="group relative inline-flex items-center justify-center gap-3 bg-transparent border-2 border-[#D4AF37] text-[#D4AF37] font-bold text-lg py-4 px-10 rounded-full hover:bg-[#D4AF37] hover:text-black hover:shadow-[0_0_30px_rgba(212,175,55,0.4)] transition-all duration-500 overflow-hidden"
-            >
-              <span className="relative z-10 flex items-center gap-2">
-                ابدأ التصميم الآن
-                <ArrowLeft className="h-5 w-5 transform group-hover:-translate-x-2 transition-transform duration-300" aria-hidden />
-              </span>
-            </Link>
-          </div>
-        </div>
-      </section>
 
       {/* ══════════════════════════════════════════
           WHY CHOOSE US (لماذا تختارنا)
