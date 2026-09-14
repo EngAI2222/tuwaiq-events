@@ -57,10 +57,14 @@ const STATIC_CATEGORIES = [
 
 function ServiceModal({
   service,
+  services,
   onClose,
+  onSelect,
 }: {
   service: Service;
+  services: Service[];
   onClose: () => void;
+  onSelect: (s: Service) => void;
 }) {
   const title = displayTitle(service);
 
@@ -77,6 +81,10 @@ function ServiceModal({
     return () => { document.body.style.overflow = ""; };
   }, []);
 
+  const relatedItems = services
+    .filter((s) => s.id !== service.id && s.category === service.category && s.imageURL)
+    .slice(0, 4);
+
   return (
     <AnimatePresence>
       {/* Backdrop */}
@@ -92,15 +100,15 @@ function ServiceModal({
         role="dialog"
         aria-label={title}
       >
-        {/* Panel */}
+        {/* Panel — max height with scroll */}
         <motion.div
           key="panel"
           initial={{ opacity: 0, scale: 0.92, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.92, y: 20 }}
           transition={{ duration: 0.3, type: "spring", bounce: 0.2 }}
-          className="relative w-full max-w-3xl bg-[#0f0f0f] rounded-3xl overflow-hidden
-            border border-white/10 shadow-[0_0_80px_rgba(212,175,55,0.15)]"
+          className="relative w-full max-w-4xl bg-[#0f0f0f] rounded-3xl overflow-y-auto max-h-[90vh] custom-scrollbar
+            border border-white/10 shadow-[0_0_80px_rgba(212,175,55,0.15)] flex flex-col"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Close */}
@@ -117,26 +125,26 @@ function ServiceModal({
 
           {/* Gold shimmer */}
           <div
-            className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent z-10"
+            className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent z-10 shrink-0"
             aria-hidden
           />
 
           {/* Full-size image */}
           {service.imageURL && (
-            <div className="relative w-full aspect-[16/9] bg-black">
+            <div className="relative w-full shrink-0 aspect-[16/10] sm:aspect-[16/9] bg-black">
               <Image
                 src={service.imageURL}
                 alt={title}
                 fill
                 priority
-                sizes="(max-width: 768px) 100vw, 768px"
+                sizes="(max-width: 768px) 100vw, 896px"
                 className="object-cover"
               />
             </div>
           )}
 
           {/* Details */}
-          <div className="px-4 py-5 sm:px-6 flex flex-col gap-3 border-t border-white/[0.07]" dir="rtl">
+          <div className="px-5 py-6 sm:px-8 sm:py-8 flex flex-col gap-4 border-t border-white/[0.07] shrink-0" dir="rtl">
             {/* Category + price row */}
             <div className="flex items-center justify-between gap-4 flex-wrap">
               <span className="px-3 py-1 rounded-full bg-[#D4AF37]/15 border border-[#D4AF37]/35
@@ -149,15 +157,15 @@ function ServiceModal({
             </div>
 
             {/* Title */}
-            <h2 className="text-white text-xl sm:text-2xl font-extrabold" style={{ lineHeight: "1.6" }}>
+            <h2 className="text-white text-xl sm:text-2xl md:text-3xl font-extrabold" style={{ lineHeight: "1.6" }}>
               {title || <span className="text-white/40 italic text-base">بدون عنوان</span>}
             </h2>
 
             {/* Description */}
             {service.description && (
               <p
-                className="text-white/65 text-sm"
-                style={{ lineHeight: "1.85", whiteSpace: "pre-wrap", wordBreak: "break-word" }}
+                className="text-white/80 text-base sm:text-lg"
+                style={{ lineHeight: "1.8", whiteSpace: "pre-wrap", wordBreak: "break-word" }}
               >
                 {service.description}
               </p>
@@ -168,17 +176,41 @@ function ServiceModal({
               <Link
                 href={`/booking?service=${encodeURIComponent(title)}`}
                 onClick={onClose}
-                className="mt-2 self-start inline-flex items-center gap-2
-                  bg-[#D4AF37] hover:bg-[#F3E5AB] text-black font-bold text-sm
-                  py-2.5 px-6 rounded-full shadow-[0_0_20px_rgba(212,175,55,0.35)]
+                className="mt-4 self-start inline-flex items-center gap-2
+                  bg-[#D4AF37] hover:bg-[#F3E5AB] text-black font-bold text-base
+                  py-3 px-8 rounded-full shadow-[0_0_20px_rgba(212,175,55,0.35)]
                   hover:shadow-[0_0_30px_rgba(212,175,55,0.6)]
                   hover:-translate-y-0.5 transition-all duration-300"
               >
                 احجز هذه الخدمة
-                <ArrowLeft className="h-4 w-4" aria-hidden />
+                <ArrowLeft className="h-5 w-5" aria-hidden />
               </Link>
             )}
           </div>
+
+          {/* ── Related Images ── */}
+          {relatedItems.length > 0 && (
+            <div className="px-5 pb-8 sm:px-8 shrink-0" dir="rtl">
+              <h3 className="text-white/50 text-sm font-semibold mb-4">خدمات مشابهة</h3>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                {relatedItems.map((related) => (
+                  <button
+                    key={related.id}
+                    onClick={() => onSelect(related)}
+                    className="relative aspect-square rounded-xl overflow-hidden border border-white/10 hover:border-[#D4AF37]/50 transition-colors focus:outline-none"
+                  >
+                    <Image
+                      src={related.imageURL}
+                      alt={displayTitle(related) || ""}
+                      fill
+                      sizes="(max-width: 640px) 50vw, 25vw"
+                      className="object-cover hover:scale-105 transition-transform duration-500"
+                    />
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
         </motion.div>
       </motion.div>
     </AnimatePresence>
@@ -346,73 +378,44 @@ export default function ServicesPage() {
                         exit={{ opacity: 0, scale: 0.88 }}
                         transition={{ duration: 0.3, type: "spring", bounce: 0.15 }}
                         onClick={() => setSelected(s)}
-                        className="group relative flex flex-col rounded-2xl overflow-hidden
+                        className="group relative aspect-square rounded-2xl overflow-hidden
                           border border-border/40 ring-1 ring-transparent
                           hover:ring-[#D4AF37]/60 hover:shadow-[0_0_30px_rgba(212,175,55,0.15)]
-                          transition-all duration-400 cursor-pointer text-right focus:outline-none
+                          transition-all duration-400 cursor-pointer text-left focus:outline-none
                           focus-visible:ring-[#D4AF37]/80 bg-card"
                         aria-label={`عرض: ${title}`}
                       >
-                        {/* ── Image at top (fixed aspect ratio) ── */}
-                        <div className="relative w-full aspect-[4/3] overflow-hidden shrink-0">
-                          {s.imageURL ? (
-                            <Image
-                              src={s.imageURL}
-                              alt={title}
-                              fill
-                              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                              className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                            />
-                          ) : (
-                            /* Placeholder if no image */
-                            <div className="absolute inset-0 flex items-center justify-center bg-card text-muted-foreground text-4xl">
-                              🎪
-                            </div>
-                          )}
-
-                          {/* Category badge */}
-                          <div className="absolute top-2 right-2 z-10">
-                            <span className="px-2 py-0.5 rounded-full bg-black/60 backdrop-blur-sm
-                              border border-white/15 text-white text-[10px] font-semibold tracking-wide
-                              line-clamp-1 max-w-[110px] block">
-                              {s.category}
-                            </span>
-                          </div>
-
-                          {/* Price badge (if service has a price) */}
-                          {s.price && (
-                            <div className="absolute bottom-2 right-2 z-10">
-                              <span className="px-2 py-0.5 rounded-full bg-[#D4AF37]/80 backdrop-blur-sm
-                                text-black text-[10px] font-bold tracking-wide block">
-                                {s.price}
-                              </span>
-                            </div>
-                          )}
-
-                          {/* Hover scrim + zoom icon */}
-                          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100
-                            transition-opacity duration-300 flex items-center justify-center z-10">
-                            <div className="w-10 h-10 rounded-full bg-white/10 border border-white/20
-                              backdrop-blur-md flex items-center justify-center
-                              scale-75 group-hover:scale-100 transition-transform duration-300">
-                              <ZoomIn className="w-4 h-4 text-white" aria-hidden />
-                            </div>
-                          </div>
-
-                          {/* Gold top shimmer */}
-                          <div
-                            className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20"
-                            aria-hidden
+                        {/* ── Image ── */}
+                        {s.imageURL ? (
+                          <Image
+                            src={s.imageURL}
+                            alt={title}
+                            fill
+                            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                            className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                           />
+                        ) : (
+                          /* Placeholder if no image */
+                          <div className="absolute inset-0 flex items-center justify-center bg-card text-muted-foreground text-4xl">
+                            🎪
+                          </div>
+                        )}
+
+                        {/* Hover scrim + zoom icon */}
+                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100
+                          transition-opacity duration-300 flex items-center justify-center z-10">
+                          <div className="w-10 h-10 rounded-full bg-white/10 border border-white/20
+                            backdrop-blur-md flex items-center justify-center
+                            scale-75 group-hover:scale-100 transition-transform duration-300">
+                            <ZoomIn className="w-4 h-4 text-white" aria-hidden />
+                          </div>
                         </div>
 
-                        {/* ── Title/caption below image ── */}
-                        <div className="px-3 py-2.5" dir="rtl">
-                          <p className="text-xs sm:text-sm text-foreground/80 font-medium leading-snug
-                            line-clamp-2 overflow-hidden text-right">
-                            {title}
-                          </p>
-                        </div>
+                        {/* Gold top shimmer */}
+                        <div
+                          className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20"
+                          aria-hidden
+                        />
                       </motion.button>
                     );
                   })
@@ -462,7 +465,7 @@ export default function ServicesPage() {
       </section>
 
       {/* ══════════════ MODAL ══════════════ */}
-      {selected && <ServiceModal service={selected} onClose={closeModal} />}
+      {selected && <ServiceModal service={selected} services={services} onClose={closeModal} onSelect={setSelected} />}
     </div>
   );
 }

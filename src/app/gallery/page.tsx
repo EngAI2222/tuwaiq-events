@@ -40,10 +40,14 @@ const STATIC_CATEGORIES = [
 
 function Lightbox({
   item,
+  items,
   onClose,
+  onSelect,
 }: {
   item: GalleryItem;
+  items: GalleryItem[];
   onClose: () => void;
+  onSelect: (item: GalleryItem) => void;
 }) {
   // Close on Escape key
   useEffect(() => {
@@ -60,6 +64,10 @@ function Lightbox({
     return () => { document.body.style.overflow = ""; };
   }, []);
 
+  const relatedItems = items
+    .filter((i) => i.id !== item.id && i.category === item.category)
+    .slice(0, 4);
+
   return (
     <AnimatePresence>
       {/* Backdrop */}
@@ -75,15 +83,15 @@ function Lightbox({
         role="dialog"
         aria-label={item.caption}
       >
-        {/* Modal panel — stop propagation so clicking inside doesn't close */}
+        {/* Modal panel — max height with scroll */}
         <motion.div
           key="panel"
           initial={{ opacity: 0, scale: 0.92, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.92, y: 20 }}
           transition={{ duration: 0.3, type: "spring", bounce: 0.2 }}
-          className="relative w-full max-w-4xl bg-[#0f0f0f] rounded-3xl overflow-hidden
-            border border-white/10 shadow-[0_0_80px_rgba(212,175,55,0.15)]"
+          className="relative w-full max-w-4xl bg-[#0f0f0f] rounded-3xl overflow-y-auto max-h-[90vh] custom-scrollbar
+            border border-white/10 shadow-[0_0_80px_rgba(212,175,55,0.15)] flex flex-col"
           onClick={(e) => e.stopPropagation()}
         >
           {/* ── Close button ── */}
@@ -100,12 +108,12 @@ function Lightbox({
 
           {/* Gold shimmer line */}
           <div
-            className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent z-10"
+            className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent z-10 shrink-0"
             aria-hidden
           />
 
           {/* ── Full-size image ── */}
-          <div className="relative w-full aspect-[16/10] bg-black">
+          <div className="relative w-full shrink-0 aspect-[16/10] sm:aspect-[16/9] bg-black">
             <Image
               src={item.imageURL}
               alt={item.caption}
@@ -117,7 +125,7 @@ function Lightbox({
           </div>
 
           {/* ── Details strip ── */}
-          <div className="px-4 py-5 sm:px-6 flex flex-col gap-3 border-t border-white/[0.07]" dir="rtl">
+          <div className="px-5 py-6 sm:px-8 sm:py-8 flex flex-col gap-4 border-t border-white/[0.07] shrink-0" dir="rtl">
             {/* Category chip */}
             <span className="self-start px-3 py-1 rounded-full bg-[#D4AF37]/15 border border-[#D4AF37]/35
               text-[#F3E5AB] text-xs font-semibold tracking-widest uppercase">
@@ -125,12 +133,36 @@ function Lightbox({
             </span>
             {/* Caption / title — full text, readable line-height on mobile */}
             <p
-              className="text-white text-base sm:text-lg font-semibold"
-              style={{ lineHeight: "1.75", whiteSpace: "pre-wrap", wordBreak: "break-word" }}
+              className="text-white/90 text-base sm:text-lg md:text-xl font-medium"
+              style={{ lineHeight: "1.8", whiteSpace: "pre-wrap", wordBreak: "break-word" }}
             >
               {item.caption}
             </p>
           </div>
+
+          {/* ── Related Images ── */}
+          {relatedItems.length > 0 && (
+            <div className="px-5 pb-8 sm:px-8 shrink-0" dir="rtl">
+              <h3 className="text-white/50 text-sm font-semibold mb-4">صور مشابهة</h3>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                {relatedItems.map((related) => (
+                  <button
+                    key={related.id}
+                    onClick={() => onSelect(related)}
+                    className="relative aspect-square rounded-xl overflow-hidden border border-white/10 hover:border-[#D4AF37]/50 transition-colors focus:outline-none"
+                  >
+                    <Image
+                      src={related.imageURL}
+                      alt={related.caption}
+                      fill
+                      sizes="(max-width: 640px) 50vw, 25vw"
+                      className="object-cover hover:scale-105 transition-transform duration-500"
+                    />
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
         </motion.div>
       </motion.div>
     </AnimatePresence>
@@ -290,56 +322,37 @@ export default function GalleryPage() {
                     exit={{ opacity: 0, scale: 0.88 }}
                     transition={{ duration: 0.3, type: "spring", bounce: 0.15 }}
                     onClick={() => setSelected(img)}
-                    className="group relative flex flex-col rounded-2xl overflow-hidden
+                    className="group relative aspect-square rounded-2xl overflow-hidden
                       border border-border/40 ring-1 ring-transparent bg-card
                       hover:ring-[#D4AF37]/60 hover:shadow-[0_0_30px_rgba(212,175,55,0.15)]
                       transition-all duration-400 cursor-pointer text-right focus:outline-none
                       focus-visible:ring-[#D4AF37]/80"
                     aria-label={`عرض: ${img.caption}`}
                   >
-                    {/* ── Image (fixed aspect ratio at top) ── */}
-                    <div className="relative w-full aspect-[4/3] overflow-hidden shrink-0">
-                      <Image
-                        src={img.imageURL}
-                        alt={img.caption}
-                        fill
-                        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                        className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                      />
+                    {/* ── Image ── */}
+                    <Image
+                      src={img.imageURL}
+                      alt={img.caption}
+                      fill
+                      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                      className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                    />
 
-                      {/* Category badge — top-right inside image */}
-                      <div className="absolute top-2 right-2 z-10">
-                        <span className="px-2 py-0.5 rounded-full bg-black/60 backdrop-blur-sm
-                          border border-white/15 text-white text-[10px] font-semibold tracking-wide
-                          line-clamp-1 max-w-[110px] block">
-                          {img.category}
-                        </span>
+                    {/* Hover scrim + zoom icon */}
+                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100
+                      transition-opacity duration-300 flex items-center justify-center z-10">
+                      <div className="w-10 h-10 rounded-full bg-white/10 border border-white/20
+                        backdrop-blur-md flex items-center justify-center
+                        scale-75 group-hover:scale-100 transition-transform duration-300">
+                        <ZoomIn className="w-4 h-4 text-white" aria-hidden />
                       </div>
-
-                      {/* Hover scrim + zoom icon */}
-                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100
-                        transition-opacity duration-300 flex items-center justify-center z-10">
-                        <div className="w-10 h-10 rounded-full bg-white/10 border border-white/20
-                          backdrop-blur-md flex items-center justify-center
-                          scale-75 group-hover:scale-100 transition-transform duration-300">
-                          <ZoomIn className="w-4 h-4 text-white" aria-hidden />
-                        </div>
-                      </div>
-
-                      {/* Gold top shimmer on hover */}
-                      <div
-                        className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20"
-                        aria-hidden
-                      />
                     </div>
 
-                    {/* ── Caption below image ── */}
-                    <div className="px-3 py-2.5" dir="rtl">
-                      <p className="text-xs sm:text-sm text-foreground/80 font-medium leading-snug
-                        line-clamp-2 overflow-hidden text-right">
-                        {img.caption}
-                      </p>
-                    </div>
+                    {/* Gold top shimmer on hover */}
+                    <div
+                      className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20"
+                      aria-hidden
+                    />
                   </motion.button>
                 ))}
               </AnimatePresence>
@@ -349,7 +362,7 @@ export default function GalleryPage() {
       </section>
 
       {/* ══════════════ LIGHTBOX ══════════════ */}
-      {selected && <Lightbox item={selected} onClose={closeModal} />}
+      {selected && <Lightbox item={selected} items={items} onClose={closeModal} onSelect={setSelected} />}
     </div>
   );
 }
