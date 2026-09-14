@@ -2,10 +2,10 @@
 
 export const dynamic = "force-dynamic";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft, Sparkles } from "lucide-react";
+import { X, ZoomIn, Sparkles, ArrowLeft } from "lucide-react";
 import { db } from "@/lib/db";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -22,6 +22,12 @@ type Service = {
   createdAt: string;
 };
 
+// ─── Helpers ──────────────────────────────────────────────────────────────────
+
+function displayTitle(s: Service) {
+  return s.title || s.caption || "";
+}
+
 // ─── Shared decorative divider ────────────────────────────────────────────────
 
 function GoldDivider() {
@@ -34,7 +40,7 @@ function GoldDivider() {
   );
 }
 
-// ─── Category filter list (dynamically built from data + static set) ──────────
+// ─── Category filter list ─────────────────────────────────────────────────────
 
 const STATIC_CATEGORIES = [
   "الكل",
@@ -47,70 +53,132 @@ const STATIC_CATEGORIES = [
   "تصميم بالذكاء الاصطناعي",
 ];
 
-// ─── Service Card ─────────────────────────────────────────────────────────────
+// ─── Lightbox / Detail Modal ──────────────────────────────────────────────────
 
-function ServiceCard({ service, tall = false }: { service: Service; tall?: boolean }) {
-  // Gallery items store their name in `caption`; service items use `title`.
-  const displayTitle = service.title || service.caption || "";
-  const { description, price, imageURL } = service;
+function ServiceModal({
+  service,
+  onClose,
+}: {
+  service: Service;
+  onClose: () => void;
+}) {
+  const title = displayTitle(service);
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [onClose]);
+
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => { document.body.style.overflow = ""; };
+  }, []);
 
   return (
-    <article
-      className={`group relative flex flex-col gap-5 rounded-3xl bg-card border overflow-hidden
-        transition-all duration-500 hover:-translate-y-2 cursor-pointer
-        ring-1 ring-border/50 hover:ring-[#D4AF37]/40 hover:shadow-2xl h-full
-        ${tall ? "md:min-h-[320px]" : "md:min-h-[280px]"}`}
-    >
-      {/* Gold top border */}
-      <div
-        className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-[#D4AF37]/60 to-transparent"
-        aria-hidden
-      />
-
-      {/* Cover image */}
-      {imageURL && (
-        <div className="relative w-full h-48 overflow-hidden shrink-0">
-          <Image
-            src={imageURL}
-            alt={displayTitle}
-            fill
-            sizes="(max-width: 768px) 100vw, 50vw"
-            className="object-cover group-hover:scale-105 transition-transform duration-700"
-          />
-          {/* Subtle scrim so image edges look polished */}
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/20" aria-hidden />
-        </div>
-      )}
-
-      {/* Card body */}
-      <div className={`relative z-10 flex flex-col gap-2 flex-1 px-4 sm:px-5 pt-3 pb-1 ${!imageURL ? "pt-5" : ""}`}>
-        {/* Category chip */}
-        <span className="inline-block self-start px-2 py-0.5 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/25 text-[#F3E5AB] text-[10px] sm:text-[11px] font-semibold tracking-wider uppercase">
-          {service.category}
-        </span>
-        {/* Title — one place, always visible */}
-        <h2 className="text-sm sm:text-base md:text-lg font-extrabold tracking-tight leading-snug">
-          {displayTitle || <span className="text-muted-foreground italic text-xs">بدون عنوان</span>}
-        </h2>
-        {description && (
-          <p className="text-muted-foreground leading-relaxed text-xs sm:text-sm tracking-wide flex-1 line-clamp-3">
-            {description}
-          </p>
-        )}
-      </div>
-
-      {/* Footer */}
-      <div className="relative z-10 flex items-center justify-between px-4 sm:px-6 pb-4 sm:pb-6 pt-2 border-t border-border/50 mt-auto shrink-0">
-        <span className="text-xs sm:text-sm font-semibold text-[#D4AF37]">{price || "حسب الطلب"}</span>
-        <Link
-          href={`/booking?service=${encodeURIComponent(displayTitle)}`}
-          className="inline-flex items-center gap-1 sm:gap-2 text-xs sm:text-sm font-bold text-foreground hover:text-[#D4AF37] transition-colors"
+    <AnimatePresence>
+      {/* Backdrop */}
+      <motion.div
+        key="backdrop"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.25 }}
+        className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm flex items-center justify-center p-4 sm:p-8"
+        onClick={onClose}
+        aria-modal="true"
+        role="dialog"
+        aria-label={title}
+      >
+        {/* Panel */}
+        <motion.div
+          key="panel"
+          initial={{ opacity: 0, scale: 0.92, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.92, y: 20 }}
+          transition={{ duration: 0.3, type: "spring", bounce: 0.2 }}
+          className="relative w-full max-w-3xl bg-[#0f0f0f] rounded-3xl overflow-hidden
+            border border-white/10 shadow-[0_0_80px_rgba(212,175,55,0.15)]"
+          onClick={(e) => e.stopPropagation()}
         >
-          احجز الآن
-          <ArrowLeft className="h-3 w-3 sm:h-4 sm:w-4" aria-hidden />
-        </Link>
-      </div>
-    </article>
+          {/* Close */}
+          <button
+            onClick={onClose}
+            aria-label="إغلاق"
+            className="absolute top-4 left-4 z-20 w-9 h-9 rounded-full
+              bg-black/60 border border-white/10 text-white
+              hover:bg-white/10 hover:border-[#D4AF37]/50
+              flex items-center justify-center transition-all duration-200"
+          >
+            <X className="w-4 h-4" />
+          </button>
+
+          {/* Gold shimmer */}
+          <div
+            className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent z-10"
+            aria-hidden
+          />
+
+          {/* Full-size image */}
+          {service.imageURL && (
+            <div className="relative w-full aspect-[16/9] bg-black">
+              <Image
+                src={service.imageURL}
+                alt={title}
+                fill
+                priority
+                sizes="(max-width: 768px) 100vw, 768px"
+                className="object-cover"
+              />
+            </div>
+          )}
+
+          {/* Details */}
+          <div className="px-6 py-5 flex flex-col gap-3 border-t border-white/[0.07]" dir="rtl">
+            {/* Category + price row */}
+            <div className="flex items-center justify-between gap-4 flex-wrap">
+              <span className="px-3 py-1 rounded-full bg-[#D4AF37]/15 border border-[#D4AF37]/35
+                text-[#F3E5AB] text-xs font-semibold tracking-widest uppercase">
+                {service.category}
+              </span>
+              {service.price && (
+                <span className="text-[#D4AF37] font-bold text-sm">{service.price}</span>
+              )}
+            </div>
+
+            {/* Title */}
+            <h2 className="text-white text-xl sm:text-2xl font-extrabold leading-snug">
+              {title || <span className="text-white/40 italic text-base">بدون عنوان</span>}
+            </h2>
+
+            {/* Description */}
+            {service.description && (
+              <p className="text-white/60 text-sm leading-relaxed">
+                {service.description}
+              </p>
+            )}
+
+            {/* CTA */}
+            {title && (
+              <Link
+                href={`/booking?service=${encodeURIComponent(title)}`}
+                onClick={onClose}
+                className="mt-2 self-start inline-flex items-center gap-2
+                  bg-[#D4AF37] hover:bg-[#F3E5AB] text-black font-bold text-sm
+                  py-2.5 px-6 rounded-full shadow-[0_0_20px_rgba(212,175,55,0.35)]
+                  hover:shadow-[0_0_30px_rgba(212,175,55,0.6)]
+                  hover:-translate-y-0.5 transition-all duration-300"
+              >
+                احجز هذه الخدمة
+                <ArrowLeft className="h-4 w-4" aria-hidden />
+              </Link>
+            )}
+          </div>
+        </motion.div>
+      </motion.div>
+    </AnimatePresence>
   );
 }
 
@@ -118,7 +186,7 @@ function ServiceCard({ service, tall = false }: { service: Service; tall?: boole
 
 function EmptyServices() {
   return (
-    <div className="py-8 sm:py-12 md:py-24 text-center text-muted-foreground col-span-full">
+    <div className="py-24 text-center text-muted-foreground col-span-full">
       <p className="text-xl font-light">لا توجد خدمات متاحة حالياً في هذا القسم.</p>
     </div>
   );
@@ -130,6 +198,7 @@ export default function ServicesPage() {
   const [services, setServices] = useState<Service[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState("الكل");
+  const [selected, setSelected] = useState<Service | null>(null);
 
   useEffect(() => {
     Promise.all([
@@ -137,12 +206,13 @@ export default function ServicesPage() {
       db.gallery.findMany().catch(() => [])
     ]).then(([servicesData, galleryData]) => {
       const combined = [...(servicesData || []), ...(galleryData || [])];
-      // Sort combined by createdAt (newest first) since they might be out of order after merging
       combined.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
       setServices(combined as Service[]);
       setLoading(false);
     });
   }, []);
+
+  const closeModal = useCallback(() => setSelected(null), []);
 
   const categories = [
     "الكل",
@@ -161,9 +231,8 @@ export default function ServicesPage() {
 
   return (
     <div className="flex flex-col min-h-screen overflow-x-hidden">
-      {/* ══════════════════════════════
-          HERO
-      ══════════════════════════════ */}
+
+      {/* ══════════════ HERO ══════════════ */}
       <section className="relative w-full min-h-[55vh] flex items-center justify-center overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -207,19 +276,17 @@ export default function ServicesPage() {
         />
       </section>
 
-      {/* ══════════════════════════════
-          FILTERS
-      ══════════════════════════════ */}
-      <section className="py-10 bg-background sticky top-16 z-20 border-b border-border/50 backdrop-blur-md bg-background/80">
+      {/* ══════════════ FILTERS ══════════════ */}
+      <section className="py-8 bg-background sticky top-16 z-20 border-b border-border/50 backdrop-blur-md bg-background/80">
         <div className="container mx-auto px-6">
-          <div className="flex flex-wrap items-center justify-center gap-3">
+          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
             {categories.map((cat) => {
               const isActive = activeCategory === cat;
               return (
                 <button
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
-                  className={`px-6 py-2.5 rounded-full text-sm font-bold tracking-wide transition-all duration-300
+                  className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold tracking-wide transition-all duration-300
                     ${
                       isActive
                         ? "bg-[#D4AF37] text-black shadow-[0_0_20px_rgba(212,175,55,0.4)] scale-105"
@@ -234,11 +301,8 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════
-          SERVICES GRID
-      ══════════════════════════════ */}
-      <section className="py-8 sm:py-12 md:py-24 bg-background relative overflow-hidden">
-        {/* Ambient glows */}
+      {/* ══════════════ GRID ══════════════ */}
+      <section className="py-8 sm:py-12 md:py-20 bg-background relative overflow-hidden">
         <div
           className="absolute -top-40 -right-40 w-[500px] h-[500px] rounded-full bg-amber-500/5 blur-3xl pointer-events-none"
           aria-hidden
@@ -248,35 +312,98 @@ export default function ServicesPage() {
           aria-hidden
         />
 
-        <div className="relative z-10 container mx-auto px-6 max-w-7xl">
-          {loading ? (
-            <div className="grid grid-cols-2 gap-3 md:gap-6 md:grid-cols-3">
-              {Array.from({ length: 4 }).map((_, i) => (
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 max-w-7xl">
+
+          {/* Skeleton */}
+          {loading && (
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+              {Array.from({ length: 8 }).map((_, i) => (
                 <div
                   key={i}
-                  className="rounded-3xl bg-card/50 border border-border/30 animate-pulse min-h-[280px]"
+                  className="rounded-2xl bg-card/50 border border-border/30 animate-pulse aspect-square"
                 />
               ))}
             </div>
-          ) : (
-            <motion.div layout className="grid grid-cols-2 gap-3 md:gap-6 md:grid-cols-3">
+          )}
+
+          {/* Grid */}
+          {!loading && (
+            <motion.div layout className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
               <AnimatePresence mode="popLayout">
                 {filtered.length === 0 ? (
                   <EmptyServices key="empty" />
                 ) : (
-                  filtered.map((s, idx) => (
-                    <motion.div
-                      key={s.id}
-                      layout
-                      initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                      animate={{ opacity: 1, scale: 1, y: 0 }}
-                      exit={{ opacity: 0, scale: 0.85, y: -10 }}
-                      transition={{ duration: 0.4, type: "spring", bounce: 0.2 }}
-                      className={idx < 2 && activeCategory === "الكل" ? "col-span-1 md:col-span-1" : ""}
-                    >
-                      <ServiceCard service={s} tall={idx < 2 && activeCategory === "الكل"} />
-                    </motion.div>
-                  ))
+                  filtered.map((s) => {
+                    const title = displayTitle(s);
+                    return (
+                      <motion.button
+                        key={s.id}
+                        layout
+                        initial={{ opacity: 0, scale: 0.92 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.88 }}
+                        transition={{ duration: 0.3, type: "spring", bounce: 0.15 }}
+                        onClick={() => setSelected(s)}
+                        className="group relative aspect-square rounded-2xl overflow-hidden
+                          border border-border/40 ring-1 ring-transparent
+                          hover:ring-[#D4AF37]/60 hover:shadow-[0_0_30px_rgba(212,175,55,0.15)]
+                          transition-all duration-400 cursor-pointer text-left focus:outline-none
+                          focus-visible:ring-[#D4AF37]/80 bg-card"
+                        aria-label={`عرض: ${title}`}
+                      >
+                        {/* Image */}
+                        {s.imageURL ? (
+                          <Image
+                            src={s.imageURL}
+                            alt={title}
+                            fill
+                            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                            className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                          />
+                        ) : (
+                          /* Placeholder if no image */
+                          <div className="absolute inset-0 flex items-center justify-center bg-card text-muted-foreground text-4xl">
+                            🎪
+                          </div>
+                        )}
+
+                        {/* Category badge */}
+                        <div className="absolute top-2.5 right-2.5 z-10">
+                          <span className="px-2 py-0.5 rounded-full bg-black/60 backdrop-blur-sm
+                            border border-white/15 text-white text-[10px] font-semibold tracking-wide
+                            line-clamp-1 max-w-[120px] block">
+                            {s.category}
+                          </span>
+                        </div>
+
+                        {/* Price badge (if service has a price) */}
+                        {s.price && (
+                          <div className="absolute bottom-2.5 right-2.5 z-10">
+                            <span className="px-2 py-0.5 rounded-full bg-[#D4AF37]/80 backdrop-blur-sm
+                              text-black text-[10px] font-bold tracking-wide block">
+                              {s.price}
+                            </span>
+                          </div>
+                        )}
+
+                        {/* Hover scrim + zoom icon */}
+                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100
+                          transition-opacity duration-300 flex items-center justify-center z-10">
+                          <div className="w-10 h-10 rounded-full bg-white/10 border border-white/20
+                            backdrop-blur-md flex items-center justify-center
+                            scale-75 group-hover:scale-100 transition-transform duration-300">
+                            <ZoomIn className="w-4 h-4 text-white" aria-hidden />
+                          </div>
+                        </div>
+
+                        {/* Gold top shimmer */}
+                        <div
+                          className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20"
+                          aria-hidden
+                        />
+                      </motion.button>
+                    );
+                  })
                 )}
               </AnimatePresence>
             </motion.div>
@@ -284,9 +411,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════
-          CTA STRIP
-      ══════════════════════════════ */}
+      {/* ══════════════ CTA STRIP ══════════════ */}
       <section className="relative py-8 sm:py-12 md:py-24 overflow-hidden bg-gradient-to-r from-[#1a1100] via-[#2a1d00] to-[#1a1100]">
         <div
           className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#D4AF37]/50 to-transparent"
@@ -323,6 +448,9 @@ export default function ServicesPage() {
           </div>
         </div>
       </section>
+
+      {/* ══════════════ MODAL ══════════════ */}
+      {selected && <ServiceModal service={selected} onClose={closeModal} />}
     </div>
   );
 }
