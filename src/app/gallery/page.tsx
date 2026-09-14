@@ -4,7 +4,8 @@ export const dynamic = "force-dynamic";
 
 import { useEffect, useState, useCallback } from "react";
 import Image from "next/image";
-import { X, ZoomIn } from "lucide-react";
+import Link from "next/link";
+import { X, ZoomIn, ArrowLeft, MessageCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { db } from "@/lib/db";
 
@@ -77,7 +78,7 @@ function Lightbox({
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.25 }}
-        className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm flex items-center justify-center p-4 sm:p-8"
+        className="fixed inset-0 z-[9999] bg-black/90 backdrop-blur-sm flex items-center justify-center p-4 sm:p-8"
         onClick={onClose}
         aria-modal="true"
         role="dialog"
@@ -140,6 +141,35 @@ function Lightbox({
               >
                 {item.caption}
               </p>
+
+              {/* CTA */}
+              <div className="flex flex-col sm:flex-row gap-3 items-center mt-4 self-start w-full sm:w-auto">
+                <Link
+                  href={`/booking?service=${encodeURIComponent(item.caption)}`}
+                  onClick={onClose}
+                  className="w-full sm:w-auto inline-flex justify-center items-center gap-2
+                    bg-[#D4AF37] hover:bg-[#F3E5AB] text-black font-bold text-base
+                    py-3 px-8 rounded-full shadow-[0_0_20px_rgba(212,175,55,0.35)]
+                    hover:shadow-[0_0_30px_rgba(212,175,55,0.6)]
+                    hover:-translate-y-0.5 transition-all duration-300"
+                >
+                  احجز هذه الخدمة
+                  <ArrowLeft className="h-5 w-5" aria-hidden />
+                </Link>
+                <a
+                  href="https://wa.me/966574257484"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full sm:w-auto inline-flex justify-center items-center gap-2 
+                    bg-[#25D366] hover:bg-[#128C7E] text-white font-bold text-base 
+                    py-3 px-8 rounded-full shadow-[0_0_20px_rgba(37,211,102,0.35)] 
+                    hover:shadow-[0_0_30px_rgba(37,211,102,0.6)] 
+                    hover:-translate-y-0.5 transition-all duration-300"
+                >
+                  تواصل عبر واتساب
+                  <MessageCircle className="h-5 w-5" aria-hidden />
+                </a>
+              </div>
             </div>
 
           {/* ── Related Images ── */}
