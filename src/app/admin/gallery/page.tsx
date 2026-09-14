@@ -345,35 +345,59 @@ export default function AdminGalleryPage() {
             {items.map((img) => (
               <div
                 key={img.id}
-                className="group relative aspect-square rounded-2xl overflow-hidden
+                className="group relative rounded-2xl overflow-hidden
                   border border-white/[0.07] hover:border-violet-500/40 bg-[#0f1117]
-                  transition-all duration-300"
+                  transition-all duration-300 flex flex-col"
               >
-                <Image
-                  src={img.imageURL}
-                  alt={img.caption}
-                  fill
-                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                {/* Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent
-                  opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-3">
-                  <p className="text-white text-xs font-semibold leading-tight">{img.caption}</p>
-                  <p className="text-slate-400 text-[10px] mt-0.5">{img.category}</p>
-                </div>
-                {/* Delete chip */}
-                <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                {/* ── Image area ── */}
+                <div className="relative aspect-square w-full overflow-hidden">
+                  <Image
+                    src={img.imageURL}
+                    alt={img.caption}
+                    fill
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+
+                  {/* Deleting overlay */}
+                  {deletingId === img.id && (
+                    <div className="absolute inset-0 bg-black/70 flex items-center justify-center z-20">
+                      <div className="w-6 h-6 rounded-full border-2 border-red-400 border-t-transparent animate-spin" />
+                    </div>
+                  )}
+
+                  {/* ── Delete button — always visible ── */}
                   <button
                     onClick={() => handleDelete(img)}
                     disabled={deletingId === img.id}
                     title="Delete image"
-                    className="flex items-center justify-center w-7 h-7 rounded-lg
-                      bg-red-500/20 border border-red-500/30 text-red-400
-                      hover:bg-red-500/40 text-xs transition-colors disabled:opacity-50"
+                    aria-label={`Delete "${img.caption}"`}
+                    className="absolute top-2 right-2 z-10
+                      flex items-center gap-1 px-2 py-1 rounded-lg
+                      bg-red-600 hover:bg-red-500 text-white text-[10px] font-bold
+                      shadow-lg shadow-red-900/40
+                      disabled:opacity-40 disabled:cursor-not-allowed
+                      transition-all duration-150"
                   >
-                    {deletingId === img.id ? "…" : "✕"}
+                    {deletingId === img.id ? (
+                      <span className="text-[10px]">…</span>
+                    ) : (
+                      <>
+                        <svg viewBox="0 0 16 16" fill="currentColor" className="w-3 h-3" aria-hidden>
+                          <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66H14.5a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92H4.885a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+                        </svg>
+                        حذف
+                      </>
+                    )}
                   </button>
+                </div>
+
+                {/* ── Always-visible caption bar ── */}
+                <div className="px-3 pt-2 pb-2.5 flex flex-col gap-0.5 bg-[#0f1117]">
+                  <p className="text-white text-xs font-semibold leading-tight line-clamp-1">
+                    {img.caption}
+                  </p>
+                  <p className="text-slate-500 text-[10px] line-clamp-1">{img.category}</p>
                 </div>
               </div>
             ))}
