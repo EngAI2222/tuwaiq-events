@@ -83,7 +83,7 @@ function Lightbox({
         role="dialog"
         aria-label={item.caption}
       >
-        {/* Modal panel — max height with scroll */}
+        {/* Modal panel */}
         <motion.div
           key="panel"
           initial={{ opacity: 0, scale: 0.92, y: 20 }}
@@ -91,29 +91,25 @@ function Lightbox({
           exit={{ opacity: 0, scale: 0.92, y: 20 }}
           transition={{ duration: 0.3, type: "spring", bounce: 0.2 }}
           className="relative w-full max-w-4xl bg-[#0f0f0f] rounded-3xl overflow-y-auto max-h-[90vh] custom-scrollbar
-            border border-white/10 shadow-[0_0_80px_rgba(212,175,55,0.15)] flex flex-col"
+            border border-white/10 shadow-[0_0_80px_rgba(212,175,55,0.15)] flex flex-col pb-10"
           onClick={(e) => e.stopPropagation()}
         >
-          {/* ── Close button ── */}
-          <button
-            onClick={onClose}
-            aria-label="إغلاق"
-            className="absolute top-4 left-4 z-20 w-9 h-9 rounded-full
-              bg-black/60 border border-white/10 text-white
-              hover:bg-white/10 hover:border-[#D4AF37]/50
-              flex items-center justify-center transition-all duration-200"
-          >
-            <X className="w-4 h-4" />
-          </button>
+          {/* Close button - Sticky to stay in view while scrolling */}
+          <div className="sticky top-0 z-50 w-full flex justify-end pointer-events-none p-4" dir="rtl">
+            <button
+              onClick={onClose}
+              aria-label="إغلاق"
+              className="pointer-events-auto w-9 h-9 rounded-full
+                bg-black/60 border border-white/10 text-white
+                hover:bg-white/10 hover:border-[#D4AF37]/50
+                flex items-center justify-center transition-all duration-200"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
 
-          {/* Gold shimmer line */}
-          <div
-            className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent z-10 shrink-0"
-            aria-hidden
-          />
-
-          {/* ── Full-size image ── */}
-          <div className="relative w-full shrink-0 aspect-[16/10] sm:aspect-[16/9] bg-black">
+          {/* ── Full-size image (moved up visually using negative margin) ── */}
+          <div className="relative w-full shrink-0 aspect-[16/10] sm:aspect-[16/9] bg-black -mt-[68px]">
             <Image
               src={item.imageURL}
               alt={item.caption}
@@ -124,25 +120,31 @@ function Lightbox({
             />
           </div>
 
+          {/* Gold shimmer line */}
+          <div
+            className="w-full h-[2px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent shrink-0"
+            aria-hidden
+          />
+
           {/* ── Details strip ── */}
-          <div className="px-5 py-6 sm:px-8 sm:py-8 flex flex-col gap-4 border-t border-white/[0.07] shrink-0" dir="rtl">
-            {/* Category chip */}
-            <span className="self-start px-3 py-1 rounded-full bg-[#D4AF37]/15 border border-[#D4AF37]/35
-              text-[#F3E5AB] text-xs font-semibold tracking-widest uppercase">
-              {item.category}
-            </span>
-            {/* Caption / title — full text, readable line-height on mobile */}
-            <p
-              className="text-white/90 text-base sm:text-lg md:text-xl font-medium"
-              style={{ lineHeight: "1.8", whiteSpace: "pre-wrap", wordBreak: "break-word" }}
-            >
-              {item.caption}
-            </p>
-          </div>
+          <div className="px-5 py-6 sm:px-8 sm:py-8 flex flex-col gap-4 shrink-0" dir="rtl">
+              {/* Category chip */}
+              <span className="self-start px-3 py-1 rounded-full bg-[#D4AF37]/15 border border-[#D4AF37]/35
+                text-[#F3E5AB] text-xs font-semibold tracking-widest uppercase">
+                {item.category}
+              </span>
+              {/* Caption / title — full text, readable line-height on mobile */}
+              <p
+                className="text-white/90 text-base sm:text-lg md:text-xl font-medium"
+                style={{ lineHeight: "1.8", whiteSpace: "pre-wrap", wordBreak: "break-word" }}
+              >
+                {item.caption}
+              </p>
+            </div>
 
           {/* ── Related Images ── */}
           {relatedItems.length > 0 && (
-            <div className="px-5 pb-8 sm:px-8 shrink-0" dir="rtl">
+            <div className="px-5 sm:px-8 shrink-0 mt-4" dir="rtl">
               <h3 className="text-white/50 text-sm font-semibold mb-4">صور مشابهة</h3>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 {relatedItems.map((related) => (

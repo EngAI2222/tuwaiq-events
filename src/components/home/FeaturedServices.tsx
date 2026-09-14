@@ -50,41 +50,37 @@ export function FeaturedServices() {
   }, []);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 text-start">
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-8 text-start">
       {services.map((service, i) => {
         // Gallery items store their name in `caption`; service items use `title`.
         const displayTitle = service.title || service.caption || "";
-        const displayDesc = service.description || service.desc || "استكشف تفاصيل هذه الخدمة الفاخرة لتجعل مناسبتك استثنائية.";
         return (
           <Link
             href="/services"
             key={i}
-            className="group relative block rounded-2xl sm:rounded-3xl overflow-hidden border border-white/10 hover:border-[#D4AF37]/50 hover:shadow-[0_0_40px_rgba(212,175,55,0.15)] transition-all duration-500 h-[280px] md:h-[450px]"
+            className="group relative block aspect-square rounded-2xl sm:rounded-3xl overflow-hidden border border-white/10 hover:border-[#D4AF37]/50 hover:shadow-[0_0_40px_rgba(212,175,55,0.15)] transition-all duration-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D4AF37]/80"
+            aria-label={`عرض التفاصيل: ${displayTitle}`}
           >
             <Image
               src={service.imageURL || service.image || "https://lams-event.com/images/1.jpeg"}
               alt={displayTitle}
               fill
               className="object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out"
-              sizes="(max-width: 768px) 100vw, 50vw"
+              sizes="(max-width: 768px) 50vw, 25vw"
             />
-            <div
-              className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500"
-              aria-hidden
-            />
-            <div className="absolute inset-0 p-8 flex flex-col justify-end">
-              <h3 className="text-2xl md:text-3xl font-bold text-white mb-3 group-hover:text-[#D4AF37] transition-colors duration-300">
-                {displayTitle}
-              </h3>
-              <p className="text-gray-300 text-sm md:text-base leading-loose max-w-md line-clamp-2">
-                {displayDesc}
-              </p>
-
-              <div className="mt-6 flex items-center gap-2 text-[#D4AF37] opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 font-semibold text-sm tracking-wide">
-                <Eye className="h-4 w-4" aria-hidden />
-                <span>View Details (تفاصيل)</span>
+            
+            {/* Hover scrim + zoom icon */}
+            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
+              <div className="w-10 h-10 rounded-full bg-white/10 border border-white/20 backdrop-blur-md flex items-center justify-center scale-75 group-hover:scale-100 transition-transform duration-300">
+                <Eye className="w-4 h-4 text-white" aria-hidden />
               </div>
             </div>
+
+            {/* Gold top shimmer on hover */}
+            <div
+              className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20"
+              aria-hidden
+            />
           </Link>
         );
       })}
