@@ -129,48 +129,48 @@ function Lightbox({
 
           {/* ── Details strip ── */}
           <div className="px-5 py-6 sm:px-8 sm:py-8 flex flex-col gap-4 shrink-0" dir="rtl">
-              {/* Category chip */}
-              <span className="self-start px-3 py-1 rounded-full bg-[#D4AF37]/15 border border-[#D4AF37]/35
+            {/* Category chip */}
+            <span className="self-start px-3 py-1 rounded-full bg-[#D4AF37]/15 border border-[#D4AF37]/35
                 text-[#F3E5AB] text-xs font-semibold tracking-widest uppercase">
-                {item.category}
-              </span>
-              {/* Caption / title — full text, readable line-height on mobile */}
-              <p
-                className="text-white/90 text-base sm:text-lg md:text-xl font-medium"
-                style={{ lineHeight: "1.8", whiteSpace: "pre-wrap", wordBreak: "break-word" }}
-              >
-                {item.caption}
-              </p>
+              {item.category}
+            </span>
+            {/* Caption / title — full text, readable line-height on mobile */}
+            <p
+              className="text-white/90 text-base sm:text-lg md:text-xl font-medium"
+              style={{ lineHeight: "1.8", whiteSpace: "pre-wrap", wordBreak: "break-word" }}
+            >
+              {item.caption}
+            </p>
 
-              {/* CTA */}
-              <div className="flex flex-col sm:flex-row gap-3 items-center mt-4 self-start w-full sm:w-auto">
-                <Link
-                  href={`/booking?service=${encodeURIComponent(item.caption)}`}
-                  onClick={onClose}
-                  className="w-full sm:w-auto inline-flex justify-center items-center gap-2
+            {/* CTA */}
+            <div className="flex flex-col sm:flex-row gap-3 items-center mt-4 self-start w-full sm:w-auto">
+              <Link
+                href={`/booking?service=${encodeURIComponent(item.caption)}`}
+                onClick={onClose}
+                className="w-full sm:w-auto inline-flex justify-center items-center gap-2
                     bg-[#D4AF37] hover:bg-[#F3E5AB] text-black font-bold text-base
                     py-3 px-8 rounded-full shadow-[0_0_20px_rgba(212,175,55,0.35)]
                     hover:shadow-[0_0_30px_rgba(212,175,55,0.6)]
                     hover:-translate-y-0.5 transition-all duration-300"
-                >
-                  احجز هذه الخدمة
-                  <ArrowLeft className="h-5 w-5" aria-hidden />
-                </Link>
-                <a
-                  href="https://wa.me/966574257484"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full sm:w-auto inline-flex justify-center items-center gap-2 
+              >
+                احجز هذه الخدمة
+                <ArrowLeft className="h-5 w-5" aria-hidden />
+              </Link>
+              <a
+                href="https://wa.me/966574257484"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto inline-flex justify-center items-center gap-2 
                     bg-[#25D366] hover:bg-[#128C7E] text-white font-bold text-base 
                     py-3 px-8 rounded-full shadow-[0_0_20px_rgba(37,211,102,0.35)] 
                     hover:shadow-[0_0_30px_rgba(37,211,102,0.6)] 
                     hover:-translate-y-0.5 transition-all duration-300"
-                >
-                  تواصل عبر واتساب
-                  <MessageCircle className="h-5 w-5" aria-hidden />
-                </a>
-              </div>
+              >
+                تواصل عبر واتساب
+                <MessageCircle className="h-5 w-5" aria-hidden />
+              </a>
             </div>
+          </div>
 
           {/* ── Related Images ── */}
           {relatedItems.length > 0 && (
@@ -296,10 +296,9 @@ export default function GalleryPage() {
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
                   className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold tracking-wide transition-all duration-300
-                    ${
-                      isActive
-                        ? "bg-[#D4AF37] text-black shadow-[0_0_20px_rgba(212,175,55,0.4)] scale-105"
-                        : "bg-card/60 border border-border/60 backdrop-blur-sm text-muted-foreground hover:border-[#D4AF37]/50 hover:text-foreground hover:bg-card"
+                    ${isActive
+                      ? "bg-[#D4AF37] text-black shadow-[0_0_20px_rgba(212,175,55,0.4)] scale-105"
+                      : "bg-card/60 border border-border/60 backdrop-blur-sm text-muted-foreground hover:border-[#D4AF37]/50 hover:text-foreground hover:bg-card"
                     }`}
                 >
                   {cat}

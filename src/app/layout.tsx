@@ -60,6 +60,9 @@ export const metadata: Metadata = {
       "المنصة الأولى لتنظيم المناسبات في السعودية. نجمع بين الفخامة والذكاء الاصطناعي لتصميم وتجهيز حفلات الزفاف والمناسبات الخاصة بدقة متناهية تعكس ذوقك الرفيع.",
     images: ["/hero-bg.jpg"],
   },
+  verification: {
+    google: "_NigTpcshiczHxe3scwob2ic-0t9unOh62VGNwzTdQA",
+  },
 };
 
 const jsonLd = {
