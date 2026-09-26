@@ -1,0 +1,36 @@
+# apphosting.yaml
+# Firebase App Hosting runtime configuration for Lamsa Events.
+#
+# ⚠️  DO NOT add secret values here. This file is committed to Git.
+#     Secret values are stored in Firebase Secret Manager and referenced below.
+#
+# To create/update secrets, run:
+#   npx firebase-tools apphosting:secrets:set ADMIN_EMAIL
+#   npx firebase-tools apphosting:secrets:set ADMIN_PASSWORD
+#   npx firebase-tools apphosting:secrets:set ADMIN_SESSION_SECRET
+#   npx firebase-tools apphosting:secrets:set GEMINI_API_KEY
+
+runConfig:
+  minInstances: 0
+
+env:
+  # ── Public / non-sensitive ───────────────────────────────────────────────
+  - variable: NODE_ENV
+    value: production
+    availability:
+      - BUILD
+      - RUNTIME
+
+  # ── Admin authentication secrets (pulled from Firebase Secret Manager) ───
+  - variable: ADMIN_EMAIL
+    secret: ADMIN_EMAIL
+
+  - variable: ADMIN_PASSWORD
+    secret: ADMIN_PASSWORD
+
+  - variable: ADMIN_SESSION_SECRET
+    secret: ADMIN_SESSION_SECRET
+
+  # ── AI / Gemini ──────────────────────────────────────────────────────────
+  - variable: GEMINI_API_KEY
+    secret: GEMINI_API_KEY
